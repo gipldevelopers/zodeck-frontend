@@ -1,0 +1,141 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Breadcrumb from "@/components/common/Breadcrumb";
+import { Copy, ShieldCheck, Download } from "lucide-react";
+
+export default function TwoFactorAuthPage() {
+  const breadcrumbItems = [
+    { label: "Employee", href: "/employee" },
+    { label: "Settings", href: "/employee/settings" },
+    { label: "Two-Factor Authentication (2FA)", href: "/employee/settings/two-factor-auth" },
+  ];
+
+  const [is2FAEnabled, setIs2FAEnabled] = useState(true);
+  const [message, setMessage] = useState("");
+
+  // Hide message after 3 seconds
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => setMessage(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
+  const handleToggle = () => {
+    setIs2FAEnabled((prev) => !prev);
+    setMessage(is2FAEnabled ? "Two-Factor Authentication disabled" : "Two-Factor Authentication enabled");
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("RecoveryCode-123456").then(() => {
+      setMessage("Recovery codes copied to clipboard");
+    });
+  };
+
+  const handleDownload = () => {
+    const element = document.createElement("a");
+    const file = new Blob(["RecoveryCode-123456"], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = "recovery-codes.txt";
+    document.body.appendChild(element);
+    element.click();
+    setMessage("Recovery codes downloaded");
+  };
+
+  return (
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <Breadcrumb items={breadcrumbItems} />
+
+      <div className="mt-8 w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Two-Factor Authentication (2FA)
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-8">
+          Enhance your account security by enabling two-factor authentication.
+        </p>
+
+        {/* Toggle */}
+        <div className="flex items-center gap-6 mb-8">
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              className="sr-only peer"
+              checked={is2FAEnabled}
+              onChange={handleToggle}
+            />
+            <div className="w-14 h-8 bg-gray-300 rounded-full peer dark:bg-gray-700 peer-checked:bg-indigo-600 relative transition-all duration-300">
+              <span
+                className={`absolute left-1 top-1 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 
+                  ${is2FAEnabled ? "translate-x-6" : "translate-x-0"}`}
+              ></span>
+            </div>
+          </label>
+          <span className="text-gray-700 dark:text-gray-300 font-semibold text-lg">
+            Two-Factor Authentication
+          </span>
+        </div>
+
+        {/* Notification */}
+        {message && (
+          <div
+            className={`mb-6 px-4 py-2 rounded ${
+              message.includes("enabled") || message.includes("copied") || message.includes("downloaded")
+                ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
+                : "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100"
+            } transition-all duration-300`}
+          >
+            {message}
+          </div>
+        )}
+
+        {/* QR Section */}
+        {is2FAEnabled && (
+          <div className="flex flex-col lg:flex-row gap-12 items-start">
+            {/* QR Preview */}
+            <div className="flex flex-col items-center gap-4 bg-gray-100 dark:bg-gray-900 p-6 rounded-xl shadow-lg w-full lg:w-1/3">
+              <div className="w-48 h-48 flex items-center justify-center overflow-hidden rounded-lg">
+                <img
+                  src="https://media.istockphoto.com/id/828088276/vector/qr-code-illustration.jpg?s=612x612&w=0&k=20&c=FnA7agr57XpFi081ZT5sEmxhLytMBlK4vzdQxt8A70M="
+                  alt="QR Code"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 text-center font-medium">
+                Scan this QR code with your authenticator app
+              </p>
+            </div>
+
+            {/* Instructions */}
+            <div className="flex-1 bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-lg w-full lg:w-2/3">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-2">
+                <ShieldCheck size={18} /> Setup Instructions
+              </h3>
+              <ul className="list-disc list-inside text-gray-500 dark:text-gray-400 space-y-2">
+                <li>Open your authenticator app (Google Authenticator, Authy, etc.).</li>
+                <li>Scan the QR code displayed on the left.</li>
+                <li>Enter the 6-digit code generated by your app to verify.</li>
+                <li>Keep your recovery codes safe in case you lose access.</li>
+              </ul>
+
+              <div className="mt-6 flex gap-4">
+                <button
+                  onClick={handleCopy}
+                  className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                >
+                  <Copy size={16} /> Copy Recovery Codes
+                </button>
+                <button
+                  onClick={handleDownload}
+                  className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                >
+                  <Download size={16} /> Download Recovery Codes
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

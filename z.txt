@@ -1,0 +1,358 @@
+Your Designation module structure could look like this:
+
+Field (Attribute)	Type & Notes
+id	Primary Key
+title	Text (e.g., "Senior Data Engineer")
+level	Text or Integer (e.g., "IC4", or just "4")
+department_id	Foreign Key to departments table
+min_experience_yrs	Integer (Can be NULL for entry-level)
+max_experience_yrs	Integer (Can be NULL)
+salary_range_min	Decimal (Essential for compensation planning)
+salary_range_max	Decimal (Essential for compensation planning)
+status	Enum (e.g., "Active", "Inactive")
+Related Table	Purpose
+designation_skills	Junction table to define which skills are required for this designation.
+
+In the UI, you would then display:
+
+A list of designations with their title, level, department, salary range, and dynamically calculated employee count.
+
+A detailed view for a single designation that shows the experience guidelines and the list of linked key skills.
+--------------------------------------------------
+mkdir -p src/components/auth
+touch src/components/auth/SignInForm.js
+
+
+
+
+
+
+
+above page is of my downloaded template file so that project is using Next.js , Typescript, and extension is .tsx
+and I am creating a Next.js project from scratch and I am not using typescript so can you please convert above code for my project as of I am not using typescript and extension is .js
+
+
+============================================================================
+I am creating HRMS software for my company
+below is my Next.js project folder structure. I am not using typescript and for css I am using tailwind.
+hrms-frontend/
+│
+├── public/
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   ├── window.svg
+│   └── images/
+│       ├── icons/
+│       │   ├── apple.svg
+│       │   ├── laravel-icon.svg
+│       │   ├── php.svg
+│       │   └── react.svg
+│       ├── logo/
+│       │   ├── auth-logo.svg
+│       │   ├── GHR-COLLAPSED.PNG
+│       │   ├── GHR.PNG
+│       │   ├── GHR2.PNG
+│       │   └── logo.svg
+│       ├── shape/
+│       │   └── grid-01.svg
+│       └── users/
+│           ├── default-avatar.png
+│           ├── user-01.png
+│           ├── user-02.png
+│           ├── user-03.png
+│           ├── user-04.png
+│           ├── user-05.jpg
+│           ├── user-06.jpg
+│           ├── user-07.jpg
+│           ├── user-08.jpg
+│           ├── user-09.jpg
+│           ├── user-10.jpg
+│           ├── user-11.jpg
+│           ├── user-12.jpg
+│           └── user-13.jpg
+│
+├── src/
+│   ├── app/
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.js
+│   │   ├── page.js
+│   │   ├── (auth)/
+│   │   │   ├── layout.js
+│   │   │   └── signin/
+│   │   │       └── page.js
+│   │   └── (dashboard)/
+│   │       ├── layout.js
+│   │       ├── employee/
+│   │       │   ├── attendance/
+│   │       │   │   └── page.js
+│   │       │   ├── dashboard/
+│   │       │   │   └── page.js
+│   │       │   ├── leave/
+│   │       │   │   └── page.js
+│   │       │   ├── payslips/
+│   │       │   │   └── page.js
+│   │       │   └── profile/
+│   │       │       └── page.js
+│   │       ├── hr/
+│   │       │   ├── attendance/
+│   │       │   │   └── page.js
+│   │       │   ├── dashboard/
+│   │       │   │   ├── page.js
+│   │       │   │   └── components/
+│   │       │   │       ├── AttendanceOverview.js
+│   │       │   │       ├── Birthdays.js
+│   │       │   │       ├── ClockInOut.js
+│   │       │   │       ├── EmployeeDepartmentChart.js
+│   │       │   │       ├── EmployeesTable.js
+│   │       │   │       ├── JobApplicants.js
+│   │       │   │       ├── MonthlyTarget.js
+│   │       │   │       ├── Schedules.js
+│   │       │   │       ├── StatsCard.js
+│   │       │   │       └── WelcomeWrap.js
+│   │       │   ├── employees/
+│   │       │   │   ├── page.js
+│   │       │   │   ├── [id]/
+│   │       │   │   │   ├── page.js
+│   │       │   │   │   └── edit/
+│   │       │   │   │       └── page.js
+│   │       │   │   ├── add/
+│   │       │   │   │   ├── page.js
+│   │       │   │   │   └── components/
+│   │       │   │   └── components/
+│   │       │   ├── leave/
+│   │       │   │   └── page.js
+│   │       │   ├── payroll/
+│   │       │   │   └── page.js
+│   │       │   ├── recruitment/
+│   │       │   │   └── page.js
+│   │       │   └── report/
+│   │       │       └── page.js
+│   ├── components/
+│   │   ├── auth/
+│   │   │   └── SignInForm.js
+│   │   ├── common/
+│   │   │   ├── Breadcrumb.js
+│   │   │   ├── GridShape.js
+│   │   │   ├── Pagination.js
+│   │   │   ├── ProtectedRoutes.js
+│   │   │   ├── ThemeToggleButton.js
+│   │   │   └── ThemeTogglerTwo.js
+│   │   ├── form/
+│   │   │   ├── Label.js
+│   │   │   ├── date/
+│   │   │   └── input/
+│   │   │       ├── Checkbox.js
+│   │   │       └── InputField.js
+│   │   ├── header/
+│   │   │   ├── NotificationDropdown.js
+│   │   │   └── UserDropdown.js
+│   │   └── ui/
+│   │       ├── button/
+│   │       │   └── Button.js
+│   │       └── dropdown/
+│   │           ├── Dropdown.js
+│   │           ├── DropdownItem.js
+│   │           └── DropdownMenu.js
+│   ├── context/
+│   │   ├── AuthContext.js
+│   │   ├── SidebarContext.js
+│   │   └── ThemeContext.js
+│   ├── icons/
+│   │   └── index.js
+│   └── layout/
+│       ├── AppHeader.js
+│       ├── AppSidebar.js
+│       ├── Backdrop.js
+│       └── SidebarWidget.js
+│
+├── .gitignore
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package.json
+├── postcss.config.mjs
+├── README.md
+├── z.txt
+├── zdynamicbreadcrumb.txt
+└── zzdetails.txt
+and my package.json below 
+{
+  "name": "hrms-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.12",
+    "@tanstack/react-table": "^8.21.3",
+    "apexcharts": "^5.3.4",
+    "chart.js": "^4.5.0",
+    "flatpickr": "^4.6.13",
+    "lucide-react": "^0.541.0",
+    "next": "15.5.0",
+    "react": "19.1.0",
+    "react-apexcharts": "^1.7.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "19.1.0",
+    "recharts": "^3.1.2",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.0"
+  }
+}
+
+
+so create component for if you think its necessary and please make UI better you have full freedom to do that.
+let me give you code which you can take reference and convert to next.js
+
+
+----------------======================================================================================================
+📅 react-datepicker
+
+✅ Pros:
+
+Very popular in React ecosystem
+
+Easy integration (just import & use)
+
+Has built-in styles, decent UX
+
+Supports time selection
+
+❌ Cons:
+
+Larger bundle size
+
+Styling is harder to fully customize with Tailwind
+
+Sometimes clunky in responsive layouts
+
+📅 react-flatpickr (wrapper for Flatpickr.js)
+
+✅ Pros:
+
+Lightweight & fast
+
+Highly customizable (works nicely with Tailwind)
+
+Great mobile-friendly UI
+
+Rich features: multiple dates, ranges, time pickers, localization, etc.
+
+Smaller bundle compared to react-datepicker
+
+❌ Cons:
+
+Slightly less React-native (it wraps a vanilla JS library)
+
+Docs are not as React-specific as react-datepicker
+
+👉 My recommendation for your HRMS project
+
+Since you’re aiming for a scalable HRMS dashboard in Next.js where performance, custom styling, and responsive UI matter a lot, I’d recommend keeping react-flatpickr ✅ and removing react-datepicker.
+
+It’s easier to make a modern HRMS UI (attendance, leave management, shift calendars, etc.) with flatpickr, especially when paired with Tailwind.
+
+
+============================================================================================================================================
+📊 1. Chart.js (react-chartjs-2)
+
+✅ Pros:
+
+Very popular & well-documented
+
+Good for simple line, bar, pie, doughnut charts
+
+Community support is strong
+
+❌ Cons:
+
+More configuration heavy (not very developer-friendly for complex charts)
+
+Limited built-in interactivity
+
+Styling can be tedious
+
+📊 2. Recharts
+
+✅ Pros:
+
+Built for React (declarative, React-like API)
+
+Great for dashboards with simple charts (bar, line, pie, area)
+
+Easy to integrate and customize with Tailwind
+
+❌ Cons:
+
+Not suitable for very complex analytics
+
+Fewer built-in chart types compared to ApexCharts
+
+📊 3. ApexCharts (react-apexcharts)
+
+✅ Pros:
+
+Feature-rich & interactive (tooltips, zoom, range selection, annotations)
+
+Perfect for time-series charts (attendance per day, payroll over months, shift patterns)
+
+Professional-looking dashboards out of the box
+
+Handles large datasets smoothly
+
+❌ Cons:
+
+Slightly bigger bundle size than Recharts
+
+Learning curve is a bit higher
+
+👉 My recommendation for HRMS
+
+Primary choice → ApexCharts ✅
+Best suited for HRMS dashboards since you’ll need interactive, analytical, and time-based charts (attendance trends, leave history, payroll reports).
+
+Optional lightweight charts → Recharts
+If you only need basic dashboards (like employee count by department, gender ratio pie charts), Recharts is simpler.
+
+Remove Chart.js
+It’s good, but ApexCharts/Recharts are more modern and React-friendly for HRMS software.
+
+⚡ Suggested cleanup:
+Keep → react-apexcharts + apexcharts
+Optional → Recharts if you want very simple charts
+Remove → Chart.js + react-chartjs-2
+
+
+=============================================================================================================================
+
+👉 My Recommendation for HRMS
+
+Keep TailwindCSS + lucide-react (icons)
+
+For components:
+
+If you want maximum flexibility → stick with @headlessui/react
+
+If you want faster, modern HRMS UI development → switch to shadcn/ui (best choice for company-level dashboards)
+
+In practice: Many modern SaaS dashboards (including HRMS-like systems) are being built with shadcn/ui + Tailwind + ApexCharts. This gives you speed + scalability + professional look.
+
+
+
+
+===============================================================================================================⚡ Suggested setup for your HRMS:
+✅ Keep: tailwindcss, lucide-react, shadcn/ui (install), apexcharts
+❌ Remove: @headlessui/react (if switching fully to shadcn/ui)

@@ -1,0 +1,44 @@
+{
+  "name": "hrms-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.7",
+    "@tailwindcss/vite": "^4.1.12",
+    "@tanstack/react-table": "^8.21.3",
+    "apexcharts": "^5.3.4",
+    "axios": "^1.11.0",
+    "chart.js": "^4.5.0",
+    "flatpickr": "^4.6.13",
+    "formik": "^2.4.6",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.28",
+    "lucide-react": "^0.541.0",
+    "next": "^15.5.9",
+    "react": "19.1.0",
+    "react-apexcharts": "^1.7.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-datepicker": "^8.7.0",
+    "react-dom": "19.1.0",
+    "react-flatpickr": "^4.0.11",
+    "react-hot-toast": "^2.6.0",
+    "react-select": "^5.10.2",
+    "recharts": "^3.1.2",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.12",
+    "yup": "^1.7.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.0"
+  }
+}
