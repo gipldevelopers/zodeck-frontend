@@ -27,6 +27,8 @@ export default function AuthGuard({ children, requireAuth = true }) {
           redirectPath = '/hr/dashboard';
         } else if (userRole === 'SUPER_ADMIN') {
           redirectPath = '/super-admin/dashboard';
+        } else if (userRole === 'PAYROLL_ADMIN') {
+          redirectPath = '/payroll-compliance/dashboard';
         }
         
         console.log('AuthGuard redirecting authenticated user to:', redirectPath, 'for role:', userRole);

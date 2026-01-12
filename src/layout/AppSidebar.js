@@ -27,10 +27,15 @@ import {
   Network,
   Briefcase,
   UserPlus,
-  BarChart3
+  BarChart3,
+  FileCheck,
+  FileBarChart,
+  DollarSign,
+  ShieldCheck
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
+// Super Admin Navigation Items
 const superAdminNavItems = [
   {
     icon: <Grid size={20} />,
@@ -83,6 +88,7 @@ const superAdminNavItems = [
   },
 ];
 
+// HR Admin Navigation Items
 const hrNavItems = [
   {
     icon: <Grid size={20} />,
@@ -173,6 +179,7 @@ const hrNavItems = [
   },
 ];
 
+// Employee Navigation Items
 const employeeNavItems = [
   {
     icon: <Grid size={20} />,
@@ -243,6 +250,40 @@ const employeeNavItems = [
   },
 ];
 
+// Payroll Compliance Navigation Items
+const payrollComplianceNavItems = [
+  {
+    icon: <Grid size={20} />,
+    name: "Dashboard",
+    path: "/payroll-compliance/dashboard",
+  },
+  {
+    icon: <FileCheck size={20} />,
+    name: "Full & Final Settlement",
+    path: "/payroll-compliance/full-final-settlement",
+  },
+  {
+    icon: <Settings size={20} />,
+    name: "Payroll Processing",
+    path: "/payroll-compliance/payroll-processing",
+  },
+  {
+    icon: <FileBarChart size={20} />,
+    name: "Payroll Reports",
+    path: "/payroll-compliance/payroll-reports",
+  },
+  {
+    icon: <DollarSign size={20} />,
+    name: "Salary Structure",
+    path: "/payroll-compliance/salary-structure",
+  },
+  {
+    icon: <ShieldCheck size={20} />,
+    name: "Statutory Compliance",
+    path: "/payroll-compliance/statutory-compliance",
+  },
+];
+
 const AppSidebar = () => {
   const { user } = useAuth();
   const userRole = user?.systemRole || 'EMPLOYEE';
@@ -263,6 +304,8 @@ const AppSidebar = () => {
         return superAdminNavItems;
       case "HR_ADMIN":
         return hrNavItems;
+      case "PAYROLL_ADMIN":
+        return payrollComplianceNavItems;
       default:
         return employeeNavItems;
     }
@@ -419,7 +462,8 @@ const AppSidebar = () => {
           href={
             userRole === "SUPER_ADMIN" ? "/super-admin/profile" :
               userRole === "HR_ADMIN" ? "/hr/profile" :
-                "/employee/profile"
+                userRole === "PAYROLL_ADMIN" ? "/payroll-compliance/profile" :
+                  "/employee/profile"
           }
           onClick={() => {
             if (window.innerWidth < 1024) {
@@ -484,11 +528,19 @@ const AppSidebar = () => {
           className={`h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-800 border-dashed ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
             }`}
         >
-          <Link href="/" onClick={() => {
-            if (window.innerWidth < 1024) {
-              toggleMobileSidebar();
+          <Link
+            href={
+              userRole === "SUPER_ADMIN" ? "/super-admin/dashboard" :
+                userRole === "HR_ADMIN" ? "/hr/dashboard" :
+                  userRole === "PAYROLL_ADMIN" ? "/payroll-compliance/dashboard" :
+                    "/employee/dashboard"
             }
-          }}>
+            onClick={() => {
+              if (window.innerWidth < 1024) {
+                toggleMobileSidebar();
+              }
+            }}
+          >
             {isExpanded || isHovered || isMobileOpen ? (
               <>
                 <Image
@@ -535,7 +587,8 @@ const AppSidebar = () => {
                   {isExpanded || isHovered || isMobileOpen ? (
                     userRole === "SUPER_ADMIN" ? "Super Admin Portal" :
                       userRole === "HR_ADMIN" ? "HR Management" :
-                        "Employee Portal"
+                        userRole === "PAYROLL_ADMIN" ? "Payroll & Compliance" :
+                          "Employee Portal"
                   ) : (
                     <MoreHorizontal size={16} />
                   )}

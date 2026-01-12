@@ -154,15 +154,21 @@ export default function SignInForm() {
           {/* Demo credentials hint */}
           <div className="p-4 mt-6 text-sm bg-blue-50 rounded-lg dark:bg-blue-900/20">
             <p className="font-medium text-blue-800 dark:text-blue-300">Demo Credentials:</p>
-            <p className="mt-1 text-blue-700 dark:text-blue-200">
-              HR: hr@globalhr.com / hr123
-            </p>
-            <p className="text-blue-700 dark:text-blue-200">
-              Employee: marketing@globalhr.com / marketing123
-            </p>
-            <p className="text-blue-700 dark:text-blue-200">
-              Super Admin: superadmin@globalhr.com / admin123
-            </p>
+
+            <div className="mt-2 space-y-1 text-blue-700 dark:text-blue-200">
+              <p>Super Admin: superadmin@globalhr.com / admin123</p>
+              <p>Company Admin: companyadmin@globalhr.com / company123</p>
+              <p>HR Admin: hr@globalhr.com / hr123</p>
+              <p>Payroll Admin: payroll@globalhr.com / payroll123</p>
+              <p>Finance Admin: financeadmin@globalhr.com / finance123</p>
+              <p>Manager (Finance Manager): finance@globalhr.com / finance123</p>
+              <p>Recruiter: recruiter@globalhr.com / recruiter123</p>
+              <p>L&amp;D Manager: ldmanager@globalhr.com / ld123</p>
+              <p>Dept Head: depthead@globalhr.com / dept123</p>
+              <p>IT Admin: itadmin@globalhr.com / it123</p>
+              <p>Employee (Marketing Executive): marketing@globalhr.com / marketing123</p>
+              <p>Employee (Developer): employee@globalhr.com / emp123</p>
+            </div>
           </div>
 
           <div className="mt-5">

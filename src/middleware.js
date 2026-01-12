@@ -49,6 +49,22 @@ export function middleware(request) {
       }
       // Super Admin CAN access HR routes, so no restriction here
     }
+    
+    // 4. PAYROLL_ADMIN restrictions
+    else if (userRole === 'PAYROLL_ADMIN') {
+      if (pathname.startsWith('/employee/')) {
+        console.log('Redirecting Payroll Admin to payroll compliance dashboard');
+        return NextResponse.redirect(new URL('/payroll-compliance/dashboard', request.url));
+      }
+      if (pathname.startsWith('/hr/')) {
+        console.log('Redirecting Payroll Admin to payroll compliance dashboard (HR access denied)');
+        return NextResponse.redirect(new URL('/payroll-compliance/dashboard', request.url));
+      }
+      if (pathname.startsWith('/super-admin/')) {
+        console.log('Redirecting Payroll Admin to payroll compliance dashboard (super admin access denied)');
+        return NextResponse.redirect(new URL('/payroll-compliance/dashboard', request.url));
+      }
+    }
   }
 
   return NextResponse.next();
@@ -59,6 +75,7 @@ export const config = {
     '/employee/:path*',
     '/hr/:path*',
     '/super-admin/:path*',
+    '/payroll-compliance/:path*',
     '/dashboard/:path*'
   ],
 };
