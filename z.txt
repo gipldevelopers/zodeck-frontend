@@ -356,3 +356,51 @@ In practice: Many modern SaaS dashboards (including HRMS-like systems) are being
 ===============================================================================================================⚡ Suggested setup for your HRMS:
 ✅ Keep: tailwindcss, lucide-react, shadcn/ui (install), apexcharts
 ❌ Remove: @headlessui/react (if switching fully to shadcn/ui)
+===============================================================================================================⚡ Suggested setup for your HRMS:
+can you please give me my folder structure with files and guide lines 
+let me give you example I want you to give me full project all folder and file structure like below 
+zodeck-frontend/
+│
+├── eslint.config.mjs           # ESLint configuration for code linting
+├── jsconfig.json               # JS project config (paths, aliases)
+├── next.config.mjs             # Next.js custom config
+├── package.json                # Project dependencies and scripts
+├── postcss.config.mjs          # PostCSS config for CSS processing
+├── README.md                   # Project documentation
+│
+├── public/                     # Static assets (images, icons, etc.)
+│   └── images/
+│       └── icons/
+│       └── logo/
+│       └── shape/
+│       └── users/
+│
+├── src/                        # Main source code
+│   ├── middleware.js           # Next.js middleware (auth, redirects)
+│   ├── app/                    # Next.js app directory (routing, pages)
+│   │   ├── globals.css         # Global styles
+│   │   ├── layout.js           # Root layout
+│   │   ├── page.js             # Main landing page
+│   │   ├── (auth)/             # Auth routes and layouts
+│   │   ├── (dashboard)/        # Dashboard routes and layouts
+│   │   └── ...                 # Other app routes
+│   ├── components/             # Reusable UI components
+│   │   ├── AuthLoader.js
+│   │   ├── ErrorBoundary.js
+│   │   ├── auth/
+│   │   ├── common/
+│   │   ├── form/
+│   │   ├── header/
+│   │   ├── shared/
+│   │   ├── ui/
+│   ├── context/                # React context providers
+│   ├── hooks/                  # Custom React hooks
+│   ├── icons/                  # Icon components
+│   ├── layout/                 # Layout components
+│   ├── lib/                    # Utility libraries
+│   ├── services/               # API and business logic
+│   ├── types/                  # Type definitions
+│   └── utils/                  # Utility functions
+│
+└── ... (other files)
+===============================================================================================================⚡ Suggested setup for your HRMS:
