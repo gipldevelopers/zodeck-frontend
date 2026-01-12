@@ -31,7 +31,12 @@ import {
   FileCheck,
   FileBarChart,
   DollarSign,
-  ShieldCheck
+  ShieldCheck,
+  Wallet,
+  FileSpreadsheet,
+  TrendingUp,
+  Banknote,
+  Receipt
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
@@ -284,6 +289,35 @@ const payrollComplianceNavItems = [
   },
 ];
 
+// Finance Admin Navigation Items
+const financeAdminNavItems = [
+  {
+    icon: <Grid size={20} />,
+    name: "Dashboard",
+    path: "/finance-role/dashboard",
+  },
+  {
+    icon: <Banknote size={20} />,
+    name: "Account & Bank Export",
+    path: "/finance-role/account-bank-export",
+  },
+  {
+    icon: <Receipt size={20} />,
+    name: "Expense Reimbursement",
+    path: "/finance-role/expense-reimbursement",
+  },
+  {
+    icon: <DollarSign size={20} />,
+    name: "Payroll Cost",
+    path: "/finance-role/payroll-cost",
+  },
+  {
+    icon: <FileBarChart size={20} />,
+    name: "Reports",
+    path: "/finance-role/reports",
+  },
+];
+
 const AppSidebar = () => {
   const { user } = useAuth();
   const userRole = user?.systemRole || 'EMPLOYEE';
@@ -306,6 +340,8 @@ const AppSidebar = () => {
         return hrNavItems;
       case "PAYROLL_ADMIN":
         return payrollComplianceNavItems;
+      case "FINANCE_ADMIN":
+        return financeAdminNavItems;
       default:
         return employeeNavItems;
     }
@@ -463,7 +499,8 @@ const AppSidebar = () => {
             userRole === "SUPER_ADMIN" ? "/super-admin/profile" :
               userRole === "HR_ADMIN" ? "/hr/profile" :
                 userRole === "PAYROLL_ADMIN" ? "/payroll-compliance/profile" :
-                  "/employee/profile"
+                  userRole === "FINANCE_ADMIN" ? "/finance-role/profile" :
+                    "/employee/profile"
           }
           onClick={() => {
             if (window.innerWidth < 1024) {
@@ -533,7 +570,8 @@ const AppSidebar = () => {
               userRole === "SUPER_ADMIN" ? "/super-admin/dashboard" :
                 userRole === "HR_ADMIN" ? "/hr/dashboard" :
                   userRole === "PAYROLL_ADMIN" ? "/payroll-compliance/dashboard" :
-                    "/employee/dashboard"
+                    userRole === "FINANCE_ADMIN" ? "/finance-role/dashboard" :
+                      "/employee/dashboard"
             }
             onClick={() => {
               if (window.innerWidth < 1024) {
@@ -588,7 +626,8 @@ const AppSidebar = () => {
                     userRole === "SUPER_ADMIN" ? "Super Admin Portal" :
                       userRole === "HR_ADMIN" ? "HR Management" :
                         userRole === "PAYROLL_ADMIN" ? "Payroll & Compliance" :
-                          "Employee Portal"
+                          userRole === "FINANCE_ADMIN" ? "Finance Management" :
+                            "Employee Portal"
                   ) : (
                     <MoreHorizontal size={16} />
                   )}
