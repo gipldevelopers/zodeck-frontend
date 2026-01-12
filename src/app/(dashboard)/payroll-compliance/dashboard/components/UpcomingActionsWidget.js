@@ -1,45 +1,58 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Calendar, Bell, FileText, Loader2 } from "lucide-react";
-import { payrollDashboardService } from "@/services/payroll-role-services/dashboard.service";
 
 export default function UpcomingActionsWidget() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currentDate = new Date();
-        const response = await payrollDashboardService.getDashboard({
-          month: currentDate.getMonth() + 1,
-          year: currentDate.getFullYear(),
-        });
-        // Handle response structure: response.data or response directly
-        const dashboardData = response.data || response;
-        setData(dashboardData);
-      } catch (error) {
-        console.error("Error fetching upcoming actions:", error);
-        // Set empty data on error so UI doesn't break
-        setData({
-          payrollRunDueDate: null,
-          filingReminders: [],
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    const timer = setTimeout(() => {
+      const today = new Date();
+      const nextWeek = new Date(today);
+      nextWeek.setDate(today.getDate() + 7);
+
+      const nextMonth = new Date(today);
+      nextMonth.setMonth(today.getMonth() + 1);
+      nextMonth.setDate(5);
+
+      const mockData = {
+        payrollRunDueDate: nextMonth.toISOString(),
+        filingReminders: [
+          {
+            title: "PF Filing Due",
+            dueDate: nextWeek.toISOString(),
+            type: "PF",
+            description: "Monthly PF contribution filing",
+          },
+          {
+            title: "TDS Filing Due",
+            dueDate: new Date(today.getFullYear(), today.getMonth() + 1, 7).toISOString(),
+            type: "TDS",
+            description: "Monthly TDS filing",
+          },
+        ],
+      };
+      setData(mockData);
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 h-full">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-card text-card-foreground rounded-2xl shadow-lg border border-border p-6 h-full backdrop-blur-sm"
+      >
         <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
-      </div>
+      </motion.div>
     );
   }
 
@@ -81,9 +94,9 @@ export default function UpcomingActionsWidget() {
       title: "Payroll Run Due Date",
       date: payrollRunDueDate,
       icon: <Calendar className="w-5 h-5" />,
-      color: "text-blue-600 dark:text-blue-400",
-      bgColor: "bg-blue-50 dark:bg-blue-900/20",
-      borderColor: "border-blue-200 dark:border-blue-800",
+      color: "text-primary",
+      bgColor: "bg-primary/10",
+      borderColor: "border-primary/20",
     },
     ...filingReminders.map((reminder) => ({
       type: "filing",
@@ -91,37 +104,37 @@ export default function UpcomingActionsWidget() {
       date: reminder.dueDate,
       description: reminder.type || reminder.description,
       icon: <FileText className="w-5 h-5" />,
-      color: "text-purple-600 dark:text-purple-400",
-      bgColor: "bg-purple-50 dark:bg-purple-900/20",
-      borderColor: "border-purple-200 dark:border-purple-800",
+      color: "text-accent",
+      bgColor: "bg-accent/10",
+      borderColor: "border-accent/20",
     })),
   ];
 
   const getUrgencyColor = (days) => {
-    if (days === null || days === undefined) return "";
-    if (days < 0) return "text-red-600 dark:text-red-400";
-    if (days <= 3) return "text-orange-600 dark:text-orange-400";
-    if (days <= 7) return "text-yellow-600 dark:text-yellow-400";
-    return "text-gray-600 dark:text-gray-400";
+    if (days === null || days === undefined) return "text-muted-foreground";
+    if (days < 0) return "text-destructive";
+    if (days <= 3) return "text-warning";
+    if (days <= 7) return "text-accent";
+    return "text-muted-foreground";
   };
 
   const getUrgencyBadge = (days) => {
     if (days === null || days === undefined) return null;
     if (days < 0)
       return (
-        <span className="px-2 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-semibold">
+        <span className="px-2 py-1 rounded-full bg-destructive/20 text-destructive text-xs font-semibold">
           Overdue
         </span>
       );
     if (days <= 3)
       return (
-        <span className="px-2 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-xs font-semibold">
+        <span className="px-2 py-1 rounded-full bg-warning/20 text-warning text-xs font-semibold">
           Urgent
         </span>
       );
     if (days <= 7)
       return (
-        <span className="px-2 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 text-xs font-semibold">
+        <span className="px-2 py-1 rounded-full bg-accent/20 text-accent text-xs font-semibold">
           Soon
         </span>
       );
@@ -129,16 +142,33 @@ export default function UpcomingActionsWidget() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 h-full">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="p-3 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ y: -5 }}
+      className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
+    >
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-primary/10"></div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="flex items-center gap-3 mb-6 relative z-10"
+      >
+        <motion.div
+          animate={{ rotate: [0, 10, -10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+          className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary shadow-md border border-primary/10"
+        >
           <Bell className="w-6 h-6" />
-        </div>
+        </motion.div>
         <div>
-          <h3 className="text-lg font-bold text-gray-800 dark:text-white">Upcoming Actions</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Reminders & deadlines</p>
+          <h3 className="text-lg font-bold text-foreground">Upcoming Actions</h3>
+          <p className="text-sm text-muted-foreground">Reminders & deadlines</p>
         </div>
-      </div>
+      </motion.div>
 
       <div className="space-y-3">
         {upcomingActions.length > 0 ? (
@@ -148,60 +178,80 @@ export default function UpcomingActionsWidget() {
             const urgencyBadge = getUrgencyBadge(daysUntil);
 
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`p-4 rounded-xl border-2 ${action.borderColor} ${action.bgColor} transition-all hover:shadow-md`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + index * 0.1 }}
+                whileHover={{ scale: 1.02, x: 5 }}
+                className={`p-4 rounded-xl border-2 ${action.borderColor} ${action.bgColor} backdrop-blur-sm transition-all cursor-pointer`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3 flex-1">
-                    <div
-                      className={`p-2 rounded-lg ${action.color} bg-white dark:bg-gray-800 mt-0.5`}
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                      className={`p-2 rounded-lg ${action.color} bg-card mt-0.5 shadow-sm`}
                     >
                       {action.icon}
-                    </div>
+                    </motion.div>
                     <div className="flex-1">
-                      <p className="text-sm font-semibold text-gray-800 dark:text-white">
+                      <p className="text-sm font-semibold text-foreground">
                         {action.title}
                       </p>
                       {action.description && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                        <p className="text-xs text-muted-foreground mt-0.5">
                           {action.description}
                         </p>
                       )}
                       <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs text-gray-500 dark:text-gray-400">Due:</span>
+                        <span className="text-xs text-muted-foreground">Due:</span>
                         <span
-                          className={`text-xs font-semibold ${urgencyColor || "text-gray-600 dark:text-gray-400"}`}
+                          className={`text-xs font-semibold ${urgencyColor}`}
                         >
                           {formatDate(action.date)}
                         </span>
                         {daysUntil !== null && (
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <span className="text-xs text-muted-foreground">
                             ({daysUntil < 0
                               ? `${Math.abs(daysUntil)} days ago`
                               : daysUntil === 0
-                              ? "Today"
-                              : `${daysUntil} day${daysUntil > 1 ? "s" : ""} left`}
+                                ? "Today"
+                                : `${daysUntil} day${daysUntil > 1 ? "s" : ""} left`}
                             )
                           </span>
                         )}
                       </div>
                     </div>
                   </div>
-                  {urgencyBadge && <div className="flex-shrink-0">{urgencyBadge}</div>}
+                  {urgencyBadge && (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", delay: 0.4 + index * 0.1 }}
+                      className="flex-shrink-0"
+                    >
+                      {urgencyBadge}
+                    </motion.div>
+                  )}
                 </div>
-              </div>
+              </motion.div>
             );
           })
         ) : (
-          <div className="text-center py-8">
-            <Calendar className="w-12 h-12 mx-auto text-gray-400 mb-3" />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-center py-8"
+          >
+            <Calendar className="w-12 h-12 mx-auto text-muted-foreground mb-3" />
+            <p className="text-sm text-muted-foreground">
               No upcoming actions scheduled
             </p>
-          </div>
+          </motion.div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
