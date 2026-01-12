@@ -37,11 +37,35 @@ const superAdminNavItems = [
     name: "Dashboard",
     path: "/super-admin/dashboard",
   },
+    {
+    icon: <Shield size={20} />,
+    name: "Roles & Permissions",
+    subItems: [
+      { name: "Role Management", path: "/super-admin/roles-permissions" },
+      { name: "Add New Role", path: "/super-admin/roles-permissions/add" },
+    ],
+  },
+  {
+    icon: <Users size={20} />,
+    name: "User Management",
+    subItems: [
+      { name: "All Users", path: "/super-admin/users" },
+    ],
+  },
+   {
+    icon: <CalendarDays size={20} />,
+    name: "Policy & Rule",
+    subItems: [
+      { name: "Policy List", path: "/super-admin/policy-rule" },
+      { name: "Add Policy", path: "/super-admin/policy-rule/add" },
+    ],
+  },
   {
     icon: <Building size={20} />,
     name: "Company & Organization",
     path: "/super-admin/company-orgranization",
   },
+ 
   {
     icon: <GitBranch size={20} />,
     name: "Workflow Management",
@@ -58,29 +82,7 @@ const superAdminNavItems = [
       { name: "Add Integration", path: "/super-admin/integration-management/add" },
     ],
   },
-  {
-    icon: <CalendarDays size={20} />,
-    name: "Policy & Rule",
-    subItems: [
-      { name: "Policy List", path: "/super-admin/policy-rule" },
-      { name: "Add Policy", path: "/super-admin/policy-rule/add" },
-    ],
-  },
-  {
-    icon: <Shield size={20} />,
-    name: "Roles & Permissions",
-    subItems: [
-      { name: "Role Management", path: "/super-admin/roles-permissions" },
-      { name: "Add New Role", path: "/super-admin/roles-permissions/add" },
-    ],
-  },
-  {
-    icon: <Users size={20} />,
-    name: "User Management",
-    subItems: [
-      { name: "All Users", path: "/super-admin/users" },
-    ],
-  },
+ 
 ];
 
 const hrNavItems = [
