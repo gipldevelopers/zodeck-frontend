@@ -24,21 +24,30 @@ ChartJS.register(
   ArcElement
 );
 
-const DepartmentLeaveChart = () => {
+const DepartmentLeaveChart = ({ distribution }) => {
+  const distributionData = distribution?.distribution || [];
+  const total = distribution?.total || 0;
+
+  const colors = [
+    '#3B82F6',
+    '#10B981',
+    '#F59E0B',
+    '#EF4444',
+    '#8B5CF6',
+    '#EC4899',
+    '#F97316',
+    '#06B6D4',
+    '#84CC16',
+    '#A855F7'
+  ];
+
   const data = {
-    labels: ['Engineering', 'Marketing', 'Sales', 'HR', 'Operations', 'Support'],
+    labels: distributionData.map(dept => dept.name),
     datasets: [
       {
         label: 'Leave Requests',
-        data: [35, 18, 22, 15, 12, 8],
-        backgroundColor: [
-          '#3B82F6',
-          '#10B981',
-          '#F59E0B',
-          '#EF4444',
-          '#8B5CF6',
-          '#EC4899'
-        ],
+        data: distributionData.map(dept => dept.count),
+        backgroundColor: distributionData.map((_, index) => colors[index % colors.length]),
         borderWidth: 2,
         borderColor: '#FFFFFF',
         hoverOffset: 4,
@@ -93,12 +102,18 @@ const DepartmentLeaveChart = () => {
       </div>
 
       <div className="h-64">
-        <Doughnut data={data} options={options} />
+        {distributionData.length === 0 ? (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-sm text-gray-500 dark:text-gray-400">No department data available</p>
+          </div>
+        ) : (
+          <Doughnut data={data} options={options} />
+        )}
       </div>
 
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-600 dark:text-gray-300">
-          Total Leave Requests: <span className="font-semibold">110</span>
+          Total Leave Requests: <span className="font-semibold">{total}</span>
         </p>
       </div>
     </div>

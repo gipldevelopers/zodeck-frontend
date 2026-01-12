@@ -1,64 +1,8 @@
 import React from "react";
 import { Clock, CheckCircle, XCircle, MoreVertical } from 'lucide-react';
 
-const LeaveRequestsDashboardTable = () => {
-  const leaveRequests = [
-    {
-      id: 1,
-      employee: "Sarah Johnson",
-      department: "Engineering",
-      type: "Sick Leave",
-      startDate: "2025-01-15",
-      endDate: "2025-01-17",
-      days: 3,
-      status: "pending",
-      avatar: "/images/users/user-01.png"
-    },
-    {
-      id: 2,
-      employee: "Michael Chen",
-      department: "Marketing",
-      type: "Vacation",
-      startDate: "2025-01-20",
-      endDate: "2025-01-25",
-      days: 6,
-      status: "pending",
-      avatar: "/images/users/user-02.png"
-    },
-    {
-      id: 3,
-      employee: "Emily Rodriguez",
-      department: "Sales",
-      type: "Personal Leave",
-      startDate: "2025-01-18",
-      endDate: "2025-01-18",
-      days: 1,
-      status: "approved",
-      avatar: "/images/users/user-03.png"
-    },
-    {
-      id: 4,
-      employee: "David Kim",
-      department: "HR",
-      type: "Sick Leave",
-      startDate: "2025-01-22",
-      endDate: "2025-01-24",
-      days: 3,
-      status: "rejected",
-      avatar: "/images/users/user-04.png"
-    },
-    {
-      id: 5,
-      employee: "Lisa Wang",
-      department: "Operations",
-      type: "Maternity Leave",
-      startDate: "2025-02-01",
-      endDate: "2025-05-01",
-      days: 90,
-      status: "pending",
-      avatar: "/images/users/user-05.jpg"
-    }
-  ];
+const LeaveRequestsDashboardTable = ({ requests = [] }) => {
+  const leaveRequests = requests || [];
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -117,43 +61,51 @@ const LeaveRequestsDashboardTable = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-            {leaveRequests.map((request) => (
-              <tr key={request.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                <td className="py-4">
-                  <div className="flex items-center">
-                    <img
-                      src={request.avatar}
-                      alt={request.employee}
-                      className="h-8 w-8 rounded-full object-cover mr-3"
-                    />
-                    <div>
-                      <div className="text-sm font-medium text-gray-900 dark:text-white">
-                        {request.employee}
-                      </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
-                        {request.department}
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td className="py-4 text-sm text-gray-900 dark:text-white">{request.type}</td>
-                <td className="py-4 text-sm text-gray-900 dark:text-white">
-                  {request.startDate} to {request.endDate}
-                </td>
-                <td className="py-4 text-sm text-gray-900 dark:text-white">{request.days}</td>
-                <td className="py-4">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClass(request.status)}`}>
-                    {getStatusIcon(request.status)}
-                    <span className="ml-1">{getStatusText(request.status)}</span>
-                  </span>
-                </td>
-                <td className="py-4">
-                  <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
-                    <MoreVertical className="h-4 w-4" />
-                  </button>
+            {leaveRequests.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="py-8 text-center text-gray-500 dark:text-gray-400">
+                  No recent leave requests found
                 </td>
               </tr>
-            ))}
+            ) : (
+              leaveRequests.map((request) => (
+                <tr key={request.id || request.publicId} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                  <td className="py-4">
+                    <div className="flex items-center">
+                      <img
+                        src={request.employee?.profileImage || "/images/users/user-default.png"}
+                        alt={request.employee?.name || "Employee"}
+                        className="h-8 w-8 rounded-full object-cover mr-3"
+                      />
+                      <div>
+                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                          {request.employee?.name || "-"}
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {request.employee?.department || "-"}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-4 text-sm text-gray-900 dark:text-white">{request.type || "-"}</td>
+                  <td className="py-4 text-sm text-gray-900 dark:text-white">
+                    {request.duration || (request.startDate && request.endDate ? `${request.startDate} to ${request.endDate}` : "-")}
+                  </td>
+                  <td className="py-4 text-sm text-gray-900 dark:text-white">{request.days || "-"}</td>
+                  <td className="py-4">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClass(request.status)}`}>
+                      {getStatusIcon(request.status)}
+                      <span className="ml-1">{getStatusText(request.status)}</span>
+                    </span>
+                  </td>
+                  <td className="py-4">
+                    <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                      <MoreVertical className="h-4 w-4" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

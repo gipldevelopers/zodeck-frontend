@@ -34,19 +34,38 @@ export default function EditEmployeePage() {
     useEffect(() => {
         const loadDropdownData = async () => {
             try {
-                const [departments, designations, managers] = await Promise.all([
+                const [departmentsResponse, designationsResponse, managersResponse] = await Promise.all([
                     employeeService.getDepartments(),
                     employeeService.getDesignations(),
                     employeeService.getManagers()
                 ]);
 
+                // Handle API response structure: { success: true, data: [...], pagination: {...} }
+                const departments = departmentsResponse.success 
+                    ? (departmentsResponse.data || [])
+                    : (departmentsResponse.data?.departments || departmentsResponse.data || []);
+                
+                const designations = designationsResponse.success
+                    ? (designationsResponse.data || [])
+                    : (designationsResponse.data?.designations || designationsResponse.data || []);
+                
+                const managers = managersResponse.success
+                    ? (managersResponse.data || [])
+                    : (managersResponse.data || []);
+
                 setDropdownData({
-                    departments: Array.isArray(departments) ? departments : (departments.data || []),
-                    designations: Array.isArray(designations) ? designations : (designations.data || []),
-                    reportingManagers: Array.isArray(managers) ? managers : (managers.data || [])
+                    departments: Array.isArray(departments) ? departments : [],
+                    designations: Array.isArray(designations) ? designations : [],
+                    reportingManagers: Array.isArray(managers) ? managers : []
                 });
             } catch (error) {
                 console.error('Error loading dropdown data:', error);
+                // Set empty arrays on error
+                setDropdownData({
+                    departments: [],
+                    designations: [],
+                    reportingManagers: []
+                });
             }
         };
 
@@ -384,7 +403,10 @@ export default function EditEmployeePage() {
                                     <div className="space-y-2">
                                         <Label htmlFor="departmentId" required>Department</Label>
                                         <SelectField
-                                            options={(dropdownData.departments || []).map(d => ({ value: d.id?.toString(), label: d.name }))}
+                                            options={(dropdownData.departments || []).map(d => ({ 
+                                                value: d.id?.toString() || d.id, 
+                                                label: d.name || 'Unnamed Department' 
+                                            }))}
                                             value={formData.departmentId}
                                             onChange={(val) => handleInputChange('departmentId', val)}
                                             error={errors.departmentId}
@@ -393,7 +415,10 @@ export default function EditEmployeePage() {
                                     <div className="space-y-2">
                                         <Label htmlFor="designationId" required>Designation</Label>
                                         <SelectField
-                                            options={(dropdownData.designations || []).map(d => ({ value: d.id?.toString(), label: d.name }))}
+                                            options={(dropdownData.designations || []).map(d => ({ 
+                                                value: d.id?.toString() || d.id, 
+                                                label: d.name || 'Unnamed Designation' 
+                                            }))}
                                             value={formData.designationId}
                                             onChange={(val) => handleInputChange('designationId', val)}
                                             error={errors.designationId}
@@ -403,8 +428,8 @@ export default function EditEmployeePage() {
                                         <Label htmlFor="reportingManagerId">Reporting Manager</Label>
                                         <SelectField
                                             options={(dropdownData.reportingManagers || []).map(m => ({
-                                                value: m.id?.toString(),
-                                                label: `${m.firstName} ${m.lastName}`
+                                                value: m.id?.toString() || m.id,
+                                                label: `${m.firstName || ''} ${m.lastName || ''}`.trim() || 'Unnamed Manager'
                                             }))}
                                             value={formData.reportingManagerId}
                                             onChange={(val) => handleInputChange('reportingManagerId', val)}
@@ -467,7 +492,9 @@ export default function EditEmployeePage() {
                                                 { value: 'PROBATION', label: 'Probation' },
                                                 { value: 'NOTICE_PERIOD', label: 'Notice Period' },
                                                 { value: 'RESIGNED', label: 'Resigned' },
-                                                { value: 'TERMINATED', label: 'Terminated' }
+                                                { value: 'TERMINATED', label: 'Terminated' },
+                                                { value: 'SUSPENDED', label: 'Suspended' },
+                                                { value: 'RETIRED', label: 'Retired' }
                                             ]}
                                             value={formData.status}
                                             onChange={(val) => handleInputChange('status', val)}

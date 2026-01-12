@@ -158,6 +158,125 @@ export const attendanceService = {
       const errorMessage = error.response?.data?.message || 'Failed to fetch attendance by date range';
       throw new Error(errorMessage);
     }
+  },
+
+  /* =========================
+     DAILY ATTENDANCE VIEW APIs
+  ========================= */
+
+  // Get Daily Attendance View
+  // Returns complete daily attendance view for all employees
+  // Query Parameters:
+  // - date (optional): Date in ISO format (YYYY-MM-DD), defaults to today
+  getDailyAttendanceView: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/attendance/get-daily-attendance-view', { params });
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to fetch daily attendance view';
+      throw new Error(errorMessage);
+    }
+  },
+
+  /* =========================
+     ATTENDANCE CORRECTIONS APIs
+  ========================= */
+
+  // Correct Attendance Record
+  // Path Parameters: id - Attendance record ID
+  // Request Body: checkIn, checkOut, status, totalHours, reason (required)
+  correctAttendance: async (id, data) => {
+    try {
+      const response = await apiClient.put(`/attendance/correct-attendance/${id}`, data);
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to correct attendance';
+      throw new Error(errorMessage);
+    }
+  },
+
+  // Get Attendance Corrections History
+  // Query Parameters: page, limit, startDate, endDate, employeeId
+  getAttendanceCorrections: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/attendance/get-attendance-corrections', { params });
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to fetch attendance corrections';
+      throw new Error(errorMessage);
+    }
+  },
+
+  /* =========================
+     LATE / EARLY TRACKING APIs
+  ========================= */
+
+  // Get Late Arrivals
+  // Query Parameters: page, limit, startDate, endDate, departmentId
+  getLateArrivals: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/attendance/get-late-arrivals', { params });
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to fetch late arrivals';
+      throw new Error(errorMessage);
+    }
+  },
+
+  // Get Early Leaves
+  // Query Parameters: page, limit, startDate, endDate, departmentId
+  getEarlyLeaves: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/attendance/get-early-leaves', { params });
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to fetch early leaves';
+      throw new Error(errorMessage);
+    }
+  },
+
+  /* =========================
+     OVERTIME VISIBILITY APIs
+  ========================= */
+
+  // Get Overtime Records
+  // Query Parameters: page, limit, startDate, endDate, departmentId, employeeId
+  getOvertimeRecords: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/attendance/get-overtime-records', { params });
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to fetch overtime records';
+      throw new Error(errorMessage);
+    }
+  },
+
+  // Get Overtime Summary
+  // Query Parameters: startDate, endDate, groupBy ('employee' or 'department')
+  getOvertimeSummary: async (params = {}) => {
+    try {
+      const response = await apiClient.get('/attendance/get-overtime-summary', { params });
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to fetch overtime summary';
+      throw new Error(errorMessage);
+    }
+  },
+
+  /* =========================
+     BIOMETRIC SYNC MONITORING APIs (VIEW-ONLY)
+  ========================= */
+
+  // Get Biometric Sync Status
+  // Returns biometric integration status and sync monitoring (view-only)
+  getBiometricSyncStatus: async () => {
+    try {
+      const response = await apiClient.get('/attendance/get-biometric-sync-status');
+      return response.data;
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to fetch biometric sync status';
+      throw new Error(errorMessage);
+    }
   }
 };
 

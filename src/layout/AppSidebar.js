@@ -17,7 +17,6 @@ import {
   UserCircle,
   ChevronDown,
   MoreHorizontal,
-  Briefcase,
   Presentation,
   CreditCard,
   Package,
@@ -26,6 +25,9 @@ import {
   X,
   GitBranch,
   Network,
+  Briefcase,
+  UserPlus,
+  BarChart3
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
@@ -96,22 +98,24 @@ const hrNavItems = [
     ],
   },
   {
-    icon: <Building size={20} />,
-    name: "Department",
-    subItems: [
-      { name: "Department List", path: "/hr/departments" },
-      { name: "Add Department", path: "/hr/departments/add" },
-      { name: "Organization Chart", path: "/hr/departments/chart" },
-    ],
+    icon: <GitBranch size={20} />,
+    name: "Organization Structure",
+    path: "/hr/organization-management",
   },
   {
     icon: <Briefcase size={20} />,
-    name: "Designation",
-    subItems: [
-      { name: "Designation List", path: "/hr/designations" },
-      { name: "Add Designation", path: "/hr/designations/add" },
-      { name: "Designation Hierarchy", path: "/hr/designations/hierarchy" },
-    ],
+    name: "Workforce Management",
+    path: "/hr/workforce",
+  },
+  {
+    icon: <UserPlus size={20} />,
+    name: "Onboarding & Exit",
+    path: "/hr/onboarding-exit",
+  },
+  {
+    icon: <FileText size={20} />,
+    name: "Document Management",
+    path: "/hr/document-management",
   },
   {
     icon: <Presentation size={20} />,
@@ -132,6 +136,16 @@ const hrNavItems = [
       { name: "Leave Reports", path: "/hr/leave/reports" },
       { name: "Leave Policies", path: "/hr/leave/policies" },
     ],
+  },
+  {
+    icon: <Target size={20} />,
+    name: "Performance Management",
+    path: "/hr/performance-management",
+  },
+  {
+    icon: <BarChart3 size={20} />,
+    name: "Reports & Analytics",
+    path: "/hr/reports-analytics",
   },
   {
     icon: <CreditCard size={20} />,

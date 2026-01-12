@@ -1,17 +1,13 @@
 import React from "react";
 import LeaveChart from "./LeaveChart";
 
-const LeaveAnalytics = () => {
-  // Sample data for the chart
-  const data = [
-    { name: 'Mon', approved: 4, rejected: 1, pending: 2 },
-    { name: 'Tue', approved: 3, rejected: 2, pending: 3 },
-    { name: 'Wed', approved: 5, rejected: 1, pending: 1 },
-    { name: 'Thu', approved: 2, rejected: 0, pending: 4 },
-    { name: 'Fri', approved: 6, rejected: 2, pending: 2 },
-    { name: 'Sat', approved: 1, rejected: 0, pending: 1 },
-    { name: 'Sun', approved: 0, rejected: 0, pending: 0 },
-  ];
+const LeaveAnalytics = ({ analytics, period, onPeriodChange }) => {
+  const data = analytics?.data || [];
+
+  const handlePeriodChange = (e) => {
+    const newPeriod = e.target.value;
+    onPeriodChange?.(newPeriod);
+  };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6">
@@ -19,10 +15,14 @@ const LeaveAnalytics = () => {
         <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
           Weekly Leave Analytics
         </h2>
-        <select className="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-          <option>This Week</option>
-          <option>Last Week</option>
-          <option>This Month</option>
+        <select 
+          value={period || "thisWeek"}
+          onChange={handlePeriodChange}
+          className="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        >
+          <option value="thisWeek">This Week</option>
+          <option value="lastWeek">Last Week</option>
+          <option value="thisMonth">This Month</option>
         </select>
       </div>
 

@@ -14,17 +14,45 @@ import {
 import { ChevronUp, ChevronDown, Eye, Edit, Trash2 } from "lucide-react";
 import Pagination from "@/components/common/Pagination";
 import EmployeeFilters from "./EmployeeFilters";
-import employeeService from "@/services/hr-services/employeeService"; // adjust path
+import employeeService from "@/services/hr-services/employeeService";
+import { departmentService } from "@/services/hr-services/departmentService";
+import { designationService } from "@/services/hr-services/designationService";
 
 export default function EmployeeTable() {
   const router = useRouter();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [departmentOptions, setDepartmentOptions] = useState([]);
+  const [designationOptions, setDesignationOptions] = useState([]);
 
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [designationFilter, setDesignationFilter] = useState("all");
+  const [departmentFilter, setDepartmentFilter] = useState("all");
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  // Fetch departments and designations for filter dropdowns
+  useEffect(() => {
+    const fetchDropdownData = async () => {
+      try {
+        const [deptsResponse, designationsResponse] = await Promise.all([
+          departmentService.getAllDepartments(),
+          designationService.getAllDesignations()
+        ]);
+        
+        const departments = deptsResponse.data?.departments || deptsResponse.data || [];
+        const designations = designationsResponse.data?.designations || designationsResponse.data || [];
+        
+        setDepartmentOptions(departments);
+        setDesignationOptions(designations);
+      } catch (error) {
+        console.error("Failed to fetch dropdown data:", error);
+      }
+    };
+    fetchDropdownData();
+  }, []);
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -37,16 +65,43 @@ export default function EmployeeTable() {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await employeeService.getAllEmployees({
+        setLoading(true);
+        // Build query parameters according to API
+        // Find department ID if department name is selected
+        let departmentId = "";
+        if (departmentFilter !== "all") {
+          const dept = departmentOptions.find(d => d.name === departmentFilter || d.id?.toString() === departmentFilter);
+          departmentId = dept?.id?.toString() || departmentFilter;
+        }
+
+        // Find designation ID if designation name is selected
+        let designationId = "";
+        if (designationFilter !== "all") {
+          const desig = designationOptions.find(d => d.name === designationFilter || d.id?.toString() === designationFilter);
+          designationId = desig?.id?.toString() || designationFilter;
+        }
+
+        const params = {
           page: pagination.pageIndex + 1,
           limit: pagination.pageSize,
-        });
+          search: globalFilter || "",
+          status: statusFilter !== "all" ? statusFilter : "all",
+          department: departmentId,
+          designation: designationId,
+        };
 
-        const formattedData = response.data.map(emp => ({
-          id: emp.employeeId,
+        const response = await employeeService.getAllEmployees(params);
+        
+        // Handle API response structure: { success: true, data: [...], pagination: {...} }
+        const employees = response.success ? (response.data || []) : (response.data?.employees || response.data || []);
+        const paginationInfo = response.pagination || response.data?.pagination || {};
+
+        const formattedData = employees.map(emp => ({
+          id: emp.employeeId, // Use employeeId for display (string like "EMP20260005")
           name: `${emp.firstName} ${emp.lastName}`,
           email: emp.email,
           phone: emp.phone || "-",
+          department: emp.department?.name || "-",
           designation: emp.designation?.name || "-",
           joiningDate: emp.joiningDate
             ? new Date(emp.joiningDate).toLocaleDateString("en-GB", {
@@ -55,26 +110,24 @@ export default function EmployeeTable() {
               year: "numeric",
             })
             : "-",
-          status:
-            emp.status === "ACTIVE"
-              ? "Active"
-              : emp.status === "ON_LEAVE"
-                ? "On Leave"
-                : "Inactive",
+          status: emp.status || "ACTIVE", // Keep API status value
           image: emp.profileImage || "/images/users/default-avatar.png",
-          raw: emp, // keep full object for actions
+          raw: emp, // keep full object for actions (includes numeric id for delete operations)
         }));
 
         setData(formattedData);
+        setTotalItems(paginationInfo.totalItems || paginationInfo.total || employees.length);
+        setTotalPages(paginationInfo.totalPages || Math.ceil((paginationInfo.totalItems || paginationInfo.total || employees.length) / (paginationInfo.itemsPerPage || pagination.pageSize)));
       } catch (error) {
         console.error("Failed to fetch employees:", error.message);
+        setData([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchEmployees();
-  }, [pagination.pageIndex, pagination.pageSize]);
+  }, [pagination.pageIndex, pagination.pageSize, globalFilter, statusFilter, designationFilter, departmentFilter, departmentOptions, designationOptions]);
 
   // =============================
   // COLUMNS
@@ -123,20 +176,30 @@ export default function EmployeeTable() {
         header: "Joining Date",
       },
       {
+        accessorKey: "department",
+        header: "Department",
+      },
+      {
         accessorKey: "status",
         header: "Status",
         cell: info => {
           const status = info.getValue();
-          const styles =
-            status === "Active"
-              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-              : status === "On Leave"
-                ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400"
-                : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
+          // Map API status values to display labels
+          const statusMap = {
+            ACTIVE: { label: "Active", style: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" },
+            PROBATION: { label: "Probation", style: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" },
+            NOTICE_PERIOD: { label: "Notice Period", style: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400" },
+            RESIGNED: { label: "Resigned", style: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400" },
+            TERMINATED: { label: "Terminated", style: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" },
+            SUSPENDED: { label: "Suspended", style: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" },
+            RETIRED: { label: "Retired", style: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400" },
+          };
+
+          const statusInfo = statusMap[status] || { label: status, style: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400" };
 
           return (
-            <span className={`px-2.5 py-0.5 rounded-xs text-xs font-medium ${styles}`}>
-              {status}
+            <span className={`px-2.5 py-0.5 rounded-xs text-xs font-medium ${statusInfo.style}`}>
+              {statusInfo.label}
             </span>
           );
         },
@@ -172,31 +235,8 @@ export default function EmployeeTable() {
     []
   );
 
-  // =============================
-  // FILTERED DATA
-  // =============================
-  const filteredData = useMemo(() => {
-    let result = [...data];
-
-    if (globalFilter) {
-      const term = globalFilter.toLowerCase();
-      result = result.filter(emp =>
-        emp.name.toLowerCase().includes(term) ||
-        emp.email.toLowerCase().includes(term) ||
-        emp.id.toLowerCase().includes(term)
-      );
-    }
-
-    if (statusFilter !== "all") {
-      result = result.filter(emp => emp.status === statusFilter);
-    }
-
-    if (designationFilter !== "all") {
-      result = result.filter(emp => emp.designation === designationFilter);
-    }
-
-    return result;
-  }, [data, globalFilter, statusFilter, designationFilter]);
+  // Use data directly since filtering is done on backend
+  const filteredData = data;
 
   // =============================
   // TABLE
@@ -216,45 +256,67 @@ export default function EmployeeTable() {
   // =============================
   // FILTER OPTIONS
   // =============================
+  // Status options from API (static list)
   const statuses = useMemo(() => {
-    return ["all", ...new Set(data.map(emp => emp.status))];
-  }, [data]);
+    const apiStatuses = ["ACTIVE", "PROBATION", "NOTICE_PERIOD", "RESIGNED", "TERMINATED", "SUSPENDED", "RETIRED"];
+    return ["all", ...apiStatuses];
+  }, []);
 
   const designations = useMemo(() => {
-    return ["all", ...new Set(data.map(emp => emp.designation))];
-  }, [data]);
+    // Use designation options from API for filter dropdown
+    return ["all", ...designationOptions.map(desig => desig.name)];
+  }, [designationOptions]);
+
+  const departments = useMemo(() => {
+    // Use department options from API for filter dropdown
+    return ["all", ...departmentOptions.map(dept => dept.name)];
+  }, [departmentOptions]);
 
   const clearFilters = () => {
     setGlobalFilter("");
     setStatusFilter("all");
     setDesignationFilter("all");
+    setDepartmentFilter("all");
+    setPagination(prev => ({ ...prev, pageIndex: 0 }));
   };
 
   // =============================
   // ACTION HANDLERS
   // =============================
   const handleView = emp => {
-    router.push(`/hr/employees/${emp.id}`);
+    const employee = emp.raw || emp;
+    // Use numeric id for routing (API uses numeric id in routes)
+    router.push(`/hr/employees/${employee.id}`);
   };
 
   const handleEdit = emp => {
-    router.push(`/hr/employees/edit/${emp.id}`);
+    const employee = emp.raw || emp;
+    // Use numeric id for routing (API uses numeric id in routes)
+    router.push(`/hr/employees/edit/${employee.id}`);
   };
   const handleDelete = async (employee) => {
-    const confirmDelete = confirm(
-      `Are you sure you want to delete ${employee.firstName} ${employee.lastName}?`
+    const emp = employee.raw || employee;
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete ${emp.firstName} ${emp.lastName}?`
     );
 
     if (!confirmDelete) return;
 
     try {
-      await employeeService.deleteEmployee(employee.id); // numeric DB id
+      // Use the numeric DB id from raw object (response has both id and employeeId)
+      const employeeId = emp.id; // numeric id from API
+      await employeeService.deleteEmployee(employeeId);
+      
       // Remove from UI immediately
       setData(prev =>
-        prev.filter(item => item.raw.id !== employee.id)
+        prev.filter(item => {
+          const itemEmp = item.raw || item;
+          return itemEmp.id !== employeeId;
+        })
       );
       alert("Employee deleted successfully");
-      // refresh the page
+      
+      // Refresh data to get updated list
       window.location.reload();
     } catch (error) {
       console.error("Delete failed:", error.message);
@@ -279,8 +341,11 @@ export default function EmployeeTable() {
         setStatusFilter={setStatusFilter}
         designationFilter={designationFilter}
         setDesignationFilter={setDesignationFilter}
+        departmentFilter={departmentFilter}
+        setDepartmentFilter={setDepartmentFilter}
         statuses={statuses}
         designations={designations}
+        departments={departments}
         onClearFilters={clearFilters}
       />
 
@@ -313,12 +378,14 @@ export default function EmployeeTable() {
 
       <Pagination
         currentPage={pagination.pageIndex + 1}
-        totalItems={filteredData.length}
+        totalItems={totalItems}
+        totalPages={totalPages}
         itemsPerPage={pagination.pageSize}
-        onPageChange={page => table.setPageIndex(page - 1)}
+        onPageChange={page => {
+          setPagination(prev => ({ ...prev, pageIndex: page - 1 }));
+        }}
         onItemsPerPageChange={size => {
-          table.setPageSize(size);
-          table.setPageIndex(0);
+          setPagination({ pageIndex: 0, pageSize: size });
         }}
         className="mt-6"
       />

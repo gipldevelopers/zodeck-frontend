@@ -1,79 +1,101 @@
 "use client";
-import Breadcrumb from '@/components/common/Breadcrumb';
-import AttendanceStatsCards from './components/AttendanceStatsCards';
-import { useState, useEffect } from 'react';
-import AttendanceTable from './components/AttendanceTable';
-import BreadcrumbRightContent from './components/BreadcrumbRightContent';
-import { attendanceService } from '../../../../services/hr-services/attendace.service';
-import { toast } from 'react-hot-toast';
 
-export default function AttendanceDashboard() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [statsData, setStatsData] = useState(null);
-  const [loading, setLoading] = useState(true);
+import { useState } from "react";
+import { Clock, Calendar, AlertCircle, Timer, Activity, Database } from "lucide-react";
+import Breadcrumb from "@/components/common/Breadcrumb";
+import DailyAttendanceViewTab from "./components/DailyAttendanceViewTab";
+import AttendanceCorrectionsTab from "./components/AttendanceCorrectionsTab";
+import LateEarlyTrackingTab from "./components/LateEarlyTrackingTab";
+import OvertimeVisibilityTab from "./components/OvertimeVisibilityTab";
+import BiometricSyncTab from "./components/BiometricSyncTab";
 
-  // Fetch statistics when date changes
-  useEffect(() => {
-    fetchDashboardStats();
-  }, [selectedDate]);
+export default function AttendanceManagementPage() {
+  const [activeTab, setActiveTab] = useState("daily-view");
 
-  const fetchDashboardStats = async () => {
-    setLoading(true);
-    try {
-      const dateStr = selectedDate.toISOString().split('T')[0];
-      const response = await attendanceService.getDashboardStats({ date: dateStr });
-      setStatsData(response.data);
-    } catch (error) {
-      console.error('Error fetching dashboard stats:', error);
-      toast.error(error.message || 'Failed to fetch dashboard statistics');
-      setStatsData(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Format date for display
-  const formatDate = (date) => {
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
+  const tabs = [
+    {
+      id: "daily-view",
+      label: "Daily Attendance View",
+      icon: <Calendar size={18} />,
+      component: <DailyAttendanceViewTab />,
+    },
+    {
+      id: "corrections",
+      label: "Attendance Corrections",
+      icon: <AlertCircle size={18} />,
+      component: <AttendanceCorrectionsTab />,
+    },
+    {
+      id: "late-early",
+      label: "Late / Early Tracking",
+      icon: <Clock size={18} />,
+      component: <LateEarlyTrackingTab />,
+    },
+    {
+      id: "overtime",
+      label: "Overtime Visibility",
+      icon: <Timer size={18} />,
+      component: <OvertimeVisibilityTab />,
+    },
+    {
+      id: "biometric",
+      label: "Biometric Sync Monitoring",
+      icon: <Database size={18} />,
+      component: <BiometricSyncTab />,
+    },
+  ];
 
   return (
-    <div className="bg-gray-50 min-h-screen dark:bg-gray-900 p-4 sm:p-6">
-      {/* Breadcrumb with Date Filter and Actions */}
+    <div className="bg-gray-50 min-h-screen dark:bg-gray-900 p-3 sm:p-6">
+      {/* Breadcrumb */}
       <Breadcrumb
-        title="Attendance Dashboard"
-        subtitle="Overview of today's attendance statistics and patterns"
-        rightContent={
-          <BreadcrumbRightContent
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-        }
+        items={[
+          { label: "HR", href: "/hr" },
+          { label: "Attendance Management", href: "/hr/attendance" },
+        ]}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        {/* Main Content */}
-        <div className="lg:col-span-3 space-y-6">
-          {/* Attendance Stats Cards */}
-          <div className="bg-white rounded-lg shadow dark:bg-gray-800 p-4 sm:p-6">
-            <AttendanceStatsCards
-              selectedDate={selectedDate}
-              statsData={statsData}
-              loading={loading}
-            />
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+            <Clock className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Attendance Management
+            </h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Monitor and manage employee attendance data with daily views, corrections, late/early tracking, overtime visibility, and biometric sync monitoring
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Attendance Table */}
-      <div className="bg-white rounded-lg shadow dark:bg-gray-800">
-        <AttendanceTable selectedDate={selectedDate} />
+      {/* Tabs */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+        <div className="flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                activeTab === tab.id
+                  ? "border-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                  : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600"
+              }`}
+            >
+              {tab.icon}
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        <div className="p-4 sm:p-6">
+          {tabs.find((tab) => tab.id === activeTab)?.component}
+        </div>
       </div>
     </div>
   );
-};
+}

@@ -2,31 +2,31 @@ import React from "react";
 import Link from "next/link";
 import { TrendingUp, TrendingDown, Clock, CheckCircle, XCircle } from 'lucide-react';
 
-const LeaveStatsCards = () => {
+const LeaveStatsCards = ({ stats }) => {
   const statsData = [
     {
       title: "Requests to Approve",
-      value: "12",
-      comparison: "+2 from yesterday",
-      trend: "up",
+      value: stats?.requestsToApprove?.value?.toString() || "0",
+      comparison: stats?.requestsToApprove?.comparison || "",
+      trend: stats?.requestsToApprove?.trend || "up",
       icon: <Clock className="h-5 w-5 text-white" />,
       iconBgColor: "bg-gradient-to-r from-yellow-500 to-yellow-400",
       href: "/hr/leave/approvals",
     },
     {
       title: "Approved This Month",
-      value: "24",
-      comparison: "+5.2%",
-      trend: "up",
+      value: stats?.approvedThisMonth?.value?.toString() || "0",
+      comparison: stats?.approvedThisMonth?.comparison || "",
+      trend: stats?.approvedThisMonth?.trend || "up",
       icon: <CheckCircle className="h-5 w-5 text-white" />,
       iconBgColor: "bg-gradient-to-r from-green-500 to-green-400",
       href: "/hr/leave/approved",
     },
     {
       title: "Rejected This Month",
-      value: "8",
-      comparison: "-2.1%",
-      trend: "down",
+      value: stats?.rejectedThisMonth?.value?.toString() || "0",
+      comparison: stats?.rejectedThisMonth?.comparison || "",
+      trend: stats?.rejectedThisMonth?.trend || "down",
       icon: <XCircle className="h-5 w-5 text-white" />,
       iconBgColor: "bg-gradient-to-r from-red-500 to-red-400",
       href: "/hr/leave/rejected",

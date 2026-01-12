@@ -48,40 +48,26 @@ export default function ProfessionalInfoForm({ formData, errors, onChange, dropd
     generateEmployeeId();
   }, [formData.employeeId, isIdGenerated, onChange]);
 
-  // Fetch managers when component mounts
+  // Use managers from dropdownData (already fetched in parent component)
   useEffect(() => {
-    const fetchManagers = async () => {
-      try {
-        setLoadingManagers(true);
-        const response = await employeeService.getManagers();
-        setManagers(response.data);
-      } catch (error) {
-        console.error('Failed to fetch managers:', error);
-        // Fallback to existing dropdown data if available
-        if (dropdownData.reportingManagers) {
-          setManagers(dropdownData.reportingManagers);
-        }
-      } finally {
-        setLoadingManagers(false);
-      }
-    };
-
-    fetchManagers();
-  }, []);
+    if (dropdownData.reportingManagers && dropdownData.reportingManagers.length > 0) {
+      setManagers(dropdownData.reportingManagers);
+    }
+  }, [dropdownData.reportingManagers]);
 
   const departmentOptions = [
     { value: '', label: 'Select Department' },
     ...(dropdownData.departments || []).map(dept => ({
-      value: dept.id.toString(),
-      label: dept.name
+      value: dept.id?.toString() || dept.id,
+      label: dept.name || 'Unnamed Department'
     }))
   ];
 
   const designationOptions = [
     { value: '', label: 'Select Designation' },
     ...(dropdownData.designations || []).map(designation => ({
-      value: designation.id.toString(),
-      label: designation.name
+      value: designation.id?.toString() || designation.id,
+      label: designation.name || 'Unnamed Designation'
     }))
   ];
 
@@ -94,9 +80,9 @@ export default function ProfessionalInfoForm({ formData, errors, onChange, dropd
   // ];
   const reportingManagerOptions = [
     { value: '', label: 'Select Reporting Manager' },
-    ...(managers?.data || managers || []).map(manager => ({
-      value: manager.id.toString(),
-      label: `${manager.firstName} ${manager.lastName} (${manager.employeeId})${manager.designation?.name ? ` - ${manager.designation.name}` : ''}`
+    ...(managers || dropdownData.reportingManagers || []).map(manager => ({
+      value: manager.id?.toString() || manager.id,
+      label: `${manager.firstName} ${manager.lastName} (${manager.employeeId || ''})${manager.designation?.name ? ` - ${manager.designation.name}` : ''}`
     }))
   ];
 

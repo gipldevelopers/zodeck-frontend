@@ -1,0 +1,350 @@
+"use client";
+
+import { useState, useMemo, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  getPaginationRowModel,
+  flexRender,
+} from "@tanstack/react-table";
+import { ChevronUp, ChevronDown, Eye, Edit, Trash2 } from "lucide-react";
+import Pagination from "@/components/common/Pagination";
+import { organizationService } from "@/services/hr-services/organization.service";
+import { toast } from "react-hot-toast";
+import Link from "next/link";
+
+export default function DepartmentTableWrapper() {
+  const router = useRouter();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [sorting, setSorting] = useState([]);
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+
+  // Fetch departments from API
+  const fetchDepartments = async () => {
+    try {
+      setLoading(true);
+      // Ensure limit doesn't exceed API maximum of 100
+      const validLimit = Math.min(Math.max(1, pagination.pageSize), 100);
+      const params = {
+        page: pagination.pageIndex + 1,
+        limit: validLimit,
+        search: globalFilter || "",
+        status: statusFilter !== "all" ? statusFilter : "all",
+      };
+
+      const response = await organizationService.getAllDepartments(params);
+
+      // Handle API response structure: { success: true, data: [...], pagination: {...} }
+      const departments = response.success
+        ? response.data || []
+        : response.data?.departments || response.data || [];
+      const paginationInfo = response.pagination || response.data?.pagination || {};
+
+      const formattedData = departments.map((dept) => ({
+        id: dept.id,
+        name: dept.name || "Unnamed Department",
+        code: dept.code || "-",
+        headOfDepartment: dept.headOfDepartment || "-",
+        phone: dept.phone || "-",
+        email: dept.email || "-",
+        status: dept.status || "ACTIVE",
+        employeeCount: dept.employeeCount || 0,
+        designationCount: dept.designationCount || 0,
+        parentId: dept.parentId || null,
+        parent: dept.parent || null,
+        manager: dept.manager || null,
+        raw: dept,
+      }));
+
+      setData(formattedData);
+      setTotalItems(paginationInfo.totalItems || paginationInfo.total || 0);
+      setTotalPages(
+        paginationInfo.totalPages ||
+          Math.ceil((paginationInfo.totalItems || paginationInfo.total || 0) / pagination.pageSize)
+      );
+    } catch (error) {
+      console.error("Error fetching departments:", error);
+      toast.error(error.message || "Failed to fetch departments");
+      setData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDepartments();
+  }, [pagination.pageIndex, pagination.pageSize, globalFilter, statusFilter]);
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "id",
+        header: "#",
+        cell: (info) => (
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            {info.row.index + 1 + pagination.pageIndex * pagination.pageSize}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "name",
+        header: "Department Name",
+        cell: (info) => (
+          <span className="text-sm font-medium text-gray-900 dark:text-white">
+            {info.getValue()}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "code",
+        header: "Code",
+        cell: (info) => (
+          <span className="text-sm text-gray-600 dark:text-gray-400">{info.getValue()}</span>
+        ),
+      },
+      {
+        accessorKey: "headOfDepartment",
+        header: "Head of Department",
+        cell: (info) => (
+          <span className="text-sm text-gray-600 dark:text-gray-400">{info.getValue()}</span>
+        ),
+      },
+      {
+        accessorKey: "phone",
+        header: "Phone",
+        cell: (info) => (
+          <span className="text-sm text-gray-600 dark:text-gray-400">{info.getValue()}</span>
+        ),
+      },
+      {
+        accessorKey: "email",
+        header: "Email",
+        cell: (info) => (
+          <span className="text-sm text-gray-600 dark:text-gray-400">{info.getValue()}</span>
+        ),
+      },
+      {
+        accessorKey: "employeeCount",
+        header: "Employees",
+        cell: (info) => (
+          <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+            {info.getValue()}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: (info) => {
+          const status = info.getValue();
+          const statusClass =
+            status === "ACTIVE"
+              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+              : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
+          return (
+            <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${statusClass}`}>
+              {status}
+            </span>
+          );
+        },
+      },
+      {
+        id: "actions",
+        header: "Actions",
+        enableSorting: false,
+        cell: (info) => (
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/hr/organization-management/departments/view/${info.row.original.id}`}
+              className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors dark:bg-blue-900/30 dark:text-blue-400"
+              title="View"
+            >
+              <Eye className="w-4 h-4" />
+            </Link>
+            <Link
+              href={`/hr/organization-management/departments/edit/${info.row.original.id}`}
+              className="p-2 rounded-lg bg-purple-50 text-purple-600 hover:bg-purple-100 transition-colors dark:bg-purple-900/30 dark:text-purple-400"
+              title="Edit"
+            >
+              <Edit className="w-4 h-4" />
+            </Link>
+            <button
+              onClick={async () => {
+                if (
+                  window.confirm(
+                    `Are you sure you want to delete "${info.row.original.name}"?`
+                  )
+                ) {
+                  try {
+                    await organizationService.deleteDepartment(info.row.original.id);
+                    toast.success("Department deleted successfully");
+                    fetchDepartments();
+                  } catch (error) {
+                    toast.error(error.message || "Failed to delete department");
+                  }
+                }
+              }}
+              className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors dark:bg-red-900/30 dark:text-red-400"
+              title="Delete"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        ),
+      },
+    ],
+    [pagination.pageIndex, pagination.pageSize]
+  );
+
+  const table = useReactTable({
+    data,
+    columns,
+    state: { sorting, pagination },
+    onSortingChange: setSorting,
+    onPaginationChange: setPagination,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    pageCount: totalPages,
+  });
+
+  if (loading && data.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Filters */}
+      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+        <div className="relative flex-1 max-w-md">
+          <input
+            type="text"
+            placeholder="Search departments..."
+            value={globalFilter}
+            onChange={(e) => {
+              setGlobalFilter(e.target.value);
+              setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+            }}
+            className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
+        </div>
+        <select
+          value={statusFilter}
+          onChange={(e) => {
+            setStatusFilter(e.target.value);
+            setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+          }}
+          className="px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        >
+          <option value="all">All Status</option>
+          <option value="ACTIVE">Active</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+        <table className="w-full">
+          <thead className="bg-gray-50 dark:bg-gray-900">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300"
+                  >
+                    {header.isPlaceholder ? null : (
+                      <div
+                        className={`flex items-center gap-2 ${
+                          header.column.getCanSort()
+                            ? "cursor-pointer select-none hover:text-gray-900 dark:hover:text-white"
+                            : ""
+                        }`}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {header.column.getCanSort() && (
+                          <span className="flex flex-col">
+                            <ChevronUp
+                              className={`w-3 h-3 ${
+                                header.column.getIsSorted() === "asc"
+                                  ? "text-blue-600"
+                                  : "text-gray-400"
+                              }`}
+                            />
+                            <ChevronDown
+                              className={`w-3 h-3 -mt-1 ${
+                                header.column.getIsSorted() === "desc"
+                                  ? "text-blue-600"
+                                  : "text-gray-400"
+                              }`}
+                            />
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="px-6 py-12 text-center text-gray-500 dark:text-gray-400"
+                >
+                  No departments found
+                </td>
+              </tr>
+            ) : (
+              table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-b border-gray-100 dark:border-gray-700"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="px-4 py-3">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <Pagination
+        currentPage={pagination.pageIndex + 1}
+        totalItems={totalItems}
+        totalPages={totalPages}
+        itemsPerPage={pagination.pageSize}
+        onPageChange={(page) => {
+          setPagination((prev) => ({ ...prev, pageIndex: page - 1 }));
+        }}
+        onItemsPerPageChange={(size) => {
+          // API limit validation: max 100 items per page
+          const validSize = Math.min(Math.max(1, size), 100);
+          setPagination({ pageIndex: 0, pageSize: validSize });
+        }}
+      />
+    </div>
+  );
+}

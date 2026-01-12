@@ -109,29 +109,39 @@ export default function AddEmployeePage() {
   useEffect(() => {
     const loadDropdownData = async () => {
       try {
-        // const [departments, designations, managers 
-        //   // reportingManagers
-        // ] = await Promise.all([
-        //   employeeService.getDepartments(),
-        //   employeeService.getDesignations(),
-        //   // employeeService.getReportingManagers()
-        //   employeeService.getManagers()
-        // ]);
-        const [departments, designations, managers] = await Promise.all([
+        const [departmentsResponse, designationsResponse, managersResponse] = await Promise.all([
           employeeService.getDepartments(),
           employeeService.getDesignations(),
-          employeeService.getManagers() // Make sure this endpoint exists
+          employeeService.getManagers()
         ]);
 
+        // Handle API response structure: { success: true, data: [...], pagination: {...} }
+        const departments = departmentsResponse.success 
+          ? (departmentsResponse.data || [])
+          : (departmentsResponse.data?.departments || departmentsResponse.data || []);
+        
+        const designations = designationsResponse.success
+          ? (designationsResponse.data || [])
+          : (designationsResponse.data?.designations || designationsResponse.data || []);
+        
+        const managers = managersResponse.success
+          ? (managersResponse.data || [])
+          : (managersResponse.data || []);
+
         setDropdownData({
-          departments: departments.data || departments,
-          designations: designations.data || designations,
-          reportingManagers: managers.data || managers
-          // reportingManagers: reportingManagers.data || reportingManagers
+          departments: Array.isArray(departments) ? departments : [],
+          designations: Array.isArray(designations) ? designations : [],
+          reportingManagers: Array.isArray(managers) ? managers : []
         });
       } catch (error) {
         toast.error('Failed to load dropdown data');
         console.error('Error loading dropdown data:', error);
+        // Set empty arrays on error
+        setDropdownData({
+          departments: [],
+          designations: [],
+          reportingManagers: []
+        });
       } finally {
         setLoadingDropdowns(false);
       }
