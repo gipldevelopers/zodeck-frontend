@@ -7,6 +7,7 @@ import ProfileHeader from './components/ProfileHeader';
 import ProfileTabs from './components/ProfileTabs';
 import userService from '@/services/user-services/user.service';
 import { toast } from 'react-hot-toast';
+import HRMSLoader from '@/components/common/HRMSLoader';
 
 // Define allowed fields for update
 const ALLOWED_UPDATE_FIELDS = [
@@ -223,13 +224,7 @@ export default function ProfilePage() {
   };
 
   if (loading) {
-    return (
-      <div className="bg-gray-50 min-h-screen dark:bg-gray-900 p-4 sm:p-6">
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        </div>
-      </div>
-    );
+    return <HRMSLoader text="Loading profile data..." variant="fullscreen" size="md" />;
   }
 
   if (!profileData) {

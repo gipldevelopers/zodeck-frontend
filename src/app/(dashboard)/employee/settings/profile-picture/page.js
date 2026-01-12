@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Breadcrumb from "@/components/common/Breadcrumb";
-import { UploadCloud, Trash2 } from "lucide-react";
+import { UploadCloud, Trash2, User, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 
 export default function ProfilePicturePage() {
   const breadcrumbItems = [
@@ -15,103 +15,147 @@ export default function ProfilePicturePage() {
     "https://avatars.dicebear.com/api/gridy/profile.svg"
   );
   const [message, setMessage] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setIsUploading(true);
       const reader = new FileReader();
-      reader.onload = (ev) => setAvatar(ev.target.result);
+      reader.onload = (ev) => {
+        setAvatar(ev.target.result);
+        setIsUploading(false);
+      };
       reader.readAsDataURL(file);
     }
   };
 
   const handleReset = () => {
     setAvatar("https://avatars.dicebear.com/api/gridy/profile.svg");
+    setMessage("");
   };
 
   const handleSave = () => {
     // Handle save logic here (API call or state persistence)
     console.log("Profile picture updated:", avatar);
     setMessage("Profile picture has been updated successfully!");
+    setTimeout(() => setMessage(""), 5000);
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
-      <Breadcrumb items={breadcrumbItems} />
+    <div className="min-h-screen bg-gradient-to-br from-primary-50/30 via-white to-primary-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <Breadcrumb items={breadcrumbItems} />
 
-      {/* Full-width container */}
-      <div className="mt-8 w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-          Profile Picture
-        </h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-8">
-          Update your profile avatar to personalize your account.
-        </p>
+        {/* Header */}
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Profile Picture</h1>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Update your profile avatar to personalize your account
+          </p>
+        </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Avatar Card */}
-          <div className="flex flex-col items-center gap-4 bg-gray-100 dark:bg-gray-900 p-6 rounded-xl shadow-sm w-full lg:w-1/3">
-            <div className="w-36 h-36 rounded-full border-2 border-dashed flex items-center justify-center overflow-hidden shadow-md">
-              <img
-                src={avatar}
-                alt="Profile Avatar"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col gap-2 w-full">
-              <label className="px-4 py-2 bg-blue-600 text-white rounded-lg flex items-center justify-center gap-2 cursor-pointer hover:bg-blue-700 transition">
-                <UploadCloud size={18} /> Upload
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleUpload}
-                />
-              </label>
-              <button
-                onClick={handleReset}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex items-center justify-center gap-2"
-              >
-                <Trash2 size={18} /> Reset
-              </button>
+          <div className="lg:col-span-1">
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm">
+              <div className="flex flex-col items-center gap-6">
+                <div className="relative">
+                  <div className="w-40 h-40 rounded-full border-4 border-primary-200 dark:border-primary-500/30 flex items-center justify-center overflow-hidden shadow-lg bg-primary-50 dark:bg-primary-500/10">
+                    {avatar ? (
+                      <img
+                        src={avatar}
+                        alt="Profile Avatar"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <User className="w-20 h-20 text-primary-400 dark:text-primary-500" />
+                    )}
+                  </div>
+                  {isUploading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-3 w-full">
+                  <label className="px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm">
+                    <UploadCloud className="w-4 h-4" />
+                    Upload New Photo
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleUpload}
+                    />
+                  </label>
+                  <button
+                    onClick={handleReset}
+                    className="px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    Reset to Default
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Instructions */}
-          <div className="flex-1 bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-sm w-full lg:w-2/3">
-            <h3 className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">
-              Recommended Size
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
-              Use a square image (e.g., 200x200px) for the best result. Supported formats: PNG, JPG, SVG.
-            </p>
-            <h3 className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">
-              Tips
-            </h3>
-            <ul className="list-disc list-inside text-gray-500 dark:text-gray-400 space-y-1">
-              <li>Use a neutral or professional avatar.</li>
-              <li>Ensure good contrast with the background.</li>
-              <li>Avoid low-resolution images.</li>
-            </ul>
-            <p className="text-sm text-gray-400 mt-4">
-              Changes will be visible after saving.
-            </p>
+          <div className="lg:col-span-2">
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <ImageIcon className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                Upload Guidelines
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                    Recommended Size
+                  </h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Use a square image (e.g., 200x200px or 400x400px) for the best result. Supported formats: PNG, JPG, SVG, WebP.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
+                    Tips for Best Results
+                  </h4>
+                  <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <li>Use a neutral or professional avatar</li>
+                    <li>Ensure good contrast with the background</li>
+                    <li>Avoid low-resolution images (minimum 200x200px)</li>
+                    <li>Keep file size under 5MB for faster uploads</li>
+                  </ul>
+                </div>
+
+                <div className="bg-primary-50 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/30 rounded-lg p-4">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    <strong className="text-primary-700 dark:text-primary-400">Note:</strong> Changes will be visible across all platforms after saving. Your profile picture is visible to your team members.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Success Message */}
         {message && (
-          <p className="mt-4 px-4 py-2 bg-green-100 text-green-800 rounded-lg dark:bg-green-700 dark:text-green-100 w-max">
-            {message}
-          </p>
+          <div className="bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 rounded-lg p-4 flex items-center gap-3">
+            <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+            <p className="text-sm text-green-800 dark:text-green-300">{message}</p>
+          </div>
         )}
 
         {/* Save Button */}
-        <div className="mt-8 flex justify-end">
+        <div className="flex justify-end">
           <button
             type="button"
             onClick={handleSave}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+            className="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow-sm transition-colors font-medium"
           >
             Save Changes
           </button>

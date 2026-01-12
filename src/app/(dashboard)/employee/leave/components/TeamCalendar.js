@@ -10,8 +10,10 @@ import {
   endOfWeek,
   isSameMonth,
   isSameDay,
+  isToday,
   getMonth,
 } from "date-fns";
+import { Calendar, Filter, Users, ChevronLeft, ChevronRight, CheckCircle, Clock, AlertCircle } from "lucide-react";
 
 // Dummy team leave data
 const dummyLeaves = [
@@ -32,9 +34,21 @@ const months = [
 ];
 
 const leaveColors = {
-  "Sick Leave": "bg-green-200 text-green-800",
-  Vacation: "bg-blue-200 text-blue-800",
-  "Personal Time": "bg-yellow-200 text-yellow-800",
+  "Sick Leave": {
+    bg: "bg-primary-50 dark:bg-primary-500/10",
+    text: "text-primary-700 dark:text-primary-400",
+    border: "border-primary-200 dark:border-primary-500/30"
+  },
+  Vacation: {
+    bg: "bg-blue-50 dark:bg-blue-500/10",
+    text: "text-blue-700 dark:text-blue-400",
+    border: "border-blue-200 dark:border-blue-500/30"
+  },
+  "Personal Time": {
+    bg: "bg-amber-50 dark:bg-amber-500/10",
+    text: "text-amber-700 dark:text-amber-400",
+    border: "border-amber-200 dark:border-amber-500/30"
+  },
 };
 
 export default function TeamCalendar({ selectedMonth }) {
@@ -76,103 +90,142 @@ export default function TeamCalendar({ selectedMonth }) {
   const statuses = ["All", "Approved", "Pending", "Rejected"];
 
   return (
-    <div>
-{/* Filters */}
-<div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-end justify-between flex-wrap">
-  
-  {/* Department Filter */}
-  <div className="flex flex-col flex-1 min-w-[180px]">
-    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Department / Team / Employee</label>
-    <select
-      value={departmentFilter}
-      onChange={(e) => setDepartmentFilter(e.target.value)}
-      className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
-    >
-      {departments.map((d) => (
-        <option key={d} value={d}>{d}</option>
-      ))}
-    </select>
-  </div>
+    <div className="space-y-6">
+      {/* Filters */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-primary-100/50 dark:border-gray-700 shadow-sm">
+        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+          <div className="flex flex-wrap gap-3 w-full lg:w-auto">
+            {/* Department Filter */}
+            <div className="relative flex-1 lg:flex-initial min-w-[180px]">
+              <select
+                value={departmentFilter}
+                onChange={(e) => setDepartmentFilter(e.target.value)}
+                className="w-full appearance-none pl-10 pr-8 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm cursor-pointer"
+              >
+                {departments.map((d) => (
+                  <option key={d} value={d}>{d === "All" ? "All Departments" : d}</option>
+                ))}
+              </select>
+              <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+            </div>
 
-  {/* Leave Status Filter */}
-  <div className="flex flex-col flex-1 min-w-[150px]">
-    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Leave Status</label>
-    <select
-      value={statusFilter}
-      onChange={(e) => setStatusFilter(e.target.value)}
-      className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
-    >
-      {statuses.map((s) => (
-        <option key={s} value={s}>{s}</option>
-      ))}
-    </select>
-  </div>
+            {/* Leave Status Filter */}
+            <div className="relative flex-1 lg:flex-initial min-w-[150px]">
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="w-full appearance-none pl-10 pr-8 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm cursor-pointer"
+              >
+                {statuses.map((s) => (
+                  <option key={s} value={s}>{s === "All" ? "All Status" : s}</option>
+                ))}
+              </select>
+              <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+            </div>
 
-  {/* Month Filter */}
-  <div className="flex flex-col flex-1 min-w-[200px]">
-    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Month</label>
-    <select
-      value={currentMonth.getMonth()}
-      onChange={(e) => setCurrentMonth(new Date(currentYear, Number(e.target.value)))}
-      className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
-    >
-      {months.map((m) => (
-        <option key={m.value} value={m.value} disabled={m.value > new Date().getMonth()}>
-          {m.name}
-        </option>
-      ))}
-    </select>
-  </div>
-</div>
+            {/* Month Filter */}
+            <div className="relative flex-1 lg:flex-initial min-w-[200px]">
+              <select
+                value={currentMonth.getMonth()}
+                onChange={(e) => setCurrentMonth(new Date(currentYear, Number(e.target.value)))}
+                className="w-full appearance-none pl-10 pr-8 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm cursor-pointer"
+              >
+                {months.map((m) => (
+                  <option key={m.value} value={m.value} disabled={m.value > new Date().getMonth()}>
+                    {m.name}
+                  </option>
+                ))}
+              </select>
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+            </div>
+          </div>
 
-
-
-
-      {/* Weekdays */}
-      <div className="grid grid-cols-7 gap-2 text-center font-semibold text-gray-700 dark:text-gray-300 mb-2">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-          <div key={day}>{day}</div>
-        ))}
+          {/* Month Navigation */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={prevMonth}
+              className="p-2 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-500/10 hover:border-primary-300 dark:hover:border-primary-500/50 transition-colors duration-200"
+            >
+              <ChevronLeft size={18} className="text-gray-700 dark:text-gray-300" />
+            </button>
+            <div className="px-4 py-2 text-sm font-semibold text-gray-900 dark:text-white min-w-[150px] text-center">
+              {format(currentMonth, "MMMM yyyy")}
+            </div>
+            <button
+              onClick={nextMonth}
+              className="p-2 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-500/10 hover:border-primary-300 dark:hover:border-primary-500/50 transition-colors duration-200"
+            >
+              <ChevronRight size={18} className="text-gray-700 dark:text-gray-300" />
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Calendar Grid */}
-      <div className="grid grid-cols-7 gap-2">
-        {calendarDays.map((dayItem, idx) => {
-          const leaves = getFilteredLeaves(dayItem);
-          return (
-            <div
-              key={idx}
-              className={`border border-gray-200 dark:border-gray-600 p-2 h-28 flex flex-col gap-1 rounded-lg shadow-sm ${
-                isSameMonth(dayItem, currentMonth)
-                  ? "bg-white dark:bg-gray-800"
-                  : "bg-gray-100 dark:bg-gray-800/50"
-              }`}
-            >
-              <div
-                className={`text-sm font-medium ${
-                  isSameDay(dayItem, today)
-                    ? "bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                    : "text-gray-700 dark:text-gray-300"
-                }`}
-              >
-                {format(dayItem, "d")}
-              </div>
+      {/* Calendar Card */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-primary-100/50 dark:border-gray-700 shadow-sm p-6">
 
-              {/* Leaves */}
-              <div className="flex flex-col gap-1 overflow-y-auto max-h-20">
-                {leaves.map((leave) => (
-                  <div
-                    key={leave.id}
-                    className={`text-xs font-semibold px-1 rounded ${leaveColors[leave.type]}`}
-                    title={`${leave.name} - ${leave.type}`}
-                  >
-                    {leave.name} ({leave.type})
-                  </div>
-                ))}
-              </div>
+
+
+
+        {/* Weekdays */}
+        <div className="grid grid-cols-7 gap-2 mb-3">
+          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+            <div key={day} className="text-center text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider py-2">
+              {day}
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        {/* Calendar Grid */}
+        <div className="grid grid-cols-7 gap-2">
+          {calendarDays.map((dayItem, idx) => {
+            const leaves = getFilteredLeaves(dayItem);
+            const isCurrentMonth = isSameMonth(dayItem, currentMonth);
+            const isTodayDate = isToday(dayItem);
+            return (
+              <div
+                key={idx}
+                className={`border rounded-xl p-2 h-28 sm:h-32 flex flex-col gap-1 transition-all duration-200 ${
+                  isCurrentMonth
+                    ? "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-500/50"
+                    : "bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700 text-gray-400"
+                } ${isTodayDate && isCurrentMonth ? "ring-2 ring-primary-500 ring-offset-2" : ""}`}
+              >
+                <div
+                  className={`text-sm font-semibold ${
+                    isTodayDate && isCurrentMonth
+                      ? "text-primary-600 dark:text-primary-400"
+                      : "text-gray-700 dark:text-gray-300"
+                  }`}
+                >
+                  {format(dayItem, "d")}
+                </div>
+
+                {/* Leaves */}
+                <div className="flex flex-col gap-1 overflow-y-auto max-h-20 flex-1">
+                  {leaves.map((leave) => {
+                    const colorConfig = leaveColors[leave.type] || leaveColors["Sick Leave"];
+                    const statusIcon = leave.status === "Approved" ? CheckCircle : 
+                                     leave.status === "Pending" ? Clock : AlertCircle;
+                    const StatusIcon = statusIcon;
+                    return (
+                      <div
+                        key={leave.id}
+                        className={`text-[10px] font-medium px-1.5 py-0.5 rounded border ${colorConfig.bg} ${colorConfig.text} ${colorConfig.border}`}
+                        title={`${leave.name} - ${leave.type} (${leave.status})`}
+                      >
+                        <div className="flex items-center gap-1 truncate">
+                          <StatusIcon size={8} />
+                          <span className="truncate">{leave.name}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

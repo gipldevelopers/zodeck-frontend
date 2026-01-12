@@ -11,20 +11,15 @@ export default function LeaveHistoryPage() {
   );
 
   return (
-    <div className="bg-gray-50 min-h-screen dark:bg-gray-900">
-      {/* Breadcrumb */}
-      <Breadcrumb
-        title="Leave History"
-        subtitle="View your past and pending leave requests"
-      />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        <Breadcrumb
+          customTitle="Leave History"
+          subtitle="View your past and pending leave requests"
+        />
 
-      {/* Leave Overview Cards */}
-      <div className="mt-6">
         <LeaveOverviewCards selectedMonth={selectedMonth} />
-      </div>
 
-      {/* Leave History Table */}
-      <div className="mt-6">
         <LeaveHistoryTable />
       </div>
     </div>

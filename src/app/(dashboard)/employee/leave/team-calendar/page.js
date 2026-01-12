@@ -11,21 +11,19 @@ export default function TeamCalendarPage() {
   );
 
   return (
-    <div className="bg-gray-50 min-h-screen dark:bg-gray-900 p-6">
-      {/* Breadcrumb */}
-      <Breadcrumb
-        title="Team Calendar"
-        subtitle="View team leaves and schedule"
-        rightContent={
-          <BreadcrumbRightContent
-            selectedDate={selectedMonth}
-            setSelectedDate={setSelectedMonth}
-          />
-        }
-      />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        <Breadcrumb
+          customTitle="Team Calendar"
+          subtitle="View team leaves and schedule"
+          rightContent={
+            <BreadcrumbRightContent
+              selectedDate={selectedMonth}
+              setSelectedDate={setSelectedMonth}
+            />
+          }
+        />
 
-      {/* Calendar Component */}
-      <div className="mt-6">
         <TeamCalendar selectedMonth={selectedMonth} />
       </div>
     </div>

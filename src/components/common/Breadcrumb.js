@@ -16,6 +16,12 @@ const breadcrumbConfig = {
     employee: 'Employee',
     employees: 'Employees',
     attendance: 'Attendance',
+    'my-attendance': 'My Attendance',
+    'my-leaves': 'My Leaves',
+    'leave-summery-details': 'Leave Summary Details',
+    'regularization': 'Regularization',
+    'overtime': 'Overtime',
+    'holidays': 'Holidays',
     leave: 'Leave',
     payslips: 'Payslips',
     profile: 'Profile',
@@ -31,7 +37,7 @@ const breadcrumbConfig = {
   idPaths: ['id'],
 };
 
-const Breadcrumb = ({ customTitle, rightContent }) => {
+const Breadcrumb = ({ customTitle, subtitle, rightContent }) => {
   const pathname = usePathname();
 
   const generateBreadcrumbs = () => {
@@ -45,6 +51,7 @@ const Breadcrumb = ({ customTitle, rightContent }) => {
         href: '/',
         label: <Home className="w-4 h-4" />,
         isCurrent: false,
+        isIcon: true,
       },
     ];
 
@@ -74,6 +81,7 @@ const Breadcrumb = ({ customTitle, rightContent }) => {
         href: accumulatedPath,
         label,
         isCurrent: i === filteredPaths.length - 1,
+        isIcon: false,
       });
     }
 
@@ -98,39 +106,47 @@ const Breadcrumb = ({ customTitle, rightContent }) => {
   }
 
   return (
-    <div className="my-auto mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       {/* Left side */}
-      <div>
-        <h2 className="mb-1 text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
+      <div className="flex-1">
+        <h1 className="mb-2 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
           {pageTitle}
-        </h2>
+        </h1>
+        {subtitle && (
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+            {subtitle}
+          </p>
+        )}
 
-        <nav className="overflow-x-auto">
-          <ol className="breadcrumb mb-0 flex flex-wrap items-center text-sm whitespace-nowrap">
+        <nav className="overflow-x-auto" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-2 text-sm">
             {breadcrumbs.map((breadcrumb, index) => (
               <li
                 key={index}
-                className="breadcrumb-item flex items-center text-gray-600 dark:text-gray-400"
+                className="flex items-center"
               >
-                {/* ONLY HOME IS CLICKABLE */}
-                {index === 0 ? (
-                  <Link
-                    href={breadcrumb.href}
-                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors flex items-center"
-                  >
-                    {breadcrumb.label}
-                  </Link>
-                ) : (
+                {breadcrumb.isCurrent ? (
                   <span
-                    aria-current={breadcrumb.isCurrent ? 'page' : undefined}
-                    className={breadcrumb.isCurrent ? 'font-medium' : ''}
+                    aria-current="page"
+                    className="text-gray-700 dark:text-gray-300 font-medium"
                   >
                     {breadcrumb.label}
                   </span>
+                ) : (
+                  <Link
+                    href={breadcrumb.href}
+                    className={`transition-colors duration-200 font-medium ${
+                      breadcrumb.isIcon 
+                        ? "text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 flex items-center"
+                        : "text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                    }`}
+                  >
+                    {breadcrumb.label}
+                  </Link>
                 )}
 
                 {index < breadcrumbs.length - 1 && (
-                  <span className="mx-2 text-gray-400">/</span>
+                  <span className="mx-2 text-gray-400 dark:text-gray-500">/</span>
                 )}
               </li>
             ))}

@@ -21,8 +21,6 @@ export default function LeaveOverviewCards({ selectedMonth }) {
     try {
       setLoading(true);
       const data = await EmployeeLeaveService.getDashboardStats();
-      // Assuming the API returns these fields or mapping is needed.
-      // For now using the data as is or providing defaults
       setStatsData({
         totalLeaves: data.totalLeaves || 0,
         leavesTaken: data.leavesTaken || 0,
@@ -37,42 +35,79 @@ export default function LeaveOverviewCards({ selectedMonth }) {
   };
 
   const cards = [
-    { title: "Total Leaves", value: statsData.totalLeaves, icon: Calendar, iconBg: "bg-gradient-to-r from-gray-800 to-gray-600", cardBg: "bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900", description: "Total leave entitlement" },
-    { title: "Leaves Taken", value: statsData.leavesTaken, icon: CheckCircle, iconBg: "bg-gradient-to-r from-green-500 to-green-400", cardBg: "bg-gradient-to-br from-white to-green-50 dark:from-gray-800 dark:to-gray-900", description: "Approved leaves used" },
-    { title: "Remaining Leaves", value: statsData.remainingLeaves, icon: Clock, iconBg: "bg-gradient-to-r from-yellow-500 to-yellow-400", cardBg: "bg-gradient-to-br from-white to-yellow-50 dark:from-gray-800 dark:to-gray-900", description: "Leaves still available" },
-    { title: "Pending Leaves", value: statsData.pendingLeaves, icon: XCircle, iconBg: "bg-gradient-to-r from-red-500 to-red-400", cardBg: "bg-gradient-to-br from-white to-red-50 dark:from-gray-800 dark:to-gray-900", description: "Leaves awaiting approval" },
+    { 
+      title: "Total Leaves", 
+      value: statsData.totalLeaves, 
+      icon: Calendar, 
+      iconColor: "text-primary-600 dark:text-primary-400",
+      iconBg: "bg-primary-50 dark:bg-primary-500/10",
+      accentColor: "border-primary-200 dark:border-primary-500/30",
+      description: "Total leave entitlement" 
+    },
+    { 
+      title: "Leaves Taken", 
+      value: statsData.leavesTaken, 
+      icon: CheckCircle, 
+      iconColor: "text-emerald-600 dark:text-emerald-400",
+      iconBg: "bg-emerald-50 dark:bg-emerald-500/10",
+      accentColor: "border-emerald-200 dark:border-emerald-500/30",
+      description: "Approved leaves used" 
+    },
+    { 
+      title: "Remaining Leaves", 
+      value: statsData.remainingLeaves, 
+      icon: Clock, 
+      iconColor: "text-blue-600 dark:text-blue-400",
+      iconBg: "bg-blue-50 dark:bg-blue-500/10",
+      accentColor: "border-blue-200 dark:border-blue-500/30",
+      description: "Leaves still available" 
+    },
+    { 
+      title: "Pending Leaves", 
+      value: statsData.pendingLeaves, 
+      icon: XCircle, 
+      iconColor: "text-amber-600 dark:text-amber-400",
+      iconBg: "bg-amber-50 dark:bg-amber-500/10",
+      accentColor: "border-amber-200 dark:border-amber-500/30",
+      description: "Leaves awaiting approval" 
+    },
   ];
 
   if (loading) {
     return (
-      <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map(i => (
-          <div key={i} className="h-32 bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"></div>
+          <div key={i} className="h-32 bg-white dark:bg-gray-800 rounded-2xl border border-primary-100/50 dark:border-gray-700 animate-pulse"></div>
         ))}
       </div>
     );
   }
 
   return (
-    <div className="mb-8">
-      <div className="mb-6">
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {cards.map((card, index) => (
-          <div key={index} className={`rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 cursor-pointer ${card.cardBg} hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}>
-            <div className="flex items-center">
-              <div className={`${card.iconBg} rounded-lg p-3 mr-4 shadow-md`}>
-                <card.icon className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">{card.title}</p>
-                <h4 className="text-xl font-bold text-gray-800 dark:text-white">{card.value}</h4>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{card.description}</p>
-              </div>
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {cards.map((card, index) => (
+        <div key={index} className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="flex items-center gap-2.5 mb-4">
+            <div className={`${card.iconBg} ${card.iconColor} rounded-lg p-2.5`}>
+              <card.icon className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide truncate">
+                {card.title}
+              </p>
             </div>
           </div>
-        ))}
-      </div>
+          <div className="space-y-1">
+            <h4 className="text-2xl font-bold text-gray-900 dark:text-white">
+              {card.value}
+            </h4>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {card.description}
+            </p>
+          </div>
+          <div className={`mt-4 h-1 ${card.accentColor} border-t`}></div>
+        </div>
+      ))}
     </div>
   );
 }

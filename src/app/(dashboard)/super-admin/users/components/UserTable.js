@@ -10,12 +10,13 @@ import {
   getPaginationRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { ChevronUp, ChevronDown, Edit, Trash2, User, Mail, Shield, Loader2, Key, Eye, UserCheck, UserX, UserCog } from 'lucide-react';
+import { ChevronUp, ChevronDown, Edit, Trash2, User, Mail, Shield, Key, Eye, UserCheck, UserX, UserCog } from 'lucide-react';
 import Pagination from '@/components/common/Pagination';
 import UserFilters from './UserFilters';
 import { userManagementService } from '@/services/userManagementService';
 import { toast } from 'sonner';
 import ConfirmationDialog from '@/components/common/ConfirmationDialog';
+import HRMSLoader from '@/components/common/HRMSLoader';
 
 export default function UserTable() {
   const [data, setData] = useState([]);
@@ -447,9 +448,7 @@ export default function UserTable() {
   return (
     <div className="p-4 sm:p-6">
       {loading && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
-        </div>
+        <HRMSLoader text="Loading users..." variant="overlay" size="md" />
       )}
 
       {/* Filters Section */}

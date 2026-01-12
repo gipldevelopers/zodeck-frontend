@@ -1,30 +1,46 @@
 "use client";
 
+import { Calendar } from "lucide-react";
+
 export default function LeaveBalanceCard({ type, allocated, used }) {
   const remaining = allocated - used;
-  const percentage = (used / allocated) * 100;
+  const percentage = allocated > 0 ? (used / allocated) * 100 : 0;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 flex flex-col gap-3 border border-gray-200 dark:border-gray-700">
-      <div className="flex justify-between items-center">
-        <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-          {type}
-        </h4>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          {remaining} / {allocated} days left
-        </span>
+    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-primary-100/50 dark:border-gray-700 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="p-2 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-lg">
+          <Calendar size={18} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h4 className="text-base font-semibold text-gray-900 dark:text-white truncate">
+            {type}
+          </h4>
+        </div>
       </div>
 
-      <div className="relative h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full">
-        <div
-          className="absolute h-2 bg-blue-600 rounded-full transition-all"
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
+      <div className="space-y-3">
+        <div className="flex justify-between items-center">
+          <span className="text-sm text-gray-600 dark:text-gray-400">Used</span>
+          <span className="text-sm font-semibold text-gray-900 dark:text-white">{used} days</span>
+        </div>
 
-      <p className="text-xs text-gray-500 dark:text-gray-400">
-        {used} used • {remaining} remaining
-      </p>
+        <div className="relative h-2.5 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div
+            className="absolute h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full transition-all duration-500"
+            style={{ width: `${Math.min(percentage, 100)}%` }}
+          />
+        </div>
+
+        <div className="flex justify-between items-center text-xs">
+          <span className="text-gray-500 dark:text-gray-400">
+            {remaining} remaining
+          </span>
+          <span className="font-medium text-gray-700 dark:text-gray-300">
+            {allocated} total
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 // src/components/common/Pagination.js
 "use client";
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal, ChevronsLeft, ChevronsRight, ChevronDown } from 'lucide-react';
 
 export default function Pagination({
   currentPage,
@@ -12,7 +12,7 @@ export default function Pagination({
   className = ""
 }) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
+  const startItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   // Generate page numbers with ellipsis logic
@@ -21,44 +21,35 @@ export default function Pagination({
     const maxVisiblePages = 5;
     
     if (totalPages <= maxVisiblePages) {
-      // Show all pages if total pages is less than max visible
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Always include first page
       pages.push(1);
       
-      // Calculate start and end of visible pages
       let start = Math.max(2, currentPage - 1);
       let end = Math.min(totalPages - 1, currentPage + 1);
       
-      // Adjust if we're near the beginning
       if (currentPage <= 3) {
         end = 4;
       }
       
-      // Adjust if we're near the end
       if (currentPage >= totalPages - 2) {
         start = totalPages - 3;
       }
       
-      // Add ellipsis after first page if needed
       if (start > 2) {
         pages.push('ellipsis-left');
       }
       
-      // Add middle pages
       for (let i = start; i <= end; i++) {
         pages.push(i);
       }
       
-      // Add ellipsis before last page if needed
       if (end < totalPages - 1) {
         pages.push('ellipsis-right');
       }
       
-      // Always include last page
       pages.push(totalPages);
     }
     
@@ -71,67 +62,101 @@ export default function Pagination({
     }
   };
 
+  if (totalPages === 0) return null;
+
   return (
-    <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 ${className}`}>
-      <div className="flex items-center gap-4 text-sm text-gray-700 dark:text-gray-400">
-        <span>Rows per page</span>
-        <select
-          value={itemsPerPage}
-          onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-          className="px-3 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-        >
-          {itemsPerPageOptions.map(option => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-        <span>
-          Showing {startItem} to {endItem} of {totalItems} results
+    <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-800 rounded-2xl p-4 border border-primary-100/50 dark:border-gray-700 ${className}`}>
+      {/* Left Section - Rows per page and info */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-gray-600 dark:text-gray-400 font-medium">Rows per page</span>
+          <div className="relative">
+            <select
+              value={itemsPerPage}
+              onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
+              className="px-3 py-1.5 pr-8 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm cursor-pointer appearance-none"
+            >
+            {itemsPerPageOptions.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          </div>
+        </div>
+        <span className="text-gray-600 dark:text-gray-400">
+          Showing <span className="font-semibold text-gray-900 dark:text-gray-100">{startItem}</span> to <span className="font-semibold text-gray-900 dark:text-gray-100">{endItem}</span> of <span className="font-semibold text-gray-900 dark:text-gray-100">{totalItems}</span> results
         </span>
       </div>
 
-      <div className="flex items-center gap-1">
+      {/* Right Section - Page navigation */}
+      <div className="flex items-center gap-1.5">
+        {/* First page button */}
+        <button
+          onClick={() => handlePageChange(1)}
+          disabled={currentPage === 1}
+          className="p-2 rounded-xl border border-primary-200/50 dark:border-gray-600 hover:bg-primary-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
+          aria-label="First page"
+        >
+          <ChevronsLeft size={16} className="text-gray-600 dark:text-gray-400" />
+        </button>
+
+        {/* Previous page button */}
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="p-2 rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:border-gray-600 dark:hover:bg-gray-700"
+          className="p-2 rounded-xl border border-primary-200/50 dark:border-gray-600 hover:bg-primary-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
           aria-label="Previous page"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft size={16} className="text-gray-600 dark:text-gray-400" />
         </button>
         
-        {getPageNumbers().map((page, index) => {
-          if (page === 'ellipsis-left' || page === 'ellipsis-right') {
+        {/* Page numbers */}
+        <div className="flex items-center gap-1">
+          {getPageNumbers().map((page, index) => {
+            if (page === 'ellipsis-left' || page === 'ellipsis-right') {
+              return (
+                <span key={`ellipsis-${index}`} className="px-2">
+                  <MoreHorizontal size={16} className="text-gray-400" />
+                </span>
+              );
+            }
+            
             return (
-              <span key={`ellipsis-${index}`} className="px-2 py-1">
-                <MoreHorizontal className="w-4 h-4 text-gray-400" />
-              </span>
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`min-w-[36px] px-3 py-1.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  currentPage === page
+                    ? 'bg-primary-500 text-white shadow-sm shadow-primary-500/20'
+                    : 'border border-primary-200/50 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700'
+                }`}
+              >
+                {page}
+              </button>
             );
-          }
-          
-          return (
-            <button
-              key={page}
-              onClick={() => handlePageChange(page)}
-              className={`px-3 py-1 rounded-md text-sm font-medium ${
-                currentPage === page
-                  ? 'bg-blue-500 text-white'
-                  : 'border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
-            >
-              {page}
-            </button>
-          );
-        })}
+          })}
+        </div>
         
+        {/* Next page button */}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="p-2 rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:border-gray-600 dark:hover:bg-gray-700"
+          className="p-2 rounded-xl border border-primary-200/50 dark:border-gray-600 hover:bg-primary-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
           aria-label="Next page"
         >
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight size={16} className="text-gray-600 dark:text-gray-400" />
+        </button>
+
+        {/* Last page button */}
+        <button
+          onClick={() => handlePageChange(totalPages)}
+          disabled={currentPage === totalPages}
+          className="p-2 rounded-xl border border-primary-200/50 dark:border-gray-600 hover:bg-primary-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
+          aria-label="Last page"
+        >
+          <ChevronsRight size={16} className="text-gray-600 dark:text-gray-400" />
         </button>
       </div>
     </div>

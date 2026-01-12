@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import BreadcrumbRightContent from "../components/BreadcrumbRightContent";
 import Pagination from "@/components/common/Pagination";
-import { Clock } from "lucide-react";
+import { Clock, Search, Filter, X, ChevronUp, ChevronDown, Calendar, CheckCircle, AlertCircle, Timer, Briefcase } from "lucide-react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -27,28 +27,54 @@ const defaultData = [
 // Filters component
 function AttendanceFilters({ globalFilter, setGlobalFilter, statusFilter, setStatusFilter, statuses, onClearFilters }) {
   const hasActiveFilters = statusFilter !== 'all' || globalFilter;
+  
+  const statusConfig = {
+    'all': { label: 'All Status', icon: Filter, color: 'gray' },
+    'Present': { label: 'Present', icon: CheckCircle, color: 'green' },
+    'Late': { label: 'Late', icon: AlertCircle, color: 'yellow' },
+    'Absent': { label: 'Absent', icon: X, color: 'red' },
+    'Half Day': { label: 'Half Day', icon: Timer, color: 'blue' },
+    'Overtime': { label: 'Overtime', icon: Briefcase, color: 'purple' },
+  };
+
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm mb-4">
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <div className="relative flex-1 min-w-[250px]">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-primary-100/50 dark:border-gray-700 shadow-sm mb-6">
+      <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+        {/* Search Input */}
+        <div className="relative flex-1 w-full lg:max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"
             placeholder="Search by date or status..."
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="w-full pl-3 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full pl-10 pr-4 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-gray-50/50 dark:bg-gray-700/50 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm"
           />
         </div>
-        <div className="flex gap-3">
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 dark:bg-gray-700 dark:text-white"
-          >
-            {statuses.map(s => <option key={s} value={s}>{s === 'all' ? 'All Status' : s}</option>)}
-          </select>
+        
+        {/* Status Filter */}
+        <div className="flex items-center gap-3 w-full lg:w-auto">
+          <div className="relative flex-1 lg:flex-initial">
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="w-full lg:w-auto appearance-none pl-10 pr-8 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm cursor-pointer"
+            >
+              {statuses.map(s => (
+                <option key={s} value={s}>
+                  {statusConfig[s]?.label || s}
+                </option>
+              ))}
+            </select>
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+          </div>
+          
           {hasActiveFilters && (
-            <button onClick={onClearFilters} className="px-3 py-2 text-red-600 hover:text-red-800 dark:text-red-400">
+            <button 
+              onClick={onClearFilters} 
+              className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl transition-colors duration-200"
+            >
+              <X size={16} />
               Clear
             </button>
           )}
@@ -64,7 +90,7 @@ export default function MyAttendance() {
   const [data, setData] = useState(defaultData);
   const [globalFilter, setGlobalFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5 });
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
 
   const statuses = useMemo(() => ['all', 'Present', 'Late', 'Absent', 'Half Day', 'Overtime'], []);
 
@@ -84,22 +110,84 @@ export default function MyAttendance() {
   }, [data, globalFilter, statusFilter]);
 
   const columns = useMemo(() => [
-    { accessorKey: 'date', header: 'Date', enableSorting: true },
-    { accessorKey: 'checkIn', header: 'Check In', enableSorting: true },
-    { accessorKey: 'checkOut', header: 'Check Out', enableSorting: true },
-    { accessorKey: 'break', header: 'Break', enableSorting: true },
-    { accessorKey: 'late', header: 'Late', cell: info => <span className="text-red-600">{info.getValue()}</span>, enableSorting: true },
-    { accessorKey: 'productionHours', header: 'Work Hours', cell: info => <div className="flex items-center gap-1"><Clock className="w-3 h-3 text-gray-400" /> {info.getValue()}</div>, enableSorting: true },
-    { accessorKey: 'status', header: 'Status', cell: info => {
+    { 
+      accessorKey: 'date', 
+      header: 'Date', 
+      enableSorting: true,
+      cell: info => (
+        <div className="flex items-center gap-2">
+          <Calendar size={14} className="text-primary-500" />
+          <span className="font-medium text-gray-700 dark:text-gray-300">{info.getValue()}</span>
+        </div>
+      )
+    },
+    { 
+      accessorKey: 'checkIn', 
+      header: 'Check In', 
+      enableSorting: true,
+      cell: info => (
+        <span className="text-gray-700 dark:text-gray-300 font-medium">{info.getValue()}</span>
+      )
+    },
+    { 
+      accessorKey: 'checkOut', 
+      header: 'Check Out', 
+      enableSorting: true,
+      cell: info => (
+        <span className="text-gray-700 dark:text-gray-300 font-medium">{info.getValue()}</span>
+      )
+    },
+    { 
+      accessorKey: 'break', 
+      header: 'Break', 
+      enableSorting: true,
+      cell: info => (
+        <span className="text-gray-600 dark:text-gray-400">{info.getValue()}</span>
+      )
+    },
+    { 
+      accessorKey: 'late', 
+      header: 'Late', 
+      enableSorting: true,
+      cell: info => {
+        const value = info.getValue();
+        if (value === '--') {
+          return <span className="text-gray-400">--</span>;
+        }
+        return <span className="text-red-600 dark:text-red-400 font-medium">{value}</span>;
+      }
+    },
+    { 
+      accessorKey: 'productionHours', 
+      header: 'Work Hours', 
+      enableSorting: true,
+      cell: info => (
+        <div className="flex items-center gap-2">
+          <Clock size={14} className="text-primary-500" />
+          <span className="font-semibold text-gray-900 dark:text-gray-100">{info.getValue()}</span>
+        </div>
+      )
+    },
+    { 
+      accessorKey: 'status', 
+      header: 'Status', 
+      enableSorting: true,
+      cell: info => {
         const attStatus = info.getValue();
-        const statusClass = attStatus === 'Present' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                            attStatus === 'Late' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                            attStatus === 'Absent' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400' :
-                            attStatus === 'Half Day' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' :
-                            attStatus === 'Overtime' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400' :
-                            'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
-        return <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusClass}`}>{attStatus}</span>;
-      }, enableSorting: true
+        const statusConfig = {
+          'Present': { bg: 'bg-primary-50 dark:bg-primary-500/10', text: 'text-primary-700 dark:text-primary-400', border: 'border-primary-200 dark:border-primary-500/30' },
+          'Late': { bg: 'bg-yellow-50 dark:bg-yellow-500/10', text: 'text-yellow-700 dark:text-yellow-400', border: 'border-yellow-200 dark:border-yellow-500/30' },
+          'Absent': { bg: 'bg-red-50 dark:bg-red-500/10', text: 'text-red-700 dark:text-red-400', border: 'border-red-200 dark:border-red-500/30' },
+          'Half Day': { bg: 'bg-blue-50 dark:bg-blue-500/10', text: 'text-blue-700 dark:text-blue-400', border: 'border-blue-200 dark:border-blue-500/30' },
+          'Overtime': { bg: 'bg-purple-50 dark:bg-purple-500/10', text: 'text-purple-700 dark:text-purple-400', border: 'border-purple-200 dark:border-purple-500/30' },
+        };
+        const config = statusConfig[attStatus] || { bg: 'bg-gray-50 dark:bg-gray-800', text: 'text-gray-700 dark:text-gray-400', border: 'border-gray-200 dark:border-gray-700' };
+        return (
+          <span className={`inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold border ${config.bg} ${config.text} ${config.border}`}>
+            {attStatus}
+          </span>
+        );
+      }
     },
   ], []);
 
@@ -116,67 +204,108 @@ export default function MyAttendance() {
   });
 
   return (
-    <div className="bg-gray-50 min-h-screen dark:bg-gray-900">
-      <Breadcrumb
-        title="My Attendance"
-        subtitle="View your attendance records"
-        rightContent={<BreadcrumbRightContent selectedDate={selectedDate} setSelectedDate={setSelectedDate} />}
-      />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        <Breadcrumb
+          title="My Attendance"
+          subtitle="View your attendance records and track your work hours"
+          rightContent={<BreadcrumbRightContent selectedDate={selectedDate} setSelectedDate={setSelectedDate} />}
+        />
 
-      <AttendanceFilters
-        globalFilter={globalFilter} setGlobalFilter={setGlobalFilter}
-        statusFilter={statusFilter} setStatusFilter={setStatusFilter}
-        statuses={statuses}
-        onClearFilters={() => { setGlobalFilter(''); setStatusFilter('all'); setPagination({ pageIndex: 0, pageSize: 5 }); }}
-      />
+        <AttendanceFilters
+          globalFilter={globalFilter} 
+          setGlobalFilter={setGlobalFilter}
+          statusFilter={statusFilter} 
+          setStatusFilter={setStatusFilter}
+          statuses={statuses}
+          onClearFilters={() => { 
+            setGlobalFilter(''); 
+            setStatusFilter('all'); 
+            setPagination({ pageIndex: 0, pageSize: 10 }); 
+          }}
+        />
 
-      <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-        <table className="w-full min-w-[600px]">
-          <thead className="bg-gray-100 dark:bg-gray-800">
-            {table.getHeaderGroups().map(headerGroup => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
-                  <th
-                    key={header.id}
-                    className={`px-3 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 ${header.column.getCanSort() ? 'cursor-pointer' : ''}`}
-                    {...(header.column.getCanSort() ? { onClick: header.column.getToggleSortingHandler() } : {})}
+        {/* Table Card */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-primary-100/50 dark:border-gray-700 shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[800px]">
+              <thead className="bg-gradient-to-r from-primary-50/50 to-primary-50/30 dark:from-gray-800 dark:to-gray-800 border-b border-primary-100/50 dark:border-gray-700">
+                {table.getHeaderGroups().map(headerGroup => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map(header => (
+                      <th
+                        key={header.id}
+                        className={`px-5 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider ${
+                          header.column.getCanSort() ? 'cursor-pointer hover:bg-primary-50/50 dark:hover:bg-gray-700/50 transition-colors' : ''
+                        }`}
+                        {...(header.column.getCanSort() ? { onClick: header.column.getToggleSortingHandler() } : {})}
+                      >
+                        <div className="flex items-center gap-2">
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {header.column.getCanSort() && (
+                            <span className="text-gray-400">
+                              {header.column.getIsSorted() === 'asc' ? (
+                                <ChevronUp size={14} />
+                              ) : header.column.getIsSorted() === 'desc' ? (
+                                <ChevronDown size={14} />
+                              ) : (
+                                <div className="flex flex-col -space-y-1">
+                                  <ChevronUp size={10} className="text-gray-300" />
+                                  <ChevronDown size={10} className="text-gray-300" />
+                                </div>
+                              )}
+                            </span>
+                          )}
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody className="divide-y divide-primary-100/30 dark:divide-gray-700">
+                {table.getRowModel().rows.length > 0 ? table.getRowModel().rows.map((row, index) => (
+                  <tr 
+                    key={row.id} 
+                    className="hover:bg-primary-50/30 dark:hover:bg-gray-700/30 transition-colors duration-150"
                   >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {header.column.getCanSort() && (
-                      header.column.getIsSorted() === 'asc' ? ' 🔼' :
-                      header.column.getIsSorted() === 'desc' ? ' 🔽' : null
-                    )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-            {table.getRowModel().rows.length > 0 ? table.getRowModel().rows.map(row => (
-              <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                {row.getVisibleCells().map(cell => (
-                  <td key={cell.id} className="px-3 py-2 text-sm text-gray-600 dark:text-gray-400">{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-                ))}
-              </tr>
-            )) : (
-              <tr>
-                <td colSpan={columns.length} className="text-center py-6 text-gray-500 dark:text-gray-400">
-                  No attendance records found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+                    {row.getVisibleCells().map(cell => (
+                      <td key={cell.id} className="px-5 py-4 text-sm">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan={columns.length} className="text-center py-16">
+                      <div className="flex flex-col items-center gap-3">
+                        <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-full">
+                          <Calendar size={32} className="text-gray-400" />
+                        </div>
+                        <p className="text-gray-500 dark:text-gray-400 font-medium">No attendance records found</p>
+                        <p className="text-sm text-gray-400 dark:text-gray-500">Try adjusting your filters</p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-      <Pagination
-        currentPage={pagination.pageIndex + 1}
-        totalItems={filteredData.length}
-        itemsPerPage={pagination.pageSize}
-        onPageChange={page => table.setPageIndex(page - 1)}
-        onItemsPerPageChange={size => { table.setPageSize(size); table.setPageIndex(0); }}
-        className="mt-4"
-      />
+        {/* Pagination */}
+        <Pagination
+          currentPage={pagination.pageIndex + 1}
+          totalItems={filteredData.length}
+          itemsPerPage={pagination.pageSize}
+          onPageChange={page => table.setPageIndex(page - 1)}
+          onItemsPerPageChange={size => { 
+            table.setPageSize(size); 
+            table.setPageIndex(0); 
+            setPagination({ pageIndex: 0, pageSize: size });
+          }}
+          className="mt-6"
+        />
+      </div>
     </div>
   );
 }

@@ -2,48 +2,55 @@
 "use client";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "@/context/SidebarContext";
 import {
-  Grid,
+  LayoutDashboard,
   Users,
   Target,
-  Building,
+  Building2,
   Calendar,
   Clock,
   FileText,
   Settings,
   UserCircle,
-  ChevronDown,
-  MoreHorizontal,
-  Presentation,
-  CreditCard,
-  Package,
-  Shield,
-  CalendarDays,
+  ChevronRight,
   X,
   GitBranch,
-  Network,
+  Plug,
+  FileCheck,
+  Shield,
+  CalendarCheck,
   Briefcase,
   UserPlus,
-  BarChart3
+  BarChart3,
+  Wallet,
+  Box,
+  FolderKanban,
+  TrendingUp,
+  DollarSign,
+  Receipt,
+  Gift,
+  Award,
+  BookOpen,
+  Smartphone,
+  LogOut
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 const superAdminNavItems = [
   {
-    icon: <Grid size={20} />,
+    icon: <LayoutDashboard size={18} />,
     name: "Dashboard",
     path: "/super-admin/dashboard",
   },
   {
-    icon: <Building size={20} />,
+    icon: <Building2 size={18} />,
     name: "Company & Organization",
     path: "/super-admin/company-orgranization",
   },
   {
-    icon: <GitBranch size={20} />,
+    icon: <GitBranch size={18} />,
     name: "Workflow Management",
     subItems: [
       { name: "Workflow List", path: "/super-admin/workflow-management" },
@@ -51,7 +58,7 @@ const superAdminNavItems = [
     ],
   },
   {
-    icon: <Network size={20} />,
+    icon: <Plug size={18} />,
     name: "Integration Center",
     subItems: [
       { name: "All Integrations", path: "/super-admin/integration-management" },
@@ -59,7 +66,7 @@ const superAdminNavItems = [
     ],
   },
   {
-    icon: <CalendarDays size={20} />,
+    icon: <FileCheck size={18} />,
     name: "Policy & Rule",
     subItems: [
       { name: "Policy List", path: "/super-admin/policy-rule" },
@@ -67,7 +74,7 @@ const superAdminNavItems = [
     ],
   },
   {
-    icon: <Shield size={20} />,
+    icon: <Shield size={18} />,
     name: "Roles & Permissions",
     subItems: [
       { name: "Role Management", path: "/super-admin/roles-permissions" },
@@ -75,7 +82,7 @@ const superAdminNavItems = [
     ],
   },
   {
-    icon: <Users size={20} />,
+    icon: <Users size={18} />,
     name: "User Management",
     subItems: [
       { name: "All Users", path: "/super-admin/users" },
@@ -85,12 +92,12 @@ const superAdminNavItems = [
 
 const hrNavItems = [
   {
-    icon: <Grid size={20} />,
+    icon: <LayoutDashboard size={18} />,
     name: "Dashboard",
     path: "/hr/dashboard",
   },
   {
-    icon: <Users size={20} />,
+    icon: <Users size={18} />,
     name: "Employee Management",
     subItems: [
       { name: "Employee List", path: "/hr/employees" },
@@ -98,34 +105,34 @@ const hrNavItems = [
     ],
   },
   {
-    icon: <GitBranch size={20} />,
+    icon: <FolderKanban size={18} />,
     name: "Organization Structure",
     path: "/hr/organization-management",
   },
   {
-    icon: <Briefcase size={20} />,
+    icon: <Briefcase size={18} />,
     name: "Workforce Management",
     path: "/hr/workforce",
   },
   {
-    icon: <UserPlus size={20} />,
+    icon: <UserPlus size={18} />,
     name: "Onboarding & Exit",
     path: "/hr/onboarding-exit",
   },
   {
-    icon: <FileText size={20} />,
+    icon: <FileText size={18} />,
     name: "Document Management",
     path: "/hr/document-management",
   },
   {
-    icon: <Presentation size={20} />,
+    icon: <Clock size={18} />,
     name: "Attendance",
     subItems: [
       { name: "Dashboard", path: "/hr/attendance" },
     ],
   },
   {
-    icon: <Calendar size={20} />,
+    icon: <Calendar size={18} />,
     name: "Leave Management",
     subItems: [
       { name: "Dashboard", path: "/hr/leave" },
@@ -138,17 +145,17 @@ const hrNavItems = [
     ],
   },
   {
-    icon: <Target size={20} />,
+    icon: <Target size={18} />,
     name: "Performance Management",
     path: "/hr/performance-management",
   },
   {
-    icon: <BarChart3 size={20} />,
+    icon: <BarChart3 size={18} />,
     name: "Reports & Analytics",
     path: "/hr/reports-analytics",
   },
   {
-    icon: <CreditCard size={20} />,
+    icon: <DollarSign size={18} />,
     name: "Payroll Management",
     subItems: [
       { name: "Payroll Dashboard", path: "/hr/payroll" },
@@ -160,7 +167,7 @@ const hrNavItems = [
     ],
   },
   {
-    icon: <Package size={20} />,
+    icon: <Box size={18} />,
     name: "Asset Management",
     subItems: [
       { name: "Asset Inventory", path: "/hr/assets" },
@@ -175,12 +182,12 @@ const hrNavItems = [
 
 const employeeNavItems = [
   {
-    icon: <Grid size={20} />,
+    icon: <LayoutDashboard size={18} />,
     name: "Dashboard",
     path: "/employee/dashboard",
   },
   {
-    icon: <Clock size={20} />,
+    icon: <Clock size={18} />,
     name: "Attendance",
     subItems: [
       { name: "My Attendance", path: "/employee/attendance/my-attendance" },
@@ -192,7 +199,7 @@ const employeeNavItems = [
     ],
   },
   {
-    icon: <Calendar size={20} />,
+    icon: <Calendar size={18} />,
     name: "Leave Management",
     subItems: [
       { name: "Request Leave", path: "/employee/leave/request-leave" },
@@ -201,14 +208,14 @@ const employeeNavItems = [
     ],
   },
   {
-    icon: <CalendarDays size={20} />,
+    icon: <CalendarCheck size={18} />,
     name: "Holiday",
     subItems: [
       { name: "Holiday List", path: "/employee/holiday" }
     ],
   },
   {
-    icon: <FileText size={20} />,
+    icon: <Wallet size={18} />,
     name: "Payrolls",
     subItems: [
       { name: "Salery Summery", path: "/employee/payslips/salery-summery" },
@@ -217,20 +224,8 @@ const employeeNavItems = [
       { name: "Tax Information", path: "/employee/payslips/tax-info" },
       { name: "Rembursment", path: "/employee/payslips/rembursment" },
     ],
-  },
-  {
-    icon: <Settings size={20} />,
-    name: "Settings",
-    subItems: [
-      { name: "Profile Picture", path: "/employee/settings/profile-picture" },
-      { name: "Contact Information", path: "/employee/settings/contact-information" },
-      { name: "Password Management", path: "/employee/settings/password-management" },
-      { name: "Two-Factor Authentication (2FA)", path: "/employee/settings/two-factor-auth" },
-      { name: "Connected Devices", path: "/employee/settings/connected-devices" },
-    ],
-  },
-  {
-    icon: <Target size={20} />,
+  }, {
+    icon: <TrendingUp size={18} />,
     name: "Performance & Goals",
     subItems: [
       { name: "Goals", path: "/employee/performance/goals" },
@@ -241,10 +236,22 @@ const employeeNavItems = [
       { name: "Recognition", path: "/employee/performance/recognition" },
     ],
   },
+  {
+    icon: <Settings size={18} />,
+    name: "Settings",
+    subItems: [
+      { name: "Profile Picture", path: "/employee/settings/profile-picture" },
+      { name: "Contact Information", path: "/employee/settings/contact-information" },
+      { name: "Password Management", path: "/employee/settings/password-management" },
+      { name: "Two-Factor Authentication (2FA)", path: "/employee/settings/two-factor-auth" },
+      { name: "Connected Devices", path: "/employee/settings/connected-devices" },
+    ],
+  },
+ 
 ];
 
 const AppSidebar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const userRole = user?.systemRole || 'EMPLOYEE';
 
   const { isExpanded, isMobileOpen, isHovered, setIsHovered, toggleMobileSidebar } = useSidebar();
@@ -255,6 +262,12 @@ const AppSidebar = () => {
   const subMenuRefs = useRef({});
 
   const isActive = useCallback((path) => path === pathname, [pathname]);
+
+  // Check if any submenu item is active for a parent
+  const hasActiveSubItem = useCallback((nav) => {
+    if (!nav.subItems) return false;
+    return nav.subItems.some(subItem => isActive(subItem.path));
+  }, [isActive]);
 
   // Get appropriate navigation items based on user role
   const getNavItems = () => {
@@ -312,39 +325,45 @@ const AppSidebar = () => {
   };
 
   const renderMenuItems = (navItems) => (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-1">
       {navItems.map((nav, index) => (
         <li key={nav.name}>
           {nav.subItems ? (
             <button
               onClick={() => handleSubmenuToggle(index)}
-              className={`menu-item group w-full ${openSubmenu?.index === index
-                ? "menu-item-active"
-                : "menu-item-inactive"
-                } cursor-pointer ${!isExpanded && !isHovered
-                  ? "lg:justify-center"
-                  : "lg:justify-start"
-                }`}
+              className={`group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all duration-200 ${
+                hasActiveSubItem(nav) || openSubmenu?.index === index
+                  ? "bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-400"
+                  : "text-gray-600 hover:bg-gray-50/80 dark:text-gray-400 dark:hover:bg-white/5"
+              } ${!isExpanded && !isHovered ? "lg:justify-center" : "lg:justify-start"}`}
             >
               <span
-                className={`${openSubmenu?.index === index
-                  ? "menu-item-icon-active"
-                  : "menu-item-icon-inactive"
-                  }`}
+                className={`flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200 mt-0.5 ${
+                  hasActiveSubItem(nav) || openSubmenu?.index === index
+                    ? "bg-primary-100 text-primary-600 dark:bg-primary-500/20 dark:text-primary-400"
+                    : "bg-gray-100 text-gray-500 group-hover:bg-primary-50 group-hover:text-primary-600 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-primary-500/10 dark:group-hover:text-primary-400"
+                }`}
               >
                 {nav.icon}
               </span>
               {(isExpanded || isHovered || isMobileOpen) && (
-                <span className={`menu-item-text font-semibold`}>{nav.name}</span>
-              )}
-              {(isExpanded || isHovered || isMobileOpen) && (
-                <ChevronDown
-                  size={20}
-                  className={`ml-auto transition-transform duration-200 ${openSubmenu?.index === index
-                    ? "rotate-180 text-brand-500"
-                    : ""
+                <>
+                  <span className={`flex-1 text-sm font-medium transition-colors duration-200 leading-tight ${
+                    hasActiveSubItem(nav) || openSubmenu?.index === index
+                      ? "text-primary-700 dark:text-primary-400"
+                      : "text-gray-700 dark:text-gray-300"
+                  }`}>
+                    {nav.name}
+                  </span>
+                  <ChevronRight
+                    size={14}
+                    className={`flex-shrink-0 transition-all duration-200 mt-0.5 ${
+                      openSubmenu?.index === index
+                        ? "rotate-90 text-primary-600 dark:text-primary-400"
+                        : "text-gray-400"
                     }`}
-                />
+                  />
+                </>
               )}
             </button>
           ) : (
@@ -352,24 +371,33 @@ const AppSidebar = () => {
               <Link
                 href={nav.path}
                 onClick={() => {
-                  // Close sidebar on mobile when clicking a link
                   if (window.innerWidth < 1024) {
                     toggleMobileSidebar();
                   }
                 }}
-                className={`menu-item group w-full ${isActive(nav.path) ? "menu-item-active" : "menu-item-inactive"
-                  }`}
+                className={`group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all duration-200 ${
+                  isActive(nav.path)
+                    ? "bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-400"
+                    : "text-gray-600 hover:bg-gray-50/80 dark:text-gray-400 dark:hover:bg-white/5"
+                }`}
               >
                 <span
-                  className={`${isActive(nav.path)
-                    ? "menu-item-icon-active"
-                    : "menu-item-icon-inactive"
-                    }`}
+                  className={`flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200 mt-0.5 ${
+                    isActive(nav.path)
+                      ? "bg-primary-100 text-primary-600 dark:bg-primary-500/20 dark:text-primary-400"
+                      : "bg-gray-100 text-gray-500 group-hover:bg-primary-50 group-hover:text-primary-600 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-primary-500/10 dark:group-hover:text-primary-400"
+                  }`}
                 >
                   {nav.icon}
                 </span>
                 {(isExpanded || isHovered || isMobileOpen) && (
-                  <span className={`menu-item-text font-semibold`}>{nav.name}</span>
+                  <span className={`flex-1 text-sm font-medium transition-colors duration-200 leading-tight ${
+                    isActive(nav.path)
+                      ? "text-primary-700 dark:text-primary-400"
+                      : "text-gray-700 dark:text-gray-300"
+                  }`}>
+                    {nav.name}
+                  </span>
                 )}
               </Link>
             )
@@ -379,7 +407,7 @@ const AppSidebar = () => {
               ref={(el) => {
                 subMenuRefs.current[`${index}`] = el;
               }}
-              className="overflow-hidden transition-all duration-300"
+              className="overflow-hidden transition-all duration-300 ease-in-out"
               style={{
                 height:
                   openSubmenu?.index === index
@@ -387,21 +415,21 @@ const AppSidebar = () => {
                     : "0px",
               }}
             >
-              <ul className="mt-1 space-y-1 ml-9">
+              <ul className="mt-1.5 space-y-0.5 ml-9 pl-2.5 border-l border-primary-100/30 dark:border-gray-700">
                 {nav.subItems.map((subItem) => (
                   <li key={subItem.name}>
                     <Link
                       href={subItem.path}
                       onClick={() => {
-                        // Close sidebar on mobile when clicking a submenu link
                         if (window.innerWidth < 1024) {
                           toggleMobileSidebar();
                         }
                       }}
-                      className={`menu-dropdown-item ${isActive(subItem.path)
-                        ? "menu-dropdown-item-active"
-                        : "menu-dropdown-item-inactive"
-                        }`}
+                      className={`block px-2.5 py-1.5 text-xs rounded-md transition-all duration-200 ${
+                        isActive(subItem.path)
+                          ? "text-primary-700 font-medium dark:text-primary-400"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50/50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-white/5"
+                      }`}
                     >
                       {subItem.name}
                     </Link>
@@ -412,36 +440,6 @@ const AppSidebar = () => {
           )}
         </li>
       ))}
-
-      {/* My Profile - Always visible for all users */}
-      <li>
-        <Link
-          href={
-            userRole === "SUPER_ADMIN" ? "/super-admin/profile" :
-              userRole === "HR_ADMIN" ? "/hr/profile" :
-                "/employee/profile"
-          }
-          onClick={() => {
-            if (window.innerWidth < 1024) {
-              toggleMobileSidebar();
-            }
-          }}
-          className={`menu-item group w-full ${pathname.includes("profile") ? "menu-item-active" : "menu-item-inactive"
-            }`}
-        >
-          <span
-            className={`${pathname.includes("profile")
-              ? "menu-item-icon-active"
-              : "menu-item-icon-inactive"
-              }`}
-          >
-            <UserCircle size={20} />
-          </span>
-          {(isExpanded || isHovered || isMobileOpen) && (
-            <span className={`menu-item-text font-semibold`}>My Profile</span>
-          )}
-        </Link>
-      </li>
     </ul>
   );
 
@@ -456,7 +454,7 @@ const AppSidebar = () => {
       </button> */}
 
       <aside
-        className={`fixed flex flex-col top-0 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 
+        className={`fixed flex flex-col top-0 left-0 bg-white/95 backdrop-blur-xl dark:bg-gray-900/95 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200/50 dark:border-gray-800 shadow-sm
           /* Mobile: Full screen with backdrop */
           ${isMobileOpen ? "translate-x-0 w-[280px]" : "-translate-x-full w-[280px]"}
           
@@ -465,93 +463,139 @@ const AppSidebar = () => {
           
           /* Desktop: Responsive width */
           lg:translate-x-0 lg:w-auto
-          lg:${isExpanded || isHovered ? "lg:w-[290px]" : "lg:w-[90px]"}
+          lg:${isExpanded || isHovered ? "lg:w-[280px]" : "lg:w-[80px]"}
         `}
         onMouseEnter={() => !isExpanded && setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Close button for mobile/tablet */}
-        <div className="lg:hidden flex justify-end p-4">
+        <div className="lg:hidden flex justify-end p-4 border-b border-gray-200/50 dark:border-gray-800">
           <button
             onClick={toggleMobileSidebar}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
           >
-            <X size={24} />
+            <X size={20} className="text-gray-600 dark:text-gray-400" />
           </button>
         </div>
 
         <div
-          className={`h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-800 border-dashed ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
+          className={`h-16 flex items-center px-4 lg:px-5 border-b border-gray-200/50 dark:border-gray-800 ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
             }`}
         >
-          <Link href="/" onClick={() => {
+          <Link 
+            href="/" 
+            className="flex items-center gap-3 transition-all duration-200 hover:opacity-80"
+            onClick={() => {
             if (window.innerWidth < 1024) {
               toggleMobileSidebar();
             }
-          }}>
-            {isExpanded || isHovered || isMobileOpen ? (
-              <>
-                <Image
-                  className="dark:hidden"
-                  src="/images/logo/GHR.PNG"
-                  alt="Logo"
-                  width={150}
-                  height={40}
-                  style={{ width: 'auto', height: 'auto' }}
-                  priority
-                />
-                <Image
-                  className="hidden dark:block"
-                  src="/images/logo/GHR2.PNG"
-                  alt="Logo"
-                  width={150}
-                  height={40}
-                  style={{ width: 'auto', height: 'auto' }}
-                />
-              </>
-            ) : (
-              <Image
-                src="/images/logo/GHR-COLLAPSED.PNG"
-                alt="Logo"
-                width={32}
-                height={32}
-                style={{ width: 'auto', height: 'auto' }}
-              />
+            }}
+          >
+            {/* Letter Logo - Always visible */}
+            <div 
+              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl shadow-sm transition-all duration-200 hover:shadow-md hover:scale-105"
+              style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--hero-gradient-end)) 100%)'
+              }}
+            >
+              <span className="text-white font-bold text-lg leading-none">Z</span>
+            </div>
+            
+            {/* Company Name - Only visible when expanded */}
+            {(isExpanded || isHovered || isMobileOpen) && (
+              <div className="flex flex-col">
+                <span 
+                  className="font-bold text-base leading-tight"
+                  style={{
+                    fontFamily: 'var(--font-space-grotesk)',
+                    color: 'hsl(var(--foreground))'
+                  }}
+                >
+                  Zodeck<span style={{ color: 'hsl(var(--primary))' }}>.</span>
+                </span>
+                <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 leading-tight mt-0.5">
+                  {userRole === "SUPER_ADMIN" ? "Super Admin" :
+                    userRole === "HR_ADMIN" ? "HR Portal" :
+                      "Employee Portal"}
+                </span>
+              </div>
             )}
           </Link>
         </div>
         {/* <div className="h-[1px] w-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-500 mb-4"></div> */}
 
-        <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar flex-1 px-4 mt-4">
-          <nav className="mb-6">
-            <div className="flex flex-col gap-4">
-              <div>
-                <h2
-                  className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${!isExpanded && !isHovered
-                    ? "lg:justify-center"
-                    : "justify-start"
-                    }`}
-                >
-                  {isExpanded || isHovered || isMobileOpen ? (
-                    userRole === "SUPER_ADMIN" ? "Super Admin Portal" :
-                      userRole === "HR_ADMIN" ? "HR Management" :
-                        "Employee Portal"
-                  ) : (
-                    <MoreHorizontal size={16} />
-                  )}
-                </h2>
+        <div className="flex flex-col overflow-y-auto duration-300 ease-linear custom-scrollbar flex-1 px-3 lg:px-4 py-4">
+          <nav>
                 {renderMenuItems(getNavItems())}
-              </div>
-            </div>
           </nav>
         </div>
 
-        {/* Mobile footer info (optional) */}
-        <div className="lg:hidden p-4 border-t border-gray-200 dark:border-gray-800">
-          <div className="text-xs text-gray-500 dark:text-gray-400">
-            <p>Version 1.0.0</p>
-            <p className="mt-1">© 2024 Your Company</p>
+        {/* Employee Profile Card */}
+        <div className="border-t border-gray-200/50 dark:border-gray-800 p-3 bg-white dark:bg-gray-900">
+          {(isExpanded || isHovered || isMobileOpen) ? (
+            <div className="space-y-2.5">
+              {/* User Info */}
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-primary-50 dark:bg-primary-500/10 text-xs font-semibold text-primary-700 dark:text-primary-400">
+                  {user?.employee?.firstName
+                    ? `${user.employee.firstName.charAt(0).toUpperCase()}${user.employee.lastName ? user.employee.lastName.charAt(0).toUpperCase() : ""}`
+                    : user?.email ? user.email.charAt(0).toUpperCase() : "U"}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 truncate leading-tight">
+                    {user?.employee?.firstName
+                      ? `${user.employee.firstName} ${user.employee.lastName || ""}`
+                      : user?.email || "User"}
+                  </p>
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate leading-tight">
+                    {userRole === "SUPER_ADMIN" ? "Super Admin" :
+                      userRole === "HR_ADMIN" ? "HR Admin" :
+                        "Employee"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-1.5">
+                <Link
+                  href={
+                    userRole === "SUPER_ADMIN" ? "/super-admin/profile" :
+                      userRole === "HR_ADMIN" ? "/hr/profile" :
+                        "/employee/profile"
+                  }
+                  onClick={() => {
+                    if (window.innerWidth < 1024) {
+                      toggleMobileSidebar();
+                    }
+                  }}
+                  className="flex-1 flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-primary-700 bg-primary-50 border border-primary-200/50 rounded-lg hover:bg-primary-100 hover:border-primary-300 transition-all duration-200 dark:bg-primary-500/10 dark:text-primary-400 dark:border-primary-500/20 dark:hover:bg-primary-500/20"
+                >
+                  <UserCircle size={14} />
+                  <span>Profile</span>
+                </Link>
+                <button
+                  onClick={async () => {
+                    if (window.innerWidth < 1024) {
+                      toggleMobileSidebar();
+                    }
+                    await logout();
+                  }}
+                  className="flex items-center justify-center p-1.5 text-gray-600 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 hover:border-gray-300 transition-all duration-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 dark:hover:bg-gray-700"
+                  title="Logout"
+                >
+                  <LogOut size={14} />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-50 dark:bg-primary-500/10 text-xs font-semibold text-primary-700 dark:text-primary-400">
+                {user?.employee?.firstName
+                  ? `${user.employee.firstName.charAt(0).toUpperCase()}${user.employee.lastName ? user.employee.lastName.charAt(0).toUpperCase() : ""}`
+                  : user?.email ? user.email.charAt(0).toUpperCase() : "U"}
+              </span>
           </div>
+          )}
         </div>
       </aside>
     </>

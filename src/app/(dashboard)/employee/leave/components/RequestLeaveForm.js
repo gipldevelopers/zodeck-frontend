@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import EmployeeLeaveService from "@/services/employee/leave.service";
 import { toast } from "react-hot-toast";
+import { Plus, Calendar, FileText, Upload, X } from "lucide-react";
 
 export default function RequestLeaveForm() {
   const [form, setForm] = useState({
@@ -136,29 +137,34 @@ export default function RequestLeaveForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 dark:bg-gray-800 rounded-2xl shadow-lg w-full space-y-6 border border-gray-200 dark:border-gray-700"
+      className="bg-white dark:bg-gray-800 rounded-2xl border border-primary-100/50 dark:border-gray-700 shadow-sm p-6 space-y-5"
     >
-      <h3 className="text-2xl font-semibold text-gray-800 dark:text-white flex items-center gap-2">
-        Submit Leave Request
-      </h3>
+      <div className="flex items-center gap-3 mb-2">
+        <div className="p-2 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-xl">
+          <Plus size={18} />
+        </div>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          Submit Leave Request
+        </h3>
+      </div>
 
       {errors.availability && (
-        <div className="p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+        <div className="p-3 bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/30 rounded-xl text-sm">
           {errors.availability}
         </div>
       )}
 
       {/* Leave Type */}
       <div>
-        <legend className="font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Leave Type Name <span className="text-red-500">*</span>
-        </legend>
+        </label>
         <select
           name="leaveTypeId"
           value={form.leaveTypeId}
           onChange={handleChange}
           disabled={loading}
-          className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
+          className="w-full px-4 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm"
         >
           <option value="">{loading ? "Loading..." : "Please Select Leave Type"}</option>
           {leaveTypes.map(type => (
@@ -166,77 +172,78 @@ export default function RequestLeaveForm() {
           ))}
         </select>
         {errors.leaveTypeId && (
-          <p className="text-red-500 text-sm mt-1">{errors.leaveTypeId}</p>
+          <p className="text-red-500 text-xs mt-1.5">{errors.leaveTypeId}</p>
         )}
       </div>
 
       {/* Start & End Dates */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <legend className="font-medium text-gray-700 dark:text-gray-300">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Select From Date <span className="text-red-500">*</span>
-          </legend>
+          </label>
           <input
             type="date"
             name="effectiveFrom"
             value={form.effectiveFrom}
             onChange={handleChange}
             onBlur={checkAvailability}
-            className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
+            className="w-full px-4 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm"
           />
           {errors.effectiveFrom && (
-            <p className="text-red-500 text-sm mt-1">{errors.effectiveFrom}</p>
+            <p className="text-red-500 text-xs mt-1.5">{errors.effectiveFrom}</p>
           )}
         </div>
         <div>
-          <legend className="font-medium text-gray-700 dark:text-gray-300">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Select To Date <span className="text-red-500">*</span>
-          </legend>
+          </label>
           <input
             type="date"
             name="effectiveTo"
             value={form.effectiveTo}
             onChange={handleChange}
             onBlur={checkAvailability}
-            className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
+            className="w-full px-4 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm"
           />
           {errors.effectiveTo && (
-            <p className="text-red-500 text-sm mt-1">{errors.effectiveTo}</p>
+            <p className="text-red-500 text-xs mt-1.5">{errors.effectiveTo}</p>
           )}
         </div>
       </div>
 
       {availability && availability.available && (
-        <div className="text-green-600 text-sm font-medium">
-          {availability.days} days(s) will be deducted.
+        <div className="p-3 bg-primary-50 dark:bg-primary-500/10 text-primary-700 dark:text-primary-400 border border-primary-200 dark:border-primary-500/30 rounded-xl text-sm font-medium">
+          {availability.days} day(s) will be deducted.
         </div>
       )}
 
       {/* Remarks */}
       <div>
-        <legend className="font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Remarks <span className="text-red-500">*</span>
-        </legend>
+        </label>
         <textarea
           name="remark"
           value={form.remark}
           onChange={handleChange}
           rows={4}
-          className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
+          placeholder="Enter reason for leave..."
+          className="w-full px-4 py-2.5 border border-primary-200/50 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 dark:focus:border-primary-500 transition-all duration-200 text-sm resize-none"
         />
         {errors.remark && (
-          <p className="text-red-500 text-sm mt-1">{errors.remark}</p>
+          <p className="text-red-500 text-xs mt-1.5">{errors.remark}</p>
         )}
       </div>
 
       {/* Proof */}
       <div>
-        <legend className="font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Attach Proof Document:
-        </legend>
-
-        <label className="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md cursor-pointer hover:bg-blue-700 transition shadow-sm">
-          Upload
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Attach Proof Document (Optional)
+        </label>
+        <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 dark:bg-primary-500/10 text-primary-700 dark:text-primary-400 border border-primary-200/50 dark:border-primary-500/30 rounded-xl text-sm font-medium cursor-pointer hover:bg-primary-100 dark:hover:bg-primary-500/20 transition-colors duration-200">
+          <Upload size={16} />
+          Upload Document
           <input
             type="file"
             name="proof"
@@ -245,16 +252,23 @@ export default function RequestLeaveForm() {
             accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
           />
         </label>
-
         {form.proof && (
-          <p className="text-xs text-gray-600 dark:text-gray-300 mt-2">
-            📄 {form.proof.name}
-          </p>
+          <div className="mt-2 flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
+            <FileText size={14} className="text-gray-500 dark:text-gray-400" />
+            <span className="text-xs text-gray-600 dark:text-gray-400 flex-1 truncate">{form.proof.name}</span>
+            <button
+              type="button"
+              onClick={() => setForm(prev => ({ ...prev, proof: null }))}
+              className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors"
+            >
+              <X size={14} className="text-gray-500 dark:text-gray-400" />
+            </button>
+          </div>
         )}
       </div>
 
       {/* Actions */}
-      <div className="flex justify-end gap-4 mt-6">
+      <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
         <button
           type="button"
           onClick={() => setForm({
@@ -264,17 +278,17 @@ export default function RequestLeaveForm() {
             remark: "",
             proof: null,
           })}
-          className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+          className="px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 transition-all duration-200"
           disabled={submitting}
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-md disabled:bg-blue-400"
+          className="px-4 py-2.5 text-sm font-medium bg-primary-500 text-white rounded-xl hover:bg-primary-600 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={submitting}
         >
-          {submitting ? "Submitting..." : "Submit"}
+          {submitting ? "Submitting..." : "Submit Request"}
         </button>
       </div>
     </form>

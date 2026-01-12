@@ -7,6 +7,23 @@ import { Dropdown } from "@/components/ui/dropdown/Dropdown";
 import { DropdownItem } from "@/components/ui/dropdown/DropdownItem";
 import { useAuth } from "@/context/AuthContext";
 
+// Helper function to get user initials
+const getUserInitials = (user) => {
+  if (!user) return "U";
+  
+  if (user?.employee?.firstName) {
+    const first = user.employee.firstName.charAt(0).toUpperCase();
+    const last = user.employee.lastName ? user.employee.lastName.charAt(0).toUpperCase() : "";
+    return first + last;
+  }
+  
+  if (user?.email) {
+    return user.email.charAt(0).toUpperCase();
+  }
+  
+  return "U";
+};
+
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth(); // Get user and logout function from auth context
@@ -84,23 +101,19 @@ export default function UserDropdown() {
 
    // Format role name for display
   const formattedRole = getRoleName().replace('_', ' ') || "";
+  const userInitials = getUserInitials(user);
   
   return (
     <div className="relative">
       <button
         onClick={toggleDropdown} 
-        className="flex items-center text-gray-700 dark:text-gray-400 dropdown-toggle"
+        className="flex items-center gap-2.5 text-gray-700 dark:text-gray-400 dropdown-toggle transition-colors hover:text-primary-600 dark:hover:text-primary-400"
       >
-        <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
-          <Image
-            width={44}
-            height={44}
-            src="/images/users/default-avatar.png"
-            alt="User"
-          />
+        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-primary-200 bg-primary-50 text-sm font-semibold text-primary-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-primary-400 lg:h-11 lg:w-11">
+          {userInitials}
         </span>
 
-        <span className="block mr-1 font-medium text-theme-sm">
+        <span className="hidden lg:block font-medium text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
           {/*  Use employee name if available, else fallback */}
           {user?.employee?.firstName
             ? `${user.employee.firstName} ${user.employee.lastName || ""}`
@@ -108,11 +121,11 @@ export default function UserDropdown() {
         </span>
 
         <svg
-          className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
+          className={`hidden lg:block flex-shrink-0 stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
           width="18"
-          height="20"
+          height="18"
           viewBox="0 0 18 20"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -130,28 +143,33 @@ export default function UserDropdown() {
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+        className="absolute right-0 mt-2 flex w-[280px] flex-col rounded-xl border border-gray-200 bg-white p-0 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark overflow-hidden"
       >
-        <div>
-          <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-             {/* Show full name */}
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-gray-100 dark:border-gray-800">
+          <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-primary-200 bg-primary-50 text-base font-semibold text-primary-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-primary-400">
+            {userInitials}
+          </span>
+          <div className="flex-1 min-w-0">
+            <p className="block truncate font-semibold text-sm text-gray-900 dark:text-gray-100 leading-tight">
+              {/* Show full name */}
               {user?.employee?.firstName
                 ? `${user.employee.firstName} ${user.employee.lastName || ""}`
                 : user?.email || "User"
               }
-          </span>
-          <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-             {formattedRole} {/* Use the safely formatted role */}
-          </span>
+            </p>
+            <p className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-tight">
+              {formattedRole || "Employee"} {/* Use the safely formatted role */}
+            </p>
+          </div>
         </div>
 
-        <ul className="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200 dark:border-gray-800">
+        <ul className="flex flex-col gap-0.5 px-2 py-2">
           <li>
             <DropdownItem
               onItemClick={closeDropdown}
               tag="a"
               href="/profile"
-              className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+              className="flex items-center gap-3 px-3 py-2.5 font-medium text-gray-700 rounded-lg group text-sm transition-colors hover:bg-primary-50 hover:text-primary-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
             >
               <svg
                 className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
@@ -176,7 +194,7 @@ export default function UserDropdown() {
               onItemClick={closeDropdown}
               tag="a"
               href="/settings"
-              className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+              className="flex items-center gap-3 px-3 py-2.5 font-medium text-gray-700 rounded-lg group text-sm transition-colors hover:bg-primary-50 hover:text-primary-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
             >
               <svg
                 className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
@@ -201,7 +219,7 @@ export default function UserDropdown() {
               onItemClick={closeDropdown}
               tag="a"
               href="/support"
-              className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+              className="flex items-center gap-3 px-3 py-2.5 font-medium text-gray-700 rounded-lg group text-sm transition-colors hover:bg-primary-50 hover:text-primary-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
             >
               <svg
                 className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
@@ -224,10 +242,11 @@ export default function UserDropdown() {
         </ul>
         
         {/* Logout Button - Use onClick instead of href */}
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-        >
+        <div className="border-t border-gray-100 dark:border-gray-800 px-2 pt-2 pb-2">
+          <button
+            onClick={handleLogout}
+            className="flex w-full items-center gap-3 px-3 py-2.5 font-medium text-gray-700 rounded-lg group text-sm transition-colors hover:bg-error-50 hover:text-error-600 dark:text-gray-400 dark:hover:bg-error-500/10 dark:hover:text-error-400"
+          >
           <svg
             className="fill-gray-500 group-hover:fill-gray-700 dark:group-hover:fill-gray-300"
             width="24"
@@ -244,7 +263,8 @@ export default function UserDropdown() {
             />
           </svg>
           Sign out
-        </button>
+          </button>
+        </div>
       </Dropdown>
     </div>
   );
