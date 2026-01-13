@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Shield, CheckCircle2, AlertCircle, Clock, Loader2, ArrowRight } from "lucide-react";
 import dynamic from 'next/dynamic';
 
@@ -30,13 +29,9 @@ export default function StatutoryComplianceWidget() {
 
   if (loading) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="glass-card rounded-2xl p-6 h-full flex items-center justify-center premium-shadow"
-      >
-        <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
-      </motion.div>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm h-full flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-primary-600 dark:text-primary-400" />
+      </div>
     );
   }
 
@@ -45,52 +40,42 @@ export default function StatutoryComplianceWidget() {
       case "COMPLIANT":
         return {
           label: "Compliant",
-          icon: <CheckCircle2 className="w-5 h-5" />,
-          color: "text-emerald-500",
-          bgColor: "bg-emerald-500/10",
-          borderColor: "border-emerald-500/20",
-          badgeColor: "bg-emerald-500/10 text-emerald-600",
-          chartColor: "#10b981"
+          icon: <CheckCircle2 className="w-4 h-4" />,
+          color: "text-green-600 dark:text-green-400",
+          bgColor: "bg-green-50 dark:bg-green-500/10",
+          borderColor: "border-green-200 dark:border-green-500/20",
         };
       case "PENDING":
         return {
           label: "Pending",
-          icon: <Clock className="w-5 h-5" />,
-          color: "text-blue-500",
-          bgColor: "bg-blue-500/10",
-          borderColor: "border-blue-500/20",
-          badgeColor: "bg-blue-500/10 text-blue-600",
-          chartColor: "#3b82f6"
+          icon: <Clock className="w-4 h-4" />,
+          color: "text-blue-600 dark:text-blue-400",
+          bgColor: "bg-blue-50 dark:bg-blue-500/10",
+          borderColor: "border-blue-200 dark:border-blue-500/20",
         };
       case "WARNING":
         return {
           label: "Warning",
-          icon: <AlertCircle className="w-5 h-5" />,
-          color: "text-amber-500",
-          bgColor: "bg-amber-500/10",
-          borderColor: "border-amber-500/20",
-          badgeColor: "bg-amber-500/10 text-amber-600",
-          chartColor: "#f59e0b"
+          icon: <AlertCircle className="w-4 h-4" />,
+          color: "text-amber-600 dark:text-amber-400",
+          bgColor: "bg-amber-50 dark:bg-amber-500/10",
+          borderColor: "border-amber-200 dark:border-amber-500/20",
         };
       case "OVERDUE":
         return {
           label: "Overdue",
-          icon: <AlertCircle className="w-5 h-5" />,
-          color: "text-red-500",
-          bgColor: "bg-red-500/10",
-          borderColor: "border-red-500/20",
-          badgeColor: "bg-red-500/10 text-red-600",
-          chartColor: "#ef4444"
+          icon: <AlertCircle className="w-4 h-4" />,
+          color: "text-red-600 dark:text-red-400",
+          bgColor: "bg-red-50 dark:bg-red-500/10",
+          borderColor: "border-red-200 dark:border-red-500/20",
         };
       default:
         return {
           label: "Pending",
-          icon: <Clock className="w-5 h-5" />,
-          color: "text-gray-400",
-          bgColor: "bg-gray-100",
-          borderColor: "border-gray-200",
-          badgeColor: "bg-gray-100 text-gray-500",
-          chartColor: "#9ca3af"
+          icon: <Clock className="w-4 h-4" />,
+          color: "text-gray-600 dark:text-gray-400",
+          bgColor: "bg-gray-50 dark:bg-gray-700",
+          borderColor: "border-gray-200 dark:border-gray-600",
         };
     }
   };
@@ -119,7 +104,7 @@ export default function StatutoryComplianceWidget() {
   ];
 
   const compliantCount = complianceItems.filter((item) => item.status === "COMPLIANT").length;
-  // Calculate counts for chart
+  
   const counts = {
     COMPLIANT: 0,
     PENDING: 0,
@@ -131,7 +116,7 @@ export default function StatutoryComplianceWidget() {
     if (counts[item.status] !== undefined) {
       counts[item.status]++;
     } else {
-      counts.PENDING++; // default
+      counts.PENDING++;
     }
   });
 
@@ -143,32 +128,26 @@ export default function StatutoryComplianceWidget() {
     chart: {
       type: 'donut',
       fontFamily: 'inherit',
+      toolbar: { show: false },
     },
     labels: chartLabels,
     colors: chartColors,
     plotOptions: {
       pie: {
         donut: {
-          size: '75%',
+          size: '70%',
           labels: {
             show: true,
             name: {
-              show: true,
-              fontSize: '12px',
-              fontFamily: 'inherit',
-              fontWeight: 500,
-              offsetY: -5
+              show: false,
             },
             value: {
               show: true,
-              fontSize: '24px',
+              fontSize: '18px',
               fontFamily: 'inherit',
-              fontWeight: 700,
-              color: 'var(--foreground)',
-              offsetY: 5,
-              formatter: function (val) {
-                return val
-              }
+              fontWeight: 600,
+              color: '#1f2937',
+              offsetY: 0,
             },
             total: {
               show: true,
@@ -176,7 +155,7 @@ export default function StatutoryComplianceWidget() {
               fontSize: '12px',
               fontFamily: 'inherit',
               fontWeight: 500,
-              color: '#64748b',
+              color: '#6b7280',
               formatter: function (w) {
                 return w.globals.seriesTotals.reduce((a, b) => a + b, 0)
               }
@@ -189,21 +168,13 @@ export default function StatutoryComplianceWidget() {
       enabled: false
     },
     stroke: {
-      show: true,
-      colors: ['transparent'],
-      width: 2
+      show: false,
     },
     legend: {
       show: false
     },
     tooltip: {
       theme: 'light',
-      style: {
-        fontSize: '12px',
-        fontFamily: 'inherit',
-        color: 'var(--foreground)',
-        background: 'var(--card)',
-      },
       y: {
         formatter: function (val) {
           return val + " Items"
@@ -213,38 +184,23 @@ export default function StatutoryComplianceWidget() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -5 }}
-      className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
-    >
-      <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-full blur-3xl -mr-20 -mt-20 transition-all group-hover:bg-accent/10"></div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center gap-3 mb-6 relative z-10"
-      >
-        <motion.div
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          className="p-3 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 text-accent shadow-md border border-accent/10"
-        >
-          <Shield className="w-6 h-6" />
-        </motion.div>
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm hover:shadow-md transition-shadow">
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-500/20 flex items-center justify-center text-primary-600 dark:text-primary-400">
+          <Shield className="w-5 h-5" />
+        </div>
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-foreground">
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">
             Statutory Compliance
           </h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs text-gray-600 dark:text-gray-400">
             {compliantCount} / {complianceItems.length} Compliant
           </p>
         </div>
-      </motion.div>
+      </div>
 
-      <div className="flex flex-col md:flex-row gap-6 relative z-10">
+      <div className="flex flex-col md:flex-row gap-6">
         {/* Chart Section */}
         <div className="flex-shrink-0 flex items-center justify-center">
           <ReactApexChart options={chartOptions} series={chartSeries} type="donut" width={160} />
@@ -252,44 +208,34 @@ export default function StatutoryComplianceWidget() {
 
         {/* List Section */}
         <div className="flex-1 space-y-3">
-          {complianceItems.slice(0, 3).map((item, index) => {
+          {complianceItems.slice(0, 3).map((item) => {
             const config = getStatusConfig(item.status);
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                whileHover={{ scale: 1.02, x: 5 }}
-                className={`p-3 rounded-xl border ${config.borderColor} ${config.bgColor} backdrop-blur-md transition-all cursor-pointer flex items-center justify-between group/item`}
+              <div
+                key={item.name}
+                className={`p-3 rounded-lg border ${config.borderColor} ${config.bgColor} transition-colors flex items-center justify-between group`}
               >
                 <div className="flex items-center gap-3">
                   <div className={`w-2 h-2 rounded-full ${config.color.replace('text-', 'bg-')}`}></div>
                   <div>
-                    <p className="text-sm font-semibold text-foreground leading-tight">{item.name}</p>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide">{config.label}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white leading-tight">{item.name}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wide">{config.label}</p>
                   </div>
                 </div>
-
-                <ArrowRight className={`w-4 h-4 ${config.color} opacity-0 group-hover/item:opacity-100 transition-opacity transform group-hover/item:translate-x-1`} />
-              </motion.div>
+                <ArrowRight className={`w-4 h-4 ${config.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
+              </div>
             );
           })}
         </div>
       </div>
 
       {complianceItems.length > 3 && (
-        <motion.div
-          className="mt-4 pt-4 border-t border-dashed border-gray-200 dark:border-gray-800 text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          <span className="text-xs text-muted-foreground hover:text-brand-600 dark:hover:text-brand-400 cursor-pointer transition-colors font-medium">
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-center">
+          <span className="text-xs text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 cursor-pointer transition-colors font-medium">
             View all {complianceItems.length} compliances
           </span>
-        </motion.div>
+        </div>
       )}
-    </motion.div>
+    </div>
   );
 }
