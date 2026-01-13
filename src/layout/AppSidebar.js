@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Users,
   Target,
+  Grid,
   Building2,
   Calendar,
   Clock,
@@ -24,25 +25,15 @@ import {
   Briefcase,
   UserPlus,
   BarChart3,
-  FileCheck,
   FileBarChart,
-  DollarSign,
   ShieldCheck,
   Wallet,
-  FileSpreadsheet,
   TrendingUp,
   Banknote,
   Receipt,
-  Wallet,
   Box,
   FolderKanban,
-  TrendingUp,
   DollarSign,
-  Receipt,
-  Gift,
-  Award,
-  BookOpen,
-  Smartphone,
   LogOut
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -259,7 +250,7 @@ const employeeNavItems = [
       { name: "Connected Devices", path: "/employee/settings/connected-devices" },
     ],
   },
- 
+
 ];
 
 
@@ -412,37 +403,33 @@ const AppSidebar = () => {
           {nav.subItems ? (
             <button
               onClick={() => handleSubmenuToggle(index)}
-              className={`group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all duration-200 ${
-                hasActiveSubItem(nav) || openSubmenu?.index === index
+              className={`group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all duration-200 ${hasActiveSubItem(nav) || openSubmenu?.index === index
                   ? "bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-400"
                   : "text-gray-600 hover:bg-gray-50/80 dark:text-gray-400 dark:hover:bg-white/5"
-              } ${!isExpanded && !isHovered ? "lg:justify-center" : "lg:justify-start"}`}
+                } ${!isExpanded && !isHovered ? "lg:justify-center" : "lg:justify-start"}`}
             >
               <span
-                className={`flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200 mt-0.5 ${
-                  hasActiveSubItem(nav) || openSubmenu?.index === index
+                className={`flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200 mt-0.5 ${hasActiveSubItem(nav) || openSubmenu?.index === index
                     ? "bg-primary-100 text-primary-600 dark:bg-primary-500/20 dark:text-primary-400"
                     : "bg-gray-100 text-gray-500 group-hover:bg-primary-50 group-hover:text-primary-600 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-primary-500/10 dark:group-hover:text-primary-400"
-                }`}
+                  }`}
               >
                 {nav.icon}
               </span>
               {(isExpanded || isHovered || isMobileOpen) && (
                 <>
-                  <span className={`flex-1 text-sm font-medium transition-colors duration-200 leading-tight ${
-                    hasActiveSubItem(nav) || openSubmenu?.index === index
+                  <span className={`flex-1 text-sm font-medium transition-colors duration-200 leading-tight ${hasActiveSubItem(nav) || openSubmenu?.index === index
                       ? "text-primary-700 dark:text-primary-400"
                       : "text-gray-700 dark:text-gray-300"
-                  }`}>
+                    }`}>
                     {nav.name}
                   </span>
                   <ChevronRight
                     size={14}
-                    className={`flex-shrink-0 transition-all duration-200 mt-0.5 ${
-                      openSubmenu?.index === index
+                    className={`flex-shrink-0 transition-all duration-200 mt-0.5 ${openSubmenu?.index === index
                         ? "rotate-90 text-primary-600 dark:text-primary-400"
                         : "text-gray-400"
-                    }`}
+                      }`}
                   />
                 </>
               )}
@@ -456,27 +443,24 @@ const AppSidebar = () => {
                     toggleMobileSidebar();
                   }
                 }}
-                className={`group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all duration-200 ${
-                  isActive(nav.path)
+                className={`group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all duration-200 ${isActive(nav.path)
                     ? "bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-400"
                     : "text-gray-600 hover:bg-gray-50/80 dark:text-gray-400 dark:hover:bg-white/5"
-                }`}
+                  }`}
               >
                 <span
-                  className={`flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200 mt-0.5 ${
-                    isActive(nav.path)
+                  className={`flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200 mt-0.5 ${isActive(nav.path)
                       ? "bg-primary-100 text-primary-600 dark:bg-primary-500/20 dark:text-primary-400"
                       : "bg-gray-100 text-gray-500 group-hover:bg-primary-50 group-hover:text-primary-600 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-primary-500/10 dark:group-hover:text-primary-400"
-                  }`}
+                    }`}
                 >
                   {nav.icon}
                 </span>
                 {(isExpanded || isHovered || isMobileOpen) && (
-                  <span className={`flex-1 text-sm font-medium transition-colors duration-200 leading-tight ${
-                    isActive(nav.path)
+                  <span className={`flex-1 text-sm font-medium transition-colors duration-200 leading-tight ${isActive(nav.path)
                       ? "text-primary-700 dark:text-primary-400"
                       : "text-gray-700 dark:text-gray-300"
-                  }`}>
+                    }`}>
                     {nav.name}
                   </span>
                 )}
@@ -506,11 +490,10 @@ const AppSidebar = () => {
                           toggleMobileSidebar();
                         }
                       }}
-                      className={`block px-2.5 py-1.5 text-xs rounded-md transition-all duration-200 ${
-                        isActive(subItem.path)
+                      className={`block px-2.5 py-1.5 text-xs rounded-md transition-all duration-200 ${isActive(subItem.path)
                           ? "text-primary-700 font-medium dark:text-primary-400"
                           : "text-gray-600 hover:text-gray-900 hover:bg-gray-50/50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-white/5"
-                      }`}
+                        }`}
                     >
                       {subItem.name}
                     </Link>
@@ -595,17 +578,17 @@ const AppSidebar = () => {
           className={`h-16 flex items-center px-4 lg:px-5 border-b border-gray-200/50 dark:border-gray-800 ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
             }`}
         >
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="flex items-center gap-3 transition-all duration-200 hover:opacity-80"
             onClick={() => {
-            if (window.innerWidth < 1024) {
-              toggleMobileSidebar();
-            }
+              if (window.innerWidth < 1024) {
+                toggleMobileSidebar();
+              }
             }}
           >
             {/* Letter Logo - Always visible */}
-            <div 
+            <div
               className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl shadow-sm transition-all duration-200 hover:shadow-md hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--hero-gradient-end)) 100%)'
@@ -613,11 +596,11 @@ const AppSidebar = () => {
             >
               <span className="text-white font-bold text-lg leading-none">Z</span>
             </div>
-            
+
             {/* Company Name - Only visible when expanded */}
             {(isExpanded || isHovered || isMobileOpen) && (
               <div className="flex flex-col">
-                <span 
+                <span
                   className="font-bold text-base leading-tight"
                   style={{
                     fontFamily: 'var(--font-space-grotesk)',
@@ -627,9 +610,15 @@ const AppSidebar = () => {
                   Zodeck<span style={{ color: 'hsl(var(--primary))' }}>.</span>
                 </span>
                 <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 leading-tight mt-0.5">
-                  {userRole === "SUPER_ADMIN" ? "Super Admin" :
-                    userRole === "HR_ADMIN" ? "HR Portal" :
-                      "Employee Portal"}
+                  {userRole === "SUPER_ADMIN"
+                    ? "Super Admin"
+                    : userRole === "HR_ADMIN"
+                    ? "HR Portal"
+                    : userRole === "PAYROLL_ADMIN"
+                    ? "Payroll Compliance"
+                    : userRole === "FINANCE_ADMIN"
+                    ? "Finance Portal"
+                    : "Employee Portal"}
                 </span>
               </div>
             )}
@@ -639,7 +628,7 @@ const AppSidebar = () => {
 
         <div className="flex flex-col overflow-y-auto duration-300 ease-linear custom-scrollbar flex-1 px-3 lg:px-4 py-4">
           <nav>
-                {renderMenuItems(getNavItems())}
+            {renderMenuItems(getNavItems())}
           </nav>
         </div>
 
@@ -661,9 +650,15 @@ const AppSidebar = () => {
                       : user?.email || "User"}
                   </p>
                   <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate leading-tight">
-                    {userRole === "SUPER_ADMIN" ? "Super Admin" :
-                      userRole === "HR_ADMIN" ? "HR Admin" :
-                        "Employee"}
+                    {userRole === "SUPER_ADMIN"
+                      ? "Super Admin"
+                      : userRole === "HR_ADMIN"
+                      ? "HR Admin"
+                      : userRole === "PAYROLL_ADMIN"
+                      ? "Payroll Admin"
+                      : userRole === "FINANCE_ADMIN"
+                      ? "Finance Admin"
+                      : "Employee"}
                   </p>
                 </div>
               </div>
@@ -672,9 +667,15 @@ const AppSidebar = () => {
               <div className="flex items-center gap-1.5">
                 <Link
                   href={
-                    userRole === "SUPER_ADMIN" ? "/super-admin/profile" :
-                      userRole === "HR_ADMIN" ? "/hr/profile" :
-                        "/employee/profile"
+                    userRole === "SUPER_ADMIN"
+                      ? "/super-admin/profile"
+                      : userRole === "HR_ADMIN"
+                      ? "/hr/profile"
+                      : userRole === "PAYROLL_ADMIN"
+                      ? "/payroll-compliance/profile"
+                      : userRole === "FINANCE_ADMIN"
+                      ? "/finance-role/profile"
+                      : "/employee/profile"
                   }
                   onClick={() => {
                     if (window.innerWidth < 1024) {
@@ -707,7 +708,7 @@ const AppSidebar = () => {
                   ? `${user.employee.firstName.charAt(0).toUpperCase()}${user.employee.lastName ? user.employee.lastName.charAt(0).toUpperCase() : ""}`
                   : user?.email ? user.email.charAt(0).toUpperCase() : "U"}
               </span>
-          </div>
+            </div>
           )}
         </div>
       </aside>

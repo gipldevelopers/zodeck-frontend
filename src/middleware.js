@@ -65,6 +65,26 @@ export function middleware(request) {
         return NextResponse.redirect(new URL('/payroll-compliance/dashboard', request.url));
       }
     }
+
+    // 5. FINANCE_ADMIN restrictions
+    else if (userRole === 'FINANCE_ADMIN') {
+      if (pathname.startsWith('/employee/')) {
+        console.log('Redirecting Finance Admin to finance dashboard');
+        return NextResponse.redirect(new URL('/finance-role/dashboard', request.url));
+      }
+      if (pathname.startsWith('/hr/')) {
+        console.log('Redirecting Finance Admin to finance dashboard (HR access denied)');
+        return NextResponse.redirect(new URL('/finance-role/dashboard', request.url));
+      }
+      if (pathname.startsWith('/super-admin/')) {
+        console.log('Redirecting Finance Admin to finance dashboard (super admin access denied)');
+        return NextResponse.redirect(new URL('/finance-role/dashboard', request.url));
+      }
+      if (pathname.startsWith('/payroll-compliance/')) {
+        console.log('Redirecting Finance Admin to finance dashboard (payroll compliance access denied)');
+        return NextResponse.redirect(new URL('/finance-role/dashboard', request.url));
+      }
+    }
   }
 
   return NextResponse.next();

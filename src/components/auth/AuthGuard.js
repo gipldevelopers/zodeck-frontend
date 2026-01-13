@@ -20,7 +20,7 @@ export default function AuthGuard({ children, requireAuth = true }) {
         // Redirect based on user system role - THIS IS NECESSARY!
         // const userRole = user.role?.name || user.role;
         //  const userRole = user.systemRole || user.role?.name || user.role;
-         const userRole = user.systemRole;
+        const userRole = user.systemRole;
         let redirectPath = '/employee/dashboard';
         
         if (userRole === 'HR_ADMIN') {
@@ -29,6 +29,8 @@ export default function AuthGuard({ children, requireAuth = true }) {
           redirectPath = '/super-admin/dashboard';
         } else if (userRole === 'PAYROLL_ADMIN') {
           redirectPath = '/payroll-compliance/dashboard';
+        } else if (userRole === 'FINANCE_ADMIN') {
+          redirectPath = '/finance-role/dashboard';
         }
         
         console.log('AuthGuard redirecting authenticated user to:', redirectPath, 'for role:', userRole);

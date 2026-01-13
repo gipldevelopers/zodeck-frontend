@@ -139,6 +139,8 @@ export function AuthProvider({ children }) {
           redirectPath = '/super-admin/dashboard';
         } else if (userRole === 'PAYROLL_ADMIN') {
           redirectPath = '/payroll-compliance/dashboard';
+        } else if (userRole === 'FINANCE_ADMIN') {
+          redirectPath = '/finance-role/dashboard';
         }
         console.log('Redirecting to:', redirectPath, 'for role:', userRole);
         
