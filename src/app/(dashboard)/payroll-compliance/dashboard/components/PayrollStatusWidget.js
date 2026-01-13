@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle2, Clock, XCircle, TrendingUp, Loader2 } from "lucide-react";
+import { CheckCircle2, Clock, XCircle, Loader2 } from "lucide-react";
 import dynamic from 'next/dynamic';
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
@@ -27,13 +26,9 @@ export default function PayrollStatusWidget() {
 
   if (loading) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="glass-card rounded-2xl p-6 h-full flex items-center justify-center premium-shadow"
-      >
-        <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
-      </motion.div>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm h-full flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-primary-600 dark:text-primary-400" />
+      </div>
     );
   }
 
@@ -47,50 +42,26 @@ export default function PayrollStatusWidget() {
       case "COMPLETED":
         return {
           label: "Completed",
-          icon: <CheckCircle2 className="w-6 h-6" />,
-          color: "#10b981", // Success green
-          gradient: {
-            shade: 'dark',
-            type: 'horizontal',
-            shadeIntensity: 0.5,
-            gradientToColors: ['#34d399'],
-            inverseColors: true,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100]
-          }
+          icon: <CheckCircle2 className="w-5 h-5" />,
+          color: "#10b981",
+          bgColor: "bg-green-100 dark:bg-green-500/20",
+          textColor: "text-green-600 dark:text-green-400",
         };
       case "IN_PROGRESS":
         return {
           label: "In Progress",
-          icon: <Clock className="w-6 h-6" />,
-          color: "#0f766e", // Primary teal/emerald
-          gradient: {
-            shade: 'dark',
-            type: 'horizontal',
-            shadeIntensity: 0.5,
-            gradientToColors: ['#2dd4bf'],
-            inverseColors: true,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100]
-          }
+          icon: <Clock className="w-5 h-5" />,
+          color: "#14b8a6",
+          bgColor: "bg-primary-100 dark:bg-primary-500/20",
+          textColor: "text-primary-600 dark:text-primary-400",
         };
       default:
         return {
           label: "Not Started",
-          icon: <XCircle className="w-6 h-6" />,
-          color: "#6b7280", // Gray
-          gradient: {
-            shade: 'dark',
-            type: 'horizontal',
-            shadeIntensity: 0.5,
-            gradientToColors: ['#9ca3af'],
-            inverseColors: true,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100]
-          }
+          icon: <XCircle className="w-5 h-5" />,
+          color: "#6b7280",
+          bgColor: "bg-gray-100 dark:bg-gray-700",
+          textColor: "text-gray-600 dark:text-gray-400",
         };
     }
   };
@@ -101,26 +72,16 @@ export default function PayrollStatusWidget() {
     chart: {
       type: 'radialBar',
       offsetY: -10,
-      sparkline: {
-        enabled: true
-      }
+      toolbar: { show: false },
     },
     plotOptions: {
       radialBar: {
         startAngle: -90,
         endAngle: 90,
         track: {
-          background: "#e2e8f0",
+          background: "#e5e7eb",
           strokeWidth: '97%',
-          margin: 5, // margin is in pixels
-          dropShadow: {
-            enabled: true,
-            top: 2,
-            left: 0,
-            color: '#999',
-            opacity: 1,
-            blur: 2
-          }
+          margin: 5,
         },
         dataLabels: {
           name: {
@@ -128,10 +89,10 @@ export default function PayrollStatusWidget() {
           },
           value: {
             offsetY: -2,
-            fontSize: '22px',
-            fontWeight: 'bold',
+            fontSize: '20px',
+            fontWeight: 600,
             formatter: function (val) {
-              return val.toFixed(0) + "%";
+              return Math.round(val) + "%";
             }
           }
         },
@@ -140,17 +101,11 @@ export default function PayrollStatusWidget() {
         }
       }
     },
-    grid: {
-      padding: {
-        top: -10
-      }
-    },
     fill: {
-      type: 'gradient',
-      gradient: statusConfig.gradient
+      type: 'solid',
+      colors: [statusConfig.color]
     },
     labels: ['Progress'],
-    colors: [statusConfig.color],
     stroke: {
       lineCap: 'round'
     },
@@ -159,65 +114,38 @@ export default function PayrollStatusWidget() {
   const chartSeries = [progressPercentage];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -5 }}
-      className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
-    >
-      <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-brand-500/10"></div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center gap-3 mb-2 relative z-10"
-      >
-        <motion.div
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          className={`p-3 rounded-xl bg-${status === 'IN_PROGRESS' ? 'primary' : status === 'COMPLETED' ? 'success' : 'gray'}-50 text-${status === 'IN_PROGRESS' ? 'primary' : status === 'COMPLETED' ? 'success' : 'gray'}-500 shadow-md`}
-        >
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm hover:shadow-md transition-shadow">
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-6">
+        <div className={`w-10 h-10 rounded-lg ${statusConfig.bgColor} flex items-center justify-center ${statusConfig.textColor}`}>
           {statusConfig.icon}
-        </motion.div>
-        <div>
-          <h3 className="text-lg font-bold text-foreground">Payroll Status</h3>
-          <p className="text-sm text-muted-foreground">Current Month</p>
         </div>
-      </motion.div>
+        <div className="flex-1">
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">Payroll Status</h3>
+          <p className="text-xs text-gray-600 dark:text-gray-400">Current Month</p>
+        </div>
+      </div>
 
-      <div className="grid grid-cols-2 gap-4 items-center mt-2 relative z-10">
+      <div className="grid grid-cols-2 gap-4 items-center">
         <div>
-          <motion.div
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            className="flex flex-col"
-          >
-            <span className="text-3xl font-bold text-gradient-primary">
+          <div className="flex flex-col">
+            <span className="text-2xl font-bold text-gray-900 dark:text-white">
               {processedCount}
-              <span className="text-sm text-muted-foreground font-medium ml-1">/ {totalEmployees}</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400 font-medium ml-1">/ {totalEmployees}</span>
             </span>
-            <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mt-1">Employees Processed</span>
-          </motion.div>
+            <span className="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wider font-medium mt-1">Employees Processed</span>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center gap-1.5 mt-4 bg-white/50 dark:bg-black/20 backdrop-blur-sm w-fit px-3 py-1.5 rounded-full border border-white/20"
-          >
-            <div className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
-            <span className="text-xs font-medium text-brand-700 dark:text-brand-300">{statusConfig.label}</span>
-          </motion.div>
+          <div className="flex items-center gap-1.5 mt-4 bg-primary-50 dark:bg-primary-500/10 w-fit px-3 py-1.5 rounded-full border border-primary-200 dark:border-primary-500/20">
+            <div className={`w-2 h-2 rounded-full ${statusConfig.textColor.replace('text-', 'bg-')}`}></div>
+            <span className={`text-xs font-medium ${statusConfig.textColor}`}>{statusConfig.label}</span>
+          </div>
         </div>
 
         <div className="h-32 flex items-center justify-center -mr-4">
           <ReactApexChart options={chartOptions} series={chartSeries} type="radialBar" height={180} />
         </div>
       </div>
-
-      {/* Decorative pulse line at bottom */}
-      <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-transparent via-${status === 'IN_PROGRESS' ? 'primary' : 'gray'}-500 to-transparent w-full opacity-50`}></div>
-    </motion.div>
+    </div>
   );
 }
