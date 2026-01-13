@@ -37,7 +37,7 @@ const LeaveCalendarHeader = ({
   return (
     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 gap-4">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Leave Calendar</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Leave Calendar</h1>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
           Comprehensive view of all employee leaves and time off
         </p>
@@ -52,7 +52,7 @@ const LeaveCalendarHeader = ({
             placeholder="Search employees..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white w-full sm:w-64"
+            className="pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white w-full sm:w-64"
           />
         </div>
 
@@ -63,7 +63,7 @@ const LeaveCalendarHeader = ({
               onClick={() => onViewChange('month')}
               className={`p-2 rounded-md flex items-center gap-2 text-sm ${
                 view === 'month'
-                  ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow'
+                  ? 'bg-white dark:bg-gray-600 text-brand-600 dark:text-brand-400 shadow'
                   : 'text-gray-600 dark:text-gray-400'
               }`}
             >
@@ -74,7 +74,7 @@ const LeaveCalendarHeader = ({
               onClick={() => onViewChange('week')}
               className={`p-2 rounded-md flex items-center gap-2 text-sm ${
                 view === 'week'
-                  ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow'
+                  ? 'bg-white dark:bg-gray-600 text-brand-600 dark:text-brand-400 shadow'
                   : 'text-gray-600 dark:text-gray-400'
               }`}
             >
@@ -124,7 +124,7 @@ const LeaveCalendarHeader = ({
             </button>
             <button
               onClick={() => console.log('Add new leave')}
-              className="p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+              className="p-2 rounded-lg bg-brand-500 text-white hover:bg-brand-600 transition-all shadow-sm hover:shadow-md"
               title="Add New Leave"
             >
               <Plus size={20} />

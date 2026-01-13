@@ -5,6 +5,7 @@ import { Settings, Loader2, Plus, Filter, Edit } from "lucide-react";
 import { performanceManagementService } from "@/services/hr-services/performance-management.service";
 import { toast } from "react-hot-toast";
 import CreateCycleModal from "./CreateCycleModal";
+import CustomDropdown from "../../leave/components/CustomDropdown";
 
 export default function AppraisalCyclesTab() {
   const [cycles, setCycles] = useState([]);
@@ -52,7 +53,7 @@ export default function AppraisalCyclesTab() {
     const config = {
       DRAFT: { label: "Draft", className: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400" },
       ACTIVE: { label: "Active", className: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" },
-      IN_PROGRESS: { label: "In Progress", className: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" },
+      IN_PROGRESS: { label: "In Progress", className: "bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400" },
       COMPLETED: { label: "Completed", className: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400" },
       CANCELLED: { label: "Cancelled", className: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" },
     };
@@ -64,6 +65,15 @@ export default function AppraisalCyclesTab() {
     );
   };
 
+  const statusOptions = [
+    { value: 'all', label: 'All Status' },
+    { value: 'DRAFT', label: 'Draft' },
+    { value: 'ACTIVE', label: 'Active' },
+    { value: 'IN_PROGRESS', label: 'In Progress' },
+    { value: 'COMPLETED', label: 'Completed' },
+    { value: 'CANCELLED', label: 'Cancelled' }
+  ];
+
   return (
     <div className="space-y-6">
       {/* Filters and Actions */}
@@ -73,25 +83,20 @@ export default function AppraisalCyclesTab() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Status
             </label>
-            <select
+            <CustomDropdown
               value={filters.status}
-              onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Status</option>
-              <option value="DRAFT">Draft</option>
-              <option value="ACTIVE">Active</option>
-              <option value="IN_PROGRESS">In Progress</option>
-              <option value="COMPLETED">Completed</option>
-              <option value="CANCELLED">Cancelled</option>
-            </select>
+              onChange={(value) => setFilters({ ...filters, status: value })}
+              options={statusOptions}
+              placeholder="All Status"
+              className="w-full"
+            />
           </div>
           <button
             onClick={() => {
               setSelectedCycle(null);
               setIsModalOpen(true);
             }}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             Create Cycle
@@ -103,7 +108,7 @@ export default function AppraisalCyclesTab() {
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
           </div>
         ) : cycles.length > 0 ? (
           <div className="overflow-x-auto">
@@ -159,7 +164,7 @@ export default function AppraisalCyclesTab() {
                     <td className="px-4 py-3">
                       <button
                         onClick={() => handleEdit(cycle)}
-                        className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1"
+                        className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 flex items-center gap-1"
                       >
                         <Edit className="w-4 h-4" />
                         Edit

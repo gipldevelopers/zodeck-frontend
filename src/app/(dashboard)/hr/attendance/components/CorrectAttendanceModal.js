@@ -102,8 +102,8 @@ export default function CorrectAttendanceModal({ isOpen, onClose, attendance, on
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-              <FileText className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+            <div className="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg">
+              <FileText className="w-5 h-5 text-brand-600 dark:text-brand-400" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -250,13 +250,13 @@ export default function CorrectAttendanceModal({ isOpen, onClose, attendance, on
               onChange={(e) => handleInputChange("reason", e.target.value)}
               className={`w-full px-4 py-2 bg-white dark:bg-gray-700 border ${
                 errors.reason ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-              } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white resize-none`}
+              } rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 dark:text-white resize-none`}
               placeholder="Enter reason for attendance correction (required)..."
             />
             {errors.reason && (
               <p className="text-sm text-red-600 dark:text-red-400">{errors.reason}</p>
             )}
-            <div className="flex items-center gap-2 text-xs text-orange-600 dark:text-orange-400 mt-1">
+            <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400 mt-1">
               <AlertCircle className="w-3 h-3" />
               <span>Reason is required and will be logged for audit purposes</span>
             </div>
@@ -274,7 +274,7 @@ export default function CorrectAttendanceModal({ isOpen, onClose, attendance, on
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+              className="px-4 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md flex items-center gap-2"
             >
               {loading ? (
                 <>

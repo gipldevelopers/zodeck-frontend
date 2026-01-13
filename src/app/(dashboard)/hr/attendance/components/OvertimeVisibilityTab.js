@@ -87,7 +87,7 @@ export default function OvertimeVisibilityTab() {
   if (loading && records.length === 0) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-orange-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
       </div>
     );
   }
@@ -104,7 +104,7 @@ export default function OvertimeVisibilityTab() {
             placeholder="Start Date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all"
           />
         </div>
         <div>
@@ -113,14 +113,14 @@ export default function OvertimeVisibilityTab() {
             placeholder="End Date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all"
           />
         </div>
         <div>
           <select
             value={departmentFilter}
             onChange={(e) => setDepartmentFilter(e.target.value)}
-            className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all"
           >
             <option value="all">All Departments</option>
             {departments.map((dept) => (
@@ -144,12 +144,14 @@ export default function OvertimeVisibilityTab() {
               {summaryStats.totalOvertimeRecords || summaryStats.summary.length || 0}
             </p>
           </div>
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="bg-gradient-to-br from-brand-50 to-brand-100/50 dark:from-brand-500/20 dark:to-brand-500/10 p-5 rounded-xl border-2 border-brand-200 dark:border-brand-500/30 shadow-sm hover:shadow-md transition-all">
             <div className="flex items-center gap-3 mb-2">
-              <Timer className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              <p className="text-sm text-gray-600 dark:text-gray-400">Total Overtime Hours</p>
+              <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg">
+                <Timer className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+              </div>
+              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">Total Overtime Hours</p>
             </div>
-            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <p className="text-3xl font-bold text-brand-600 dark:text-brand-400">
               {summaryStats.totalOvertimeHours?.toFixed(1) || "0.0"}
             </p>
           </div>
@@ -169,7 +171,7 @@ export default function OvertimeVisibilityTab() {
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-900">
+            <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
               <tr>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Employee

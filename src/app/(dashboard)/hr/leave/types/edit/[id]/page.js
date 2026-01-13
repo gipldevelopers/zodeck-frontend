@@ -54,7 +54,7 @@ export default function EditLeaveType() {
     return (
       <div className="bg-gray-50 min-h-screen dark:bg-gray-900 p-6">
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
         </div>
       </div>
     );
@@ -81,7 +81,7 @@ export default function EditLeaveType() {
           </p>
           <button
             onClick={() => router.push('/hr/leave/types')}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="mt-4 px-4 py-2.5 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold"
           >
             Back to Leave Types
           </button>

@@ -114,7 +114,7 @@ export default function CreateCycleModal({ isOpen, onClose, cycle, onSuccess }) 
               type="text"
               value={formData.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
-              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white ${
+              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white ${
                 errors.name ? "border-red-500" : "border-gray-300 dark:border-gray-600"
               }`}
               placeholder="e.g., Q1 2025 Performance Review"
@@ -132,7 +132,7 @@ export default function CreateCycleModal({ isOpen, onClose, cycle, onSuccess }) 
               value={formData.description}
               onChange={(e) => handleInputChange("description", e.target.value)}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               placeholder="Enter cycle description..."
             />
           </div>
@@ -146,7 +146,7 @@ export default function CreateCycleModal({ isOpen, onClose, cycle, onSuccess }) 
                 type="date"
                 value={formData.startDate}
                 onChange={(e) => handleInputChange("startDate", e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white ${
+                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white ${
                   errors.startDate ? "border-red-500" : "border-gray-300 dark:border-gray-600"
                 }`}
               />
@@ -163,7 +163,7 @@ export default function CreateCycleModal({ isOpen, onClose, cycle, onSuccess }) 
                 type="date"
                 value={formData.endDate}
                 onChange={(e) => handleInputChange("endDate", e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white ${
+                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white ${
                   errors.endDate ? "border-red-500" : "border-gray-300 dark:border-gray-600"
                 }`}
               />
@@ -180,7 +180,7 @@ export default function CreateCycleModal({ isOpen, onClose, cycle, onSuccess }) 
             <select
               value={formData.status}
               onChange={(e) => handleInputChange("status", e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             >
               <option value="DRAFT">Draft</option>
               <option value="ACTIVE">Active</option>
@@ -201,7 +201,7 @@ export default function CreateCycleModal({ isOpen, onClose, cycle, onSuccess }) 
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>

@@ -106,8 +106,8 @@ const AttendanceOverview = () => {
                     setSelectedPeriod(period);
                     setIsDropdownOpen(false);
                   }}
-                  className={`w-full text-left px-3 py-2 text-xs ${selectedPeriod === period
-                      ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                  className={`w-full text-left px-3 py-2 text-xs transition-colors ${selectedPeriod === period
+                      ? "bg-brand-50 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 font-semibold"
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                     }`}
                 >
@@ -172,7 +172,7 @@ const AttendanceOverview = () => {
               ))}
               {absentEmployees.length > 4 && (
                 <div className="w-7 h-7 rounded-full border-2 border-white dark:border-gray-800 
-                                bg-blue-500 text-white text-xs flex items-center justify-center">
+                                bg-brand-500 text-white text-xs flex items-center justify-center font-semibold">
                   +{absentEmployees.length - 4}
                 </div>
               )}
@@ -181,7 +181,7 @@ const AttendanceOverview = () => {
 
           <Link
             href="/hr/leaves"
-            className="text-xs sm:text-sm font-medium text-orange-500 hover:underline"
+            className="text-xs sm:text-sm font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline transition-colors"
           >
             View Details
           </Link>

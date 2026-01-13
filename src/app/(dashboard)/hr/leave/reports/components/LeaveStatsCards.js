@@ -92,7 +92,7 @@ const LeaveStatsCards = ({ filters }) => {
               <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{card.value}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{card.description}</p>
             </div>
-            <div className={`p-3 rounded-lg ${index === 0 ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' :
+            <div className={`p-3 rounded-lg ${index === 0 ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400' :
               index === 1 ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' :
                 index === 2 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400' :
                   'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400'

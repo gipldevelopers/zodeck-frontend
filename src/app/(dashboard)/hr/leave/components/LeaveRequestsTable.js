@@ -125,7 +125,7 @@ export default function LeaveRequestsTable() {
       {
         accessorKey: 'id',
         header: 'Request ID',
-        cell: info => <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{info.getValue()}</span>,
+        cell: info => <span className="text-sm font-medium text-brand-600 dark:text-brand-400">{info.getValue()}</span>,
       },
       {
         accessorKey: 'employeeName',
@@ -212,7 +212,7 @@ export default function LeaveRequestsTable() {
                 onMouseEnter={() => setHoveredAction(`${info.row.id}-edit`)}
                 onMouseLeave={() => setHoveredAction(null)}
                 onClick={() => router.push(`/hr/leave/requests/edit/${info.row.original.id}`)}
-                className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all duration-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50 group relative"
+                className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-all duration-200 dark:bg-brand-900/30 dark:text-brand-400 dark:hover:bg-brand-900/50 group relative"
                 title="Edit"
               >
                 <Edit className="w-4 h-4" />
@@ -369,7 +369,7 @@ export default function LeaveRequestsTable() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin text-brand-600 mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">Loading leave requests...</p>
         </div>
       </div>
@@ -383,7 +383,7 @@ export default function LeaveRequestsTable() {
           <div className="text-red-600 mb-4">Error: {error}</div>
           <button
             onClick={() => fetchLeaveRequests()}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="px-4 py-2.5 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold"
           >
             Retry
           </button>
@@ -410,7 +410,7 @@ export default function LeaveRequestsTable() {
       )}
 
       {/* Filters Section */}
-      <div className="mb-6">
+      <div className="mb-6 overflow-visible">
         <LeaveRequestsFilters
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
@@ -429,7 +429,7 @@ export default function LeaveRequestsTable() {
       {/* Loading overlay for table */}
       {loading && (
         <div className="absolute inset-0 bg-white/50 dark:bg-gray-800/50 flex items-center justify-center z-10">
-          <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+          <Loader2 className="w-6 h-6 animate-spin text-brand-600" />
         </div>
       )}
 
@@ -437,7 +437,7 @@ export default function LeaveRequestsTable() {
       <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm relative">
         <div className="min-w-[1000px] md:min-w-full">
           <table className="w-full">
-            <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+            <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
               {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id} className="border-b border-gray-200 dark:border-gray-700">
                   {headerGroup.headers.map(header => (
@@ -454,8 +454,8 @@ export default function LeaveRequestsTable() {
                         {header.column.getCanSort() && (
                           <>
                             {{
-                              asc: <ChevronUp className="ml-1 w-4 h-4 text-blue-500" />,
-                              desc: <ChevronDown className="ml-1 w-4 h-4 text-blue-500" />,
+                              asc: <ChevronUp className="ml-1 w-4 h-4 text-brand-600" />,
+                              desc: <ChevronDown className="ml-1 w-4 h-4 text-brand-600" />,
                             }[header.column.getIsSorted()] ?? (
                               <div className="ml-1 flex flex-col">
                                 <ChevronUp className="w-3 h-3 -mb-0.5 text-gray-400" />

@@ -158,8 +158,8 @@ const ClockInOut = () => {
                 onSelect(opt);
                 setOpen(false);
               }}
-              className={`block w-full text-left px-4 py-2 text-xs ${value === opt
-                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+              className={`block w-full text-left px-4 py-2 text-xs transition-colors ${value === opt
+                  ? "bg-brand-50 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 font-semibold"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                 }`}
             >
@@ -273,8 +273,9 @@ const ClockInOut = () => {
 
       <Link
         href="/hr/attendance"
-        className="block mt-4 text-center text-sm px-4 py-2 rounded-lg 
-                   bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+        className="block mt-4 text-center text-sm font-semibold px-4 py-2.5 rounded-lg 
+                   bg-brand-50 hover:bg-brand-100 text-brand-600 
+                   dark:bg-brand-500/10 dark:hover:bg-brand-500/20 dark:text-brand-400 transition-colors"
       >
         View All Attendance
       </Link>

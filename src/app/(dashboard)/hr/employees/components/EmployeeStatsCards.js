@@ -51,29 +51,29 @@ export default function EmployeeStatsCards() {
       title: "Total Employees",
       value: statsData.totalEmployees,
       icon: Users,
-      iconBg: "bg-gradient-to-r from-gray-800 to-gray-600",
-      growthColor: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400"
+      iconBg: "bg-gradient-to-br from-brand-500 to-brand-600",
+      growthColor: "bg-brand-50 text-brand-700 dark:bg-brand-500/20 dark:text-brand-400"
     },
     {
       title: "Active Employees",
       value: statsData.activeEmployees,
       icon: UserCheck,
-      iconBg: "bg-gradient-to-r from-green-500 to-green-400",
-      growthColor: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+      iconBg: "bg-gradient-to-br from-emerald-500 to-emerald-600",
+      growthColor: "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400"
     },
     {
       title: "Inactive Employees",
       value: statsData.inactiveEmployees,
       icon: UserX,
-      iconBg: "bg-gradient-to-r from-red-500 to-red-400",
-      growthColor: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+      iconBg: "bg-gradient-to-br from-rose-500 to-rose-600",
+      growthColor: "bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400"
     },
     {
       title: "New Joiners",
       value: statsData.newJoiners,
       icon: UserPlus,
-      iconBg: "bg-gradient-to-r from-blue-500 to-blue-400",
-      growthColor: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
+      iconBg: "bg-gradient-to-br from-accent-500 to-accent-600",
+      growthColor: "bg-accent-50 text-accent-700 dark:bg-accent-500/20 dark:text-accent-400"
     }
   ];
 
@@ -96,8 +96,8 @@ export default function EmployeeStatsCards() {
         <div
           key={index}
           className="rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 sm:p-6 cursor-pointer
-                     bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900
-                     hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                     bg-white dark:bg-gray-800
+                     hover:shadow-xl hover:shadow-brand-500/5 hover:-translate-y-1 transition-all duration-300"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center overflow-hidden">

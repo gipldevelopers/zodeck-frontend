@@ -42,7 +42,7 @@ const LeaveReportsHeader = ({ filters, onReportSaved }) => {
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Leave Reports & Analytics</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Leave Reports & Analytics</h1>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
           Comprehensive analysis of leave patterns and trends
         </p>
@@ -63,7 +63,7 @@ const LeaveReportsHeader = ({ filters, onReportSaved }) => {
         <button
           onClick={handleExport}
           disabled={isExporting}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-4 py-2.5 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isExporting ? (
             <Loader2 className="w-4 h-4 animate-spin" />

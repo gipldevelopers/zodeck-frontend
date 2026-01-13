@@ -69,7 +69,7 @@ export default function ReportFilters({
               onDateRangeChange(value);
               setIsCustomDateOpen(value === DATE_RANGES.CUSTOM);
             }}
-            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           >
             {dateRangeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -87,7 +87,7 @@ export default function ReportFilters({
           <select
             value={chartType}
             onChange={(e) => onChartTypeChange(e.target.value)}
-            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           >
             {chartTypeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -114,7 +114,7 @@ export default function ReportFilters({
                 })
               }
               options={{ dateFormat: "Y-m-d" }}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
           </div>
 
@@ -131,7 +131,7 @@ export default function ReportFilters({
                 })
               }
               options={{ dateFormat: "Y-m-d" }}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
           </div>
         </div>
@@ -154,7 +154,7 @@ export default function ReportFilters({
               ),
             })
           }
-          className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white h-36"
+          className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white h-36"
         >
           {departments.map((dept) => (
             <option key={dept.id} value={dept.id}>
@@ -186,7 +186,7 @@ export default function ReportFilters({
         </button>
 
         <button
-          className="w-full sm:w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-md transition"
+          className="w-full sm:w-1/2 bg-brand-500 hover:bg-brand-600 text-white font-semibold py-2.5 rounded-md transition-all shadow-sm hover:shadow-md"
         >
           Generate Report
         </button>

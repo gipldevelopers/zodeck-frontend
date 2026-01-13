@@ -121,7 +121,7 @@ const HolidaysCalendar = ({ holidays }) => {
                   className={`min-h-[100px] sm:min-h-[120px] p-2 border rounded-lg ${isEmpty
                       ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
                       : isTodayDate
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                        ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20'
                         : isWeekendDay
                           ? 'bg-gray-50 dark:bg-gray-700/50 border-gray-200 dark:border-gray-600'
                           : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
@@ -129,7 +129,7 @@ const HolidaysCalendar = ({ holidays }) => {
                 >
                   {/* Date Number */}
                   <div className={`text-sm font-medium mb-2 ${isTodayDate
-                      ? 'text-blue-600 dark:text-blue-400'
+                      ? 'text-brand-600 dark:text-brand-400'
                       : isEmpty
                         ? 'text-gray-400 dark:text-gray-600'
                         : 'text-gray-900 dark:text-white'

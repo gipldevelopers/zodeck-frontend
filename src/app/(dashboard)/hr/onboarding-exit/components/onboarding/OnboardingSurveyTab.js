@@ -85,7 +85,7 @@ export default function OnboardingSurveyTab() {
                 placeholder="Search employee by name or ID..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               />
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function OnboardingSurveyTab() {
                 value={formData.responses.question1 || formData.responses.answer1 || ""}
                 onChange={(e) => handleInputChange("answer1", e.target.value)}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 placeholder="Share your onboarding experience..."
               />
             </div>
@@ -131,7 +131,7 @@ export default function OnboardingSurveyTab() {
               <select
                 value={formData.responses.rating || formData.responses.answer2 || ""}
                 onChange={(e) => handleInputChange("rating", e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               >
                 <option value="">Select rating</option>
                 <option value="1">1 - Poor</option>
@@ -150,7 +150,7 @@ export default function OnboardingSurveyTab() {
                 value={formData.responses.feedback || ""}
                 onChange={(e) => handleInputChange("feedback", e.target.value)}
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 placeholder="Any additional feedback or suggestions..."
               />
             </div>
@@ -159,7 +159,7 @@ export default function OnboardingSurveyTab() {
               <button
                 type="submit"
                 disabled={submitting || surveyData?.submittedAt}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2.5 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? (
                   <>

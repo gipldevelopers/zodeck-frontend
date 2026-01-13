@@ -75,7 +75,7 @@ export default function SalaryStructureTable() {
       {
         accessorKey: 'id',
         header: 'ID',
-        cell: info => <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{info.row.original.publicId}</span>,
+        cell: info => <span className="text-sm font-medium text-brand-600 dark:text-brand-400">{info.row.original.publicId}</span>,
       },
       {
         accessorKey: 'employee',
@@ -161,14 +161,14 @@ export default function SalaryStructureTable() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => handleView(info.row.original)}
-              className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all duration-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
+              className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-all duration-200 dark:bg-brand-900/30 dark:text-brand-400 dark:hover:bg-brand-900/50"
               title="View Details"
             >
               <Eye className="w-4 h-4" />
             </button>
             <button
               onClick={() => handleEdit(info.row.original)}
-              className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-all duration-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
+              className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-all duration-200 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50"
               title="Edit"
             >
               <Edit className="w-4 h-4" />
@@ -260,7 +260,7 @@ export default function SalaryStructureTable() {
             Manage employee salary components and structures
           </p>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg dark:bg-blue-900/30 dark:text-blue-400 w-full sm:w-auto justify-center">
+        <div className="flex items-center gap-2 px-4 py-2 bg-brand-50 text-brand-600 rounded-lg dark:bg-brand-900/30 dark:text-brand-400 w-full sm:w-auto justify-center">
           <IndianRupee size={18} />
           <span className="font-medium">
             Total Items: {totalItems}
@@ -291,7 +291,7 @@ export default function SalaryStructureTable() {
       <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm relative">
         <div className="min-w-[1000px]">
           <table className="w-full">
-            <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+            <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
               {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id} className="border-b border-gray-200 dark:border-gray-700">
                   {headerGroup.headers.map(header => (
@@ -307,8 +307,8 @@ export default function SalaryStructureTable() {
                             onClick={header.column.getToggleSortingHandler()}
                           >
                             {{
-                              asc: <ChevronUp className="w-4 h-4 text-blue-500" />,
-                              desc: <ChevronDown className="w-4 h-4 text-blue-500" />,
+                              asc: <ChevronUp className="w-4 h-4 text-brand-600" />,
+                              desc: <ChevronDown className="w-4 h-4 text-brand-600" />,
                             }[header.column.getIsSorted()] ?? (
                                 <div className="flex flex-col">
                                   <ChevronUp className="w-3 h-3 -mb-0.5 text-gray-400" />

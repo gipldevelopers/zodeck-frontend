@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { CheckCircle } from 'lucide-react';
 import PersonalInfoForm from './components/PersonalInfoForm';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import ProgressIndicator from './components/ProgressIndicator';
@@ -410,23 +411,32 @@ export default function AddEmployeePage() {
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
             {isSaved && (
-              <span className="text-green-600 dark:text-green-400">✓ Saved</span>
+              <span className="text-brand-600 dark:text-brand-400 font-semibold flex items-center gap-1">
+                <CheckCircle className="w-4 h-4" />
+                Saved
+              </span>
             )}
             {lastSaved && (
-              <span>Last saved: {lastSaved.toLocaleTimeString()}</span>
+              <span className="text-gray-500 dark:text-gray-400">
+                Last saved: {lastSaved.toLocaleTimeString()}
+              </span>
             )}
           </div>
 
           <div className="flex gap-2">
             <button
               onClick={handleManualSave}
-              className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50 transition-colors"
+              className="px-4 py-2 text-xs font-semibold bg-brand-50 text-brand-700 rounded-lg hover:bg-brand-100 
+                         dark:bg-brand-500/20 dark:text-brand-400 dark:hover:bg-brand-500/30 
+                         border border-brand-200 dark:border-brand-500/30 transition-colors shadow-sm"
             >
               Save Progress
             </button>
             <button
               onClick={clearFormData}
-              className="px-3 py-1 text-xs bg-red-100 text-red-700 rounded hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50 transition-colors"
+              className="px-4 py-2 text-xs font-semibold bg-rose-50 text-rose-700 rounded-lg hover:bg-rose-100 
+                         dark:bg-rose-500/20 dark:text-rose-400 dark:hover:bg-rose-500/30 
+                         border border-rose-200 dark:border-rose-500/30 transition-colors shadow-sm"
             >
               Clear Form
             </button>

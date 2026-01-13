@@ -43,7 +43,7 @@ const LeaveRequestsDashboardTable = ({ requests = [] }) => {
         <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
           Recent Leave Requests
         </h2>
-        <button className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+        <button className="text-sm text-brand-600 dark:text-brand-400 hover:underline font-medium">
           View All
         </button>
       </div>

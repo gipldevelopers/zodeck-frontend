@@ -118,8 +118,8 @@ const EmployeeDepartmentChart = () => {
                     setSelectedPeriod(key);
                     setIsDropdownOpen(false);
                   }}
-                  className={`block w-full text-left px-4 py-2 text-xs ${selectedPeriod === key
-                      ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                  className={`block w-full text-left px-4 py-2 text-xs transition-colors ${selectedPeriod === key
+                      ? "bg-brand-50 dark:bg-brand-500/20 text-brand-600 dark:text-brand-400 font-semibold"
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                     }`}
                 >
@@ -173,7 +173,7 @@ const EmployeeDepartmentChart = () => {
               />
               <Bar
                 dataKey="employees"
-                fill="#f97316"
+                fill="hsl(174, 72%, 41%)"
                 barSize={isMobile ? 18 : 22}
                 radius={[6, 6, 6, 6]}
               />
@@ -184,9 +184,9 @@ const EmployeeDepartmentChart = () => {
         {/* Footer */}
         <p className="mt-3 pt-2 text-xs text-gray-600 dark:text-gray-300 
                       border-t border-gray-100 dark:border-gray-700">
-          <span className="inline-block w-2 h-2 bg-orange-500 rounded-full mr-1" />
+          <span className="inline-block w-2 h-2 bg-brand-500 rounded-full mr-1.5" />
           No of Employees increased by{" "}
-          <span className="text-green-600 font-medium">+20%</span> from last week
+          <span className="text-brand-600 dark:text-brand-400 font-semibold">+20%</span> from last week
         </p>
       </div>
     </div>

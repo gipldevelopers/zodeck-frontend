@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import LeaveStatsCards from "./components/LeaveStatsCards";
 import LeaveAnalytics from "./components/LeaveAnalytics";
 import UpcomingHolidays from "./components/UpcomingHolidays";
@@ -20,6 +20,8 @@ export default function LeaveDashboard() {
   const [recentRequests, setRecentRequests] = useState([]);
   const [departmentDistribution, setDepartmentDistribution] = useState(null);
   const [analyticsPeriod, setAnalyticsPeriod] = useState("thisWeek");
+  const [visibleElements, setVisibleElements] = useState(new Set());
+  const elementRefs = useRef({});
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -61,6 +63,41 @@ export default function LeaveDashboard() {
     fetchDashboardData();
   }, [analyticsPeriod]);
 
+  // Intersection Observer for scroll-triggered animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const elementId = entry.target.getAttribute('data-animate-id');
+            if (elementId) {
+              setVisibleElements((prev) => new Set(prev).add(elementId));
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of element is visible
+        rootMargin: '0px 0px -50px 0px', // Start animation slightly before element is fully visible
+      }
+    );
+
+    // Use setTimeout to ensure all refs are set after render
+    const timeoutId = setTimeout(() => {
+      // Observe all elements with data-animate-id
+      Object.values(elementRefs.current).forEach((ref) => {
+        if (ref) {
+          observer.observe(ref);
+        }
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, [loading]); // Re-run when loading completes to observe newly rendered elements
+
   const handleAnalyticsPeriodChange = (period) => {
     setAnalyticsPeriod(period);
   };
@@ -68,7 +105,7 @@ export default function LeaveDashboard() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-96">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
       </div>
     );
   }
@@ -78,12 +115,21 @@ export default function LeaveDashboard() {
       {/* Stats Cards and Next Holiday Row */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Stats Cards - 8 columns */}
-        <div className="lg:col-span-8 h-full">
+        <div
+          ref={(el) => (elementRefs.current['stats-cards'] = el)}
+          data-animate-id="stats-cards"
+          className={`lg:col-span-8 h-full scroll-fade-in ${visibleElements.has('stats-cards') ? 'animate-fade-in' : 'opacity-0'}`}
+        >
           <LeaveStatsCards stats={stats} />
         </div>
 
         {/* Next Holiday - 4 columns */}
-        <div className="lg:col-span-4 h-full">
+        <div
+          ref={(el) => (elementRefs.current['next-holiday'] = el)}
+          data-animate-id="next-holiday"
+          className={`lg:col-span-4 h-full scroll-fade-in ${visibleElements.has('next-holiday') ? 'animate-fade-in' : 'opacity-0'}`}
+          style={visibleElements.has('next-holiday') ? { animationDelay: '150ms' } : {}}
+        >
           <NextHoliday nextHoliday={nextHoliday} />
         </div>
       </div>
@@ -92,18 +138,46 @@ export default function LeaveDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Section - 8 columns */}
         <div className="lg:col-span-8 space-y-6">
-          <LeaveAnalytics 
-            analytics={weeklyAnalytics} 
-            period={analyticsPeriod}
-            onPeriodChange={handleAnalyticsPeriodChange}
-          />
-          <LeaveRequestsDashboardTable requests={recentRequests} />
+          <div
+            ref={(el) => (elementRefs.current['analytics'] = el)}
+            data-animate-id="analytics"
+            className={`scroll-fade-in ${visibleElements.has('analytics') ? 'animate-fade-in' : 'opacity-0'}`}
+            style={visibleElements.has('analytics') ? { animationDelay: '100ms' } : {}}
+          >
+            <LeaveAnalytics 
+              analytics={weeklyAnalytics} 
+              period={analyticsPeriod}
+              onPeriodChange={handleAnalyticsPeriodChange}
+            />
+          </div>
+          <div
+            ref={(el) => (elementRefs.current['requests-table'] = el)}
+            data-animate-id="requests-table"
+            className={`scroll-fade-in ${visibleElements.has('requests-table') ? 'animate-fade-in' : 'opacity-0'}`}
+            style={visibleElements.has('requests-table') ? { animationDelay: '200ms' } : {}}
+          >
+            <LeaveRequestsDashboardTable requests={recentRequests} />
+          </div>
         </div>
 
         {/* Right Section - 4 columns */}
         <div className="lg:col-span-4 space-y-6">
-          <UpcomingHolidays holidays={upcomingHolidays} />
-          <DepartmentLeaveChart distribution={departmentDistribution} />
+          <div
+            ref={(el) => (elementRefs.current['upcoming-holidays'] = el)}
+            data-animate-id="upcoming-holidays"
+            className={`scroll-fade-in ${visibleElements.has('upcoming-holidays') ? 'animate-fade-in' : 'opacity-0'}`}
+            style={visibleElements.has('upcoming-holidays') ? { animationDelay: '100ms' } : {}}
+          >
+            <UpcomingHolidays holidays={upcomingHolidays} />
+          </div>
+          <div
+            ref={(el) => (elementRefs.current['department-chart'] = el)}
+            data-animate-id="department-chart"
+            className={`scroll-fade-in ${visibleElements.has('department-chart') ? 'animate-fade-in' : 'opacity-0'}`}
+            style={visibleElements.has('department-chart') ? { animationDelay: '250ms' } : {}}
+          >
+            <DepartmentLeaveChart distribution={departmentDistribution} />
+          </div>
         </div>
       </div>
     </div>

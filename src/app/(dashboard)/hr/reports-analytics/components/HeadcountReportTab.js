@@ -5,6 +5,7 @@ import { Users, Loader2, Filter, Download } from "lucide-react";
 import { reportsAnalyticsService } from "@/services/hr-services/reports-analytics.service";
 import { organizationService } from "@/services/hr-services/organization.service";
 import { toast } from "react-hot-toast";
+import CustomDropdown from "../../leave/components/CustomDropdown";
 
 export default function HeadcountReportTab() {
   const [reportData, setReportData] = useState(null);
@@ -66,33 +67,33 @@ export default function HeadcountReportTab() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Department
             </label>
-            <select
+            <CustomDropdown
               value={filters.departmentId}
-              onChange={(e) => setFilters({ ...filters, departmentId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Departments</option>
-              {departments.map((dept) => (
-                <option key={dept.id} value={dept.id}>
-                  {dept.name}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => setFilters({ ...filters, departmentId: value })}
+              options={[
+                { value: 'all', label: 'All Departments' },
+                ...departments.map(dept => ({ value: dept.id, label: dept.name }))
+              ]}
+              placeholder="All Departments"
+              className="w-full"
+            />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Status
             </label>
-            <select
+            <CustomDropdown
               value={filters.status}
-              onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Status</option>
-              <option value="ACTIVE">Active</option>
-              <option value="PROBATION">Probation</option>
-              <option value="NOTICE_PERIOD">Notice Period</option>
-            </select>
+              onChange={(value) => setFilters({ ...filters, status: value })}
+              options={[
+                { value: 'all', label: 'All Status' },
+                { value: 'ACTIVE', label: 'Active' },
+                { value: 'PROBATION', label: 'Probation' },
+                { value: 'NOTICE_PERIOD', label: 'Notice Period' }
+              ]}
+              placeholder="All Status"
+              className="w-full"
+            />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -102,7 +103,7 @@ export default function HeadcountReportTab() {
               type="date"
               value={filters.startDate}
               onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
           <div>
@@ -113,7 +114,7 @@ export default function HeadcountReportTab() {
               type="date"
               value={filters.endDate}
               onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
         </div>
@@ -122,7 +123,7 @@ export default function HeadcountReportTab() {
       {/* Report Content */}
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
         </div>
       ) : reportData ? (
         <div className="space-y-6">
@@ -200,7 +201,7 @@ export default function HeadcountReportTab() {
                         <td className="px-4 py-3 text-sm text-gray-900 dark:text-white">{employee.department || "-"}</td>
                         <td className="px-4 py-3 text-sm text-gray-900 dark:text-white">{employee.designation || "-"}</td>
                         <td className="px-4 py-3">
-                          <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                          <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400">
                             {employee.status || "-"}
                           </span>
                         </td>

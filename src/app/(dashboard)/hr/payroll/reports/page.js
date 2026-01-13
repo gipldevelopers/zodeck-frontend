@@ -94,8 +94,8 @@ export default function PayrollReports() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
               <div className="flex items-center">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg mr-4">
-                  <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg mr-4">
+                  <FileText className="w-5 h-5 text-brand-600 dark:text-brand-400" />
                 </div>
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Total Reports</p>
@@ -141,7 +141,7 @@ export default function PayrollReports() {
               <h2 className="text-lg font-semibold text-gray-800 dark:text-white">Generate Report</h2>
               <button
                 onClick={handleGenerateReport}
-                className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition w-full sm:w-auto justify-center"
+                className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2 text-white hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold w-full sm:w-auto justify-center"
               >
                 <BarChart3 size={18} />
                 Generate Report

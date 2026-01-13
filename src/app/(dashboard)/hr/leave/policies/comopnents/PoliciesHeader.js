@@ -1,5 +1,6 @@
 "use client";
 import { Search, Filter } from 'lucide-react';
+import CustomDropdown from '../../components/CustomDropdown';
 
 const PoliciesHeader = ({ 
   searchTerm, 
@@ -43,7 +44,7 @@ const PoliciesHeader = ({
     <div className="mt-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Leave Policies</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Leave Policies</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
             Manage and configure leave policies for your organization
           </p>
@@ -58,52 +59,40 @@ const PoliciesHeader = ({
             placeholder="Search policies..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
           />
         </div>
         
-        <div className="flex flex-wrap gap-2">
-          <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-gray-400" />
-            <select
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0 relative">
+            <Filter className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            <CustomDropdown
               value={statusFilter}
-              onChange={(e) => onStatusFilterChange(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-            >
-              {statusOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+              onChange={onStatusFilterChange}
+              options={statusOptions}
+              placeholder="All Statuses"
+              className="min-w-[150px]"
+            />
           </div>
 
-          <div className="flex items-center gap-2">
-            <select
+          <div className="flex items-center gap-2 flex-shrink-0 relative">
+            <CustomDropdown
               value={applicableToFilter}
-              onChange={(e) => onApplicableToFilterChange(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-            >
-              {applicableToOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+              onChange={onApplicableToFilterChange}
+              options={applicableToOptions}
+              placeholder="All Types"
+              className="min-w-[150px]"
+            />
           </div>
 
-          <div className="flex items-center gap-2">
-            <select
+          <div className="flex items-center gap-2 flex-shrink-0 relative">
+            <CustomDropdown
               value={accrualMethodFilter}
-              onChange={(e) => onAccrualMethodFilterChange(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-            >
-              {accrualMethodOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+              onChange={onAccrualMethodFilterChange}
+              options={accrualMethodOptions}
+              placeholder="All Methods"
+              className="min-w-[150px]"
+            />
           </div>
         </div>
       </div>

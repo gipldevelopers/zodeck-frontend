@@ -121,7 +121,7 @@ export default function AssetCategories() {
             )}
             <Link
               href="/hr/assets/categories/add"
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2 text-white hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold"
             >
               <Plus size={18} /> Add Category
             </Link>
@@ -156,7 +156,7 @@ export default function AssetCategories() {
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-700">
+            <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
               <tr>
                 <th className="px-6 py-3">
                   <input
@@ -198,7 +198,7 @@ export default function AssetCategories() {
                     {category.usefulLife} year
                   </td>
                   <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                    <span className="px-2 py-1 bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400 rounded-full text-xs">
                       {category.assetCount}
                     </span>
                   </td>

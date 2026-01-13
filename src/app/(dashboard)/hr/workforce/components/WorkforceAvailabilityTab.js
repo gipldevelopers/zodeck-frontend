@@ -120,7 +120,7 @@ export default function WorkforceAvailabilityTab() {
               type="date"
               value={filters.date}
               onChange={(e) => setFilters({ ...filters, date: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white transition-all"
             />
           </div>
 
@@ -131,7 +131,7 @@ export default function WorkforceAvailabilityTab() {
             <select
               value={filters.departmentId}
               onChange={(e) => setFilters({ ...filters, departmentId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white transition-all"
             >
               <option value="all">All Departments</option>
               {departments.map((dept) => (
@@ -149,7 +149,7 @@ export default function WorkforceAvailabilityTab() {
             <select
               value={filters.workMode}
               onChange={(e) => setFilters({ ...filters, workMode: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white transition-all"
             >
               <option value="all">All Modes</option>
               <option value="WFO">Work From Office</option>
@@ -160,7 +160,7 @@ export default function WorkforceAvailabilityTab() {
 
           <button
             onClick={fetchAvailability}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+            className="px-4 py-2.5 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold flex items-center gap-2"
           >
             <RefreshCw className="w-4 h-4" />
             Refresh
@@ -171,51 +171,59 @@ export default function WorkforceAvailabilityTab() {
       {/* Summary Cards */}
       {summary && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+          <div className="bg-gradient-to-br from-brand-50 to-brand-100/50 dark:from-brand-500/20 dark:to-brand-500/10 rounded-xl border-2 border-brand-200 dark:border-brand-500/30 shadow-sm hover:shadow-md transition-all p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Total Employees</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2">Total Employees</p>
+                <p className="text-3xl font-bold text-brand-600 dark:text-brand-400">
                   {summary.total || 0}
                 </p>
               </div>
-              <Users className="w-8 h-8 text-blue-500" />
+              <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg">
+                <Users className="w-6 h-6 text-brand-600 dark:text-brand-400" />
+              </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-500/20 dark:to-emerald-500/10 rounded-xl border-2 border-emerald-200 dark:border-emerald-500/30 shadow-sm hover:shadow-md transition-all p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Available</p>
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2">Available</p>
+                <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
                   {summary.available || 0}
                 </p>
               </div>
-              <CheckCircle className="w-8 h-8 text-green-500" />
+              <div className="p-2 bg-emerald-100 dark:bg-emerald-500/20 rounded-lg">
+                <CheckCircle className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+              </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+          <div className="bg-gradient-to-br from-rose-50 to-rose-100/50 dark:from-rose-500/20 dark:to-rose-500/10 rounded-xl border-2 border-rose-200 dark:border-rose-500/30 shadow-sm hover:shadow-md transition-all p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">On Leave</p>
-                <p className="text-2xl font-bold text-red-600 dark:text-red-400">
+                <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2">On Leave</p>
+                <p className="text-3xl font-bold text-rose-600 dark:text-rose-400">
                   {summary.onLeave || 0}
                 </p>
               </div>
-              <XCircle className="w-8 h-8 text-red-500" />
+              <div className="p-2 bg-rose-100 dark:bg-rose-500/20 rounded-lg">
+                <XCircle className="w-6 h-6 text-rose-600 dark:text-rose-400" />
+              </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+          <div className="bg-gradient-to-br from-accent-50 to-accent-100/50 dark:from-accent-500/20 dark:to-accent-500/10 rounded-xl border-2 border-accent-200 dark:border-accent-500/30 shadow-sm hover:shadow-md transition-all p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Date</p>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2">Date</p>
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">
                   {new Date(filters.date).toLocaleDateString()}
                 </p>
               </div>
-              <Calendar className="w-8 h-8 text-purple-500" />
+              <div className="p-2 bg-accent-100 dark:bg-accent-500/20 rounded-lg">
+                <Calendar className="w-6 h-6 text-accent-600 dark:text-accent-400" />
+              </div>
             </div>
           </div>
         </div>
@@ -226,16 +234,18 @@ export default function WorkforceAvailabilityTab() {
         <div className="overflow-x-auto">
           {loading ? (
             <div className="flex justify-center items-center h-64">
-              <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+              <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
             </div>
           ) : availability.length === 0 ? (
             <div className="text-center py-12">
-              <Users className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+              <div className="p-4 bg-brand-50 dark:bg-brand-500/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                <Users className="w-10 h-10 text-brand-500 dark:text-brand-400" />
+              </div>
               <p className="text-gray-500 dark:text-gray-400">No availability data found</p>
             </div>
           ) : (
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-900">
+              <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
                 <tr>
                   <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Employee

@@ -5,6 +5,7 @@ import { CalendarDays, Loader2, Filter } from "lucide-react";
 import { reportsAnalyticsService } from "@/services/hr-services/reports-analytics.service";
 import { organizationService } from "@/services/hr-services/organization.service";
 import { toast } from "react-hot-toast";
+import CustomDropdown from "../../leave/components/CustomDropdown";
 
 export default function LeaveUtilizationTab() {
   const [reportData, setReportData] = useState(null);
@@ -66,30 +67,28 @@ export default function LeaveUtilizationTab() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Department
             </label>
-            <select
+            <CustomDropdown
               value={filters.departmentId}
-              onChange={(e) => setFilters({ ...filters, departmentId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Departments</option>
-              {departments.map((dept) => (
-                <option key={dept.id} value={dept.id}>
-                  {dept.name}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => setFilters({ ...filters, departmentId: value })}
+              options={[
+                { value: 'all', label: 'All Departments' },
+                ...departments.map(dept => ({ value: dept.id, label: dept.name }))
+              ]}
+              placeholder="All Departments"
+              className="w-full"
+            />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Leave Type
             </label>
-            <select
+            <CustomDropdown
               value={filters.leaveTypeId}
-              onChange={(e) => setFilters({ ...filters, leaveTypeId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Leave Types</option>
-            </select>
+              onChange={(value) => setFilters({ ...filters, leaveTypeId: value })}
+              options={[{ value: 'all', label: 'All Leave Types' }]}
+              placeholder="All Leave Types"
+              className="w-full"
+            />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -99,7 +98,7 @@ export default function LeaveUtilizationTab() {
               type="date"
               value={filters.startDate}
               onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
           <div>
@@ -110,7 +109,7 @@ export default function LeaveUtilizationTab() {
               type="date"
               value={filters.endDate}
               onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
         </div>
@@ -119,7 +118,7 @@ export default function LeaveUtilizationTab() {
       {/* Report Content */}
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
         </div>
       ) : reportData ? (
         <div className="space-y-6">
@@ -134,7 +133,7 @@ export default function LeaveUtilizationTab() {
               </div>
               <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
                 <p className="text-sm text-gray-600 dark:text-gray-400">Total Allocated</p>
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">
+                <p className="text-2xl font-bold text-brand-600 dark:text-brand-400 mt-1">
                   {reportData.overallSummary.totalLeavesAllocated || 0}
                 </p>
               </div>

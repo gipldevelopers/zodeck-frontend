@@ -208,8 +208,8 @@ export default function DocumentTable() {
         header: "Document Name",
         cell: (info) => (
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-              <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <div className="p-2 bg-brand-50 dark:bg-brand-900/30 rounded-lg">
+              <FileText className="w-4 h-4 text-brand-600 dark:text-brand-400" />
             </div>
             <div>
               <p className="text-sm font-medium text-gray-900 dark:text-white">
@@ -368,7 +368,7 @@ export default function DocumentTable() {
               <>
                 <button
                   onClick={() => handleView(info.row.original)}
-                  className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 transition-colors"
+                  className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 dark:bg-brand-900/30 dark:text-brand-400 transition-colors shadow-sm hover:shadow"
                   title="View Document"
                 >
                   <Eye className="w-4 h-4" />
@@ -489,7 +489,7 @@ export default function DocumentTable() {
   if (loading && data.length === 0) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500"></div>
       </div>
     );
   }
@@ -513,7 +513,7 @@ export default function DocumentTable() {
 
       <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 mt-6">
         <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-900">
+          <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -539,14 +539,14 @@ export default function DocumentTable() {
                             <ChevronUp
                               className={`w-3 h-3 ${
                                 header.column.getIsSorted() === "asc"
-                                  ? "text-blue-600"
+                                  ? "text-brand-600 dark:text-brand-400"
                                   : "text-gray-400"
                               }`}
                             />
                             <ChevronDown
                               className={`w-3 h-3 -mt-1 ${
                                 header.column.getIsSorted() === "desc"
-                                  ? "text-blue-600"
+                                  ? "text-brand-600 dark:text-brand-400"
                                   : "text-gray-400"
                               }`}
                             />

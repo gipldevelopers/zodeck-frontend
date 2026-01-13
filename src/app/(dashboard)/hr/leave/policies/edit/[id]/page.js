@@ -112,7 +112,7 @@ export default function EditPolicy() {
         />
         <div className="mt-6 flex items-center justify-center h-96">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600 mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">Loading policy data...</p>
           </div>
         </div>
@@ -139,7 +139,7 @@ export default function EditPolicy() {
             </p>
             <button
               onClick={handleCancel}
-              className="mt-4 px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              className="mt-4 px-4 py-2 text-sm font-medium text-brand-600 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300"
             >
               Back to Policies
             </button>

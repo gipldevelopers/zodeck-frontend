@@ -6,6 +6,7 @@ import { performanceManagementService } from "@/services/hr-services/performance
 import { organizationService } from "@/services/hr-services/organization.service";
 import { toast } from "react-hot-toast";
 import ModerateReviewModal from "./ModerateReviewModal";
+import CustomDropdown from "../../leave/components/CustomDropdown";
 
 export default function HRModerationTab() {
   const [reviews, setReviews] = useState([]);
@@ -71,7 +72,7 @@ export default function HRModerationTab() {
   const getRatingBadge = (rating) => {
     const config = {
       EXCEEDS_EXPECTATIONS: { label: "Exceeds", className: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" },
-      MEETS_EXPECTATIONS: { label: "Meets", className: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" },
+      MEETS_EXPECTATIONS: { label: "Meets", className: "bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400" },
       NEEDS_IMPROVEMENT: { label: "Needs Improvement", className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400" },
       UNSATISFACTORY: { label: "Unsatisfactory", className: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" },
     };
@@ -87,7 +88,7 @@ export default function HRModerationTab() {
     const config = {
       PENDING_HR_MODERATION: { label: "Pending Moderation", className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400" },
       COMPLETED: { label: "Completed", className: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" },
-      PENDING_MANAGER_REVIEW: { label: "Pending Manager Review", className: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" },
+      PENDING_MANAGER_REVIEW: { label: "Pending Manager Review", className: "bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400" },
     };
     const statusConfig = config[status] || config.PENDING_HR_MODERATION;
     return (
@@ -106,33 +107,33 @@ export default function HRModerationTab() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Status
             </label>
-            <select
+            <CustomDropdown
               value={filters.status}
-              onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Status</option>
-              <option value="PENDING_HR_MODERATION">Pending HR Moderation</option>
-              <option value="COMPLETED">Completed</option>
-              <option value="PENDING_MANAGER_REVIEW">Pending Manager Review</option>
-            </select>
+              onChange={(value) => setFilters({ ...filters, status: value })}
+              options={[
+                { value: 'all', label: 'All Status' },
+                { value: 'PENDING_HR_MODERATION', label: 'Pending HR Moderation' },
+                { value: 'COMPLETED', label: 'Completed' },
+                { value: 'PENDING_MANAGER_REVIEW', label: 'Pending Manager Review' }
+              ]}
+              placeholder="All Status"
+              className="w-full"
+            />
           </div>
           <div className="flex-1 min-w-[200px]">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Department
             </label>
-            <select
+            <CustomDropdown
               value={filters.departmentId}
-              onChange={(e) => setFilters({ ...filters, departmentId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Departments</option>
-              {departments.map((dept) => (
-                <option key={dept.id} value={dept.id}>
-                  {dept.name}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => setFilters({ ...filters, departmentId: value })}
+              options={[
+                { value: 'all', label: 'All Departments' },
+                ...departments.map(dept => ({ value: dept.id, label: dept.name }))
+              ]}
+              placeholder="All Departments"
+              className="w-full"
+            />
           </div>
         </div>
       </div>
@@ -141,7 +142,7 @@ export default function HRModerationTab() {
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
           </div>
         ) : reviews.length > 0 ? (
           <div className="overflow-x-auto">
@@ -205,7 +206,7 @@ export default function HRModerationTab() {
                     <td className="px-4 py-3">
                       <button
                         onClick={() => handleModerate(review)}
-                        className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium"
+                        className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 text-sm font-medium"
                       >
                         Moderate
                       </button>

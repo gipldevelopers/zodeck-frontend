@@ -1,5 +1,6 @@
 "use client";
-import { Search, Filter, X, Calendar, User, Clock } from 'lucide-react';
+import { Search, X, Calendar, User, Clock } from 'lucide-react';
+import CustomDropdown from './CustomDropdown';
 
 export default function LeaveRequestsFilters({
   globalFilter,
@@ -16,84 +17,90 @@ export default function LeaveRequestsFilters({
 }) {
   const hasActiveFilters = statusFilter !== 'all' || leaveTypeFilter !== 'all' || dateRangeFilter !== 'all' || globalFilter;
 
+  // Convert statuses to options format
+  const statusOptions = statuses.map(status => ({
+    value: status,
+    label: status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)
+  }));
+
+  // Convert leave types to options format
+  const leaveTypeOptions = leaveTypes.map(type => ({
+    value: type,
+    label: type === 'all' ? 'All Types' : type
+  }));
+
+  // Date range options
+  const dateRangeOptions = [
+    { value: 'all', label: 'All Dates' },
+    { value: 'today', label: 'Today' },
+    { value: 'thisWeek', label: 'This Week' },
+    { value: 'thisMonth', label: 'This Month' },
+    { value: 'nextMonth', label: 'Next Month' },
+    { value: 'past', label: 'Past Leaves' },
+    { value: 'upcoming', label: 'Upcoming Leaves' }
+  ];
+
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm relative">
+      <div className="flex flex-wrap items-center gap-3">
         {/* Search Input */}
-        <div className="relative flex-1 min-w-[250px]">
+        <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input
             type="text"
             placeholder="Search employees, leave types, or reasons..."
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
           />
         </div>
 
-        {/* Filter Controls */}
-        <div className="flex flex-wrap gap-3 w-full sm:w-auto">
-          {/* Status Filter */}
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-gray-400" />
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
-            >
-              {statuses.map(status => (
-                <option key={status} value={status}>
-                  {status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Leave Type Filter */}
-          <div className="flex items-center gap-2">
-            <User className="w-4 h-4 text-gray-400" />
-            <select
-              value={leaveTypeFilter}
-              onChange={(e) => setLeaveTypeFilter(e.target.value)}
-              className="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
-            >
-              {leaveTypes.map(type => (
-                <option key={type} value={type}>
-                  {type === 'all' ? 'All Types' : type}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Date Range Filter */}
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-gray-400" />
-            <select
-              value={dateRangeFilter}
-              onChange={(e) => setDateRangeFilter(e.target.value)}
-              className="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
-            >
-              <option value="all">All Dates</option>
-              <option value="today">Today</option>
-              <option value="thisWeek">This Week</option>
-              <option value="thisMonth">This Month</option>
-              <option value="nextMonth">Next Month</option>
-              <option value="past">Past Leaves</option>
-              <option value="upcoming">Upcoming Leaves</option>
-            </select>
-          </div>
-
-          {/* Clear Filters Button */}
-          {hasActiveFilters && (
-            <button
-              onClick={onClearFilters}
-              className="flex items-center gap-1 px-3 py-2 text-sm text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors"
-            >
-              <X className="w-4 h-4" />
-              Clear
-            </button>
-          )}
+        {/* Status Filter */}
+        <div className="flex items-center gap-2 flex-shrink-0 relative">
+          <Clock className="w-4 h-4 text-gray-400 flex-shrink-0" />
+          <CustomDropdown
+            value={statusFilter}
+            onChange={setStatusFilter}
+            options={statusOptions}
+            placeholder="All Status"
+            className="min-w-[150px]"
+          />
         </div>
+
+        {/* Leave Type Filter */}
+        <div className="flex items-center gap-2 flex-shrink-0 relative">
+          <User className="w-4 h-4 text-gray-400 flex-shrink-0" />
+          <CustomDropdown
+            value={leaveTypeFilter}
+            onChange={setLeaveTypeFilter}
+            options={leaveTypeOptions}
+            placeholder="All Types"
+            className="min-w-[150px]"
+          />
+        </div>
+
+        {/* Date Range Filter */}
+        <div className="flex items-center gap-2 flex-shrink-0 relative">
+          <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
+          <CustomDropdown
+            value={dateRangeFilter}
+            onChange={setDateRangeFilter}
+            options={dateRangeOptions}
+            placeholder="All Dates"
+            className="min-w-[150px]"
+          />
+        </div>
+
+        {/* Clear Filters Button */}
+        {hasActiveFilters && (
+          <button
+            onClick={onClearFilters}
+            className="flex items-center gap-1 px-3 py-2 text-sm text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors whitespace-nowrap flex-shrink-0"
+          >
+            <X className="w-4 h-4" />
+            Clear
+          </button>
+        )}
       </div>
     </div>
   );

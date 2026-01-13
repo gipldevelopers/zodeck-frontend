@@ -66,7 +66,9 @@ const EmployeeFilters = ({
           placeholder="Search employees by name, email, ID..."
           value={globalFilter}
           onChange={e => setGlobalFilter(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          className="w-full pl-10 pr-4 py-2.5 text-sm border border-gray-300 rounded-lg 
+                     focus:ring-2 focus:ring-brand-500 focus:border-brand-500 
+                     dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
         />
       </div>
 
@@ -94,7 +96,9 @@ const EmployeeFilters = ({
               <select
                 value={statusFilter}
                 onChange={e => setStatusFilter(e.target.value)}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
+                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg 
+                           focus:ring-2 focus:ring-brand-500 focus:border-brand-500 
+                           dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
               >
                 <option value="all">All Status</option>
                 {uniqueStatuses.map(({ value, key }) => (
@@ -114,7 +118,9 @@ const EmployeeFilters = ({
               <select
                 value={departmentFilter}
                 onChange={e => setDepartmentFilter(e.target.value)}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
+                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg 
+                           focus:ring-2 focus:ring-brand-500 focus:border-brand-500 
+                           dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
               >
                 <option value="all">All Departments</option>
                 {uniqueDepartments.map(({ value, key }) => (
@@ -134,7 +140,9 @@ const EmployeeFilters = ({
               <select
                 value={designationFilter}
                 onChange={e => setDesignationFilter(e.target.value)}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
+                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg 
+                           focus:ring-2 focus:ring-brand-500 focus:border-brand-500 
+                           dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
               >
                 <option value="all">All Designations</option>
                 {uniqueDesignations.map(({ value, key }) => (
@@ -165,33 +173,37 @@ const EmployeeFilters = ({
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2">
           {globalFilter && (
-            <span className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-400">
+            <span className="inline-flex items-center px-2.5 py-1 bg-brand-50 text-brand-700 text-xs rounded-full 
+                           dark:bg-brand-500/20 dark:text-brand-400 border border-brand-200 dark:border-brand-500/30">
               Search: "{globalFilter}"
-              <button onClick={() => setGlobalFilter('')} className="ml-1">
+              <button onClick={() => setGlobalFilter('')} className="ml-1.5 hover:text-brand-900 dark:hover:text-brand-300">
                 <X className="w-3 h-3" />
               </button>
             </span>
           )}
           {statusFilter !== 'all' && (
-            <span className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full dark:bg-green-900/30 dark:text-green-400">
-              Status: {statusFilter}
-              <button onClick={() => setStatusFilter('all')} className="ml-1">
+            <span className="inline-flex items-center px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs rounded-full 
+                           dark:bg-emerald-500/20 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30">
+              Status: {statusDisplayMap[statusFilter] || statusFilter}
+              <button onClick={() => setStatusFilter('all')} className="ml-1.5 hover:text-emerald-900 dark:hover:text-emerald-300">
                 <X className="w-3 h-3" />
               </button>
             </span>
           )}
           {designationFilter !== 'all' && (
-            <span className="inline-flex items-center px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full dark:bg-purple-900/30 dark:text-purple-400">
+            <span className="inline-flex items-center px-2.5 py-1 bg-violet-50 text-violet-700 text-xs rounded-full 
+                           dark:bg-violet-500/20 dark:text-violet-400 border border-violet-200 dark:border-violet-500/30">
               Designation: {designationFilter}
-              <button onClick={() => setDesignationFilter('all')} className="ml-1">
+              <button onClick={() => setDesignationFilter('all')} className="ml-1.5 hover:text-violet-900 dark:hover:text-violet-300">
                 <X className="w-3 h-3" />
               </button>
             </span>
           )}
           {departmentFilter !== 'all' && (
-            <span className="inline-flex items-center px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full dark:bg-indigo-900/30 dark:text-indigo-400">
+            <span className="inline-flex items-center px-2.5 py-1 bg-accent-50 text-accent-700 text-xs rounded-full 
+                           dark:bg-accent-500/20 dark:text-accent-400 border border-accent-200 dark:border-accent-500/30">
               Department: {departmentFilter}
-              <button onClick={() => setDepartmentFilter('all')} className="ml-1">
+              <button onClick={() => setDepartmentFilter('all')} className="ml-1.5 hover:text-accent-900 dark:hover:text-accent-300">
                 <X className="w-3 h-3" />
               </button>
             </span>
