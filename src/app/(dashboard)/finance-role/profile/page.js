@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import ProfileHeader from './components/ProfileHeader';
 import ProfileTabs from './components/ProfileTabs';
 import { toast } from 'react-hot-toast';
-import { Loader2 } from 'lucide-react';
+import HRMSLoader from '@/components/common/HRMSLoader';
 
 // Define allowed fields for update
 const ALLOWED_UPDATE_FIELDS = [
@@ -133,65 +132,50 @@ export default function FinanceRoleProfilePage() {
   };
 
   if (loading) {
-    return (
-      <div className="bg-background min-h-screen p-4 sm:p-6">
-        <div className="flex justify-center items-center h-64">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          >
-            <Loader2 className="w-12 h-12 text-primary" />
-          </motion.div>
-        </div>
-      </div>
-    );
+    return <HRMSLoader text="Loading profile..." variant="fullscreen" size="md" />;
   }
 
   if (!profileData) {
     return (
-      <div className="bg-background min-h-screen p-4 sm:p-6">
-        <div className="text-center py-10">
-          <p className="text-muted-foreground">Failed to load profile data</p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={fetchProfile}
-            className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 shadow-md"
-          >
-            Retry
-          </motion.button>
+      <div className="min-h-screen bg-gradient-to-br from-primary-50/30 via-white to-primary-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="text-center py-10">
+            <p className="text-gray-600 dark:text-gray-400">Failed to load profile data</p>
+            <button
+              onClick={fetchProfile}
+              className="mt-4 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors"
+            >
+              Retry
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  return (
-    <div className="bg-background min-h-screen p-4 sm:p-6">
-      <Breadcrumb
-        pageTitle="My Profile"
-        rightContent={null}
-      />
+  const breadcrumbItems = [
+    { label: "Finance", href: "/finance-role" },
+    { label: "Profile", href: "/finance-role/profile" },
+  ];
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-primary-50/30 via-white to-primary-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <Breadcrumb items={breadcrumbItems} />
+
         {/* Profile Header */}
         <ProfileHeader profileData={profileData.personal} />
 
         {/* Profile Tabs */}
-        <div className="mt-6">
-          <ProfileTabs
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            profileData={profileData}
-            onUpdateProfile={handleUpdateProfile}
-            updating={updating}
-            allowedFields={ALLOWED_UPDATE_FIELDS}
-          />
-        </div>
-      </motion.div>
+        <ProfileTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          profileData={profileData}
+          onUpdateProfile={handleUpdateProfile}
+          updating={updating}
+          allowedFields={ALLOWED_UPDATE_FIELDS}
+        />
+      </div>
     </div>
   );
 }
