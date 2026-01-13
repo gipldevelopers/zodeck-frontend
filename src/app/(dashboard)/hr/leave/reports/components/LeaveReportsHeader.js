@@ -41,12 +41,6 @@ const LeaveReportsHeader = ({ filters, onReportSaved }) => {
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Leave Reports & Analytics</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
-          Comprehensive analysis of leave patterns and trends
-        </p>
-      </div>
       <div className="flex items-center gap-3 mt-4 sm:mt-0">
         <button
           onClick={handleSave}

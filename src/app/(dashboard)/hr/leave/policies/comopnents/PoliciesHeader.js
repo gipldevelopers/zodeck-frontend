@@ -43,12 +43,6 @@ const PoliciesHeader = ({
   return (
     <div className="mt-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Leave Policies</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage and configure leave policies for your organization
-          </p>
-        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4">

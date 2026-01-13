@@ -234,7 +234,7 @@ export default function ProfilePage() {
           <p className="text-gray-600 dark:text-gray-400">Failed to load profile data</p>
           <button
             onClick={fetchProfile}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="mt-4 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold"
           >
             Retry
           </button>

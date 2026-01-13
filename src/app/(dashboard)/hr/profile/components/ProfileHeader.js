@@ -8,7 +8,7 @@ export default function ProfileHeader({ profileData }) {
     <div className="bg-white rounded-lg shadow dark:bg-gray-800 overflow-hidden">
       <div className="relative">
         {/* Cover Photo */}
-        <div className="h-32 bg-gradient-to-r from-blue-500 to-blue-700 dark:from-blue-600 dark:to-blue-800"></div>
+        <div className="h-32 bg-gradient-to-r from-brand-500 to-brand-600 dark:from-brand-600 dark:to-brand-700"></div>
 
         {/* Profile Content */}
         <div className="px-4 pb-4 sm:px-6 sm:pb-6">
@@ -22,7 +22,7 @@ export default function ProfileHeader({ profileData }) {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <button className="absolute bottom-2 right-2 p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">
+              <button className="absolute bottom-2 right-2 p-2 bg-brand-500 text-white rounded-full hover:bg-brand-600 transition shadow-sm hover:shadow-md">
                 <Camera size={16} />
               </button>
             </div>

@@ -232,7 +232,7 @@ export default function PayrollReportsPage() {
       fontFamily: 'inherit',
     },
     labels: analytics?.departmentBreakdown?.map(d => d.department) || [],
-    colors: ['hsl(var(--primary))', 'hsl(var(--accent))', 'hsl(var(--success))', 'hsl(var(--warning))', 'hsl(var(--destructive))'],
+    colors: ['hsl(174, 72%, 41%)', 'hsl(174, 72%, 50%)', '#10b981', '#f59e0b', '#ef4444'],
     dataLabels: {
       enabled: true,
       formatter: (val) => val.toFixed(0) + '%'
@@ -270,7 +270,7 @@ export default function PayrollReportsPage() {
         formatter: (val) => formatCurrency(val)
       }
     },
-    colors: ['hsl(var(--primary))'],
+    colors: ['hsl(174, 72%, 41%)'],
     fill: {
       type: 'gradient',
       gradient: {
@@ -299,36 +299,8 @@ export default function PayrollReportsPage() {
   }];
 
   return (
-    <div className="bg-background min-h-screen p-4 sm:p-6">
+    <div className="bg-white dark:bg-gray-900 min-h-screen p-4 sm:p-6">
       <Breadcrumb />
-
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mt-4 mb-6 glass-card rounded-2xl p-6 premium-shadow relative overflow-hidden group"
-      >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 group-hover:bg-primary/10 transition-all"></div>
-        
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative z-10">
-          <div className="flex items-center gap-4">
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary shadow-lg border border-primary/10"
-            >
-              <FileBarChart className="w-8 h-8" />
-            </motion.div>
-            <div>
-              <h1 className="text-3xl font-bold text-gradient-primary">
-                Payroll Reports
-              </h1>
-              <p className="text-muted-foreground mt-1">
-                Generate, view, and download comprehensive payroll reports
-              </p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
 
       {/* Stats Cards */}
       <motion.div
@@ -348,7 +320,7 @@ export default function PayrollReportsPage() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.7 + index * 0.1, type: "spring", stiffness: 200 }}
             whileHover={{ y: -8, scale: 1.03 }}
-            className="glass-card glass-card-hover rounded-2xl p-6 premium-shadow premium-shadow-hover relative overflow-hidden group border border-border/20"
+            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl relative overflow-hidden group border border-gray-200 dark:border-gray-700 transition-all"
           >
             <motion.div
               animate={{
@@ -361,7 +333,7 @@ export default function PayrollReportsPage() {
                 ease: "easeInOut",
                 delay: index * 0.2,
               }}
-              className={`absolute top-0 right-0 w-32 h-32 bg-${stat.color}/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-${stat.color}/15 transition-all`}
+              className={`absolute top-0 right-0 w-32 h-32 ${stat.color === 'primary' ? 'bg-brand-500/10' : stat.color === 'success' ? 'bg-green-500/10' : 'bg-blue-500/10'} rounded-full blur-2xl -mr-16 -mt-16 transition-all`}
             />
             <div className="flex items-center gap-4 relative z-10">
               <motion.div
@@ -369,17 +341,17 @@ export default function PayrollReportsPage() {
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ delay: 0.8 + index * 0.1, type: "spring", stiffness: 300 }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className={`p-4 rounded-xl bg-${stat.color}/20 text-${stat.color} border-2 border-${stat.color}/30 shadow-lg`}
+                className={`p-4 rounded-xl ${stat.color === 'primary' ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 border-2 border-brand-200 dark:border-brand-500/30' : stat.color === 'success' ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 border-2 border-green-200 dark:border-green-500/30' : 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border-2 border-blue-200 dark:border-blue-500/30'} shadow-lg`}
               >
                 <stat.icon className="w-7 h-7" />
               </motion.div>
               <div>
-                <p className="text-sm font-semibold text-muted-foreground mb-2">{stat.label}</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">{stat.label}</p>
                 <motion.p
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.9 + index * 0.1, type: "spring" }}
-                  className="text-3xl font-extrabold text-foreground"
+                  className="text-3xl font-extrabold text-gray-900 dark:text-white"
                 >
                   {stat.value}
                 </motion.p>
@@ -403,9 +375,9 @@ export default function PayrollReportsPage() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.9, type: "spring", stiffness: 200 }}
             whileHover={{ scale: 1.01 }}
-            className="glass-card rounded-2xl p-6 premium-shadow border border-border/20"
+            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
           >
-            <h3 className="text-xl font-bold text-foreground mb-4">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               Select Report Type
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -424,27 +396,27 @@ export default function PayrollReportsPage() {
                     onClick={() => setSelectedReportType(report.id)}
                     className={`p-4 rounded-xl border-2 transition-all text-left relative overflow-hidden ${
                       isSelected
-                        ? `border-${report.color} bg-${report.color}/10 shadow-lg`
-                        : "border-border hover:border-primary/50 bg-card"
+                        ? `border-brand-500 bg-brand-50 dark:bg-brand-900/20 shadow-lg`
+                        : "border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-500/50 bg-white dark:bg-gray-800"
                     }`}
                   >
                     {isSelected && (
                       <motion.div
                         layoutId="selectedReport"
-                        className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5"
+                        className="absolute inset-0 bg-gradient-to-br from-brand-500/5 to-brand-400/5"
                         initial={false}
                         transition={{ type: "spring", stiffness: 500, damping: 30 }}
                       />
                     )}
                     <div className="flex items-start gap-3 relative z-10">
-                      <div className={`p-2 rounded-lg ${isSelected ? `bg-${report.color}/20` : "bg-muted"}`}>
-                        <Icon className={`w-5 h-5 ${isSelected ? `text-${report.color}` : "text-muted-foreground"}`} />
+                      <div className={`p-2 rounded-lg ${isSelected ? "bg-brand-100 dark:bg-brand-900/30" : "bg-gray-100 dark:bg-gray-700"}`}>
+                        <Icon className={`w-5 h-5 ${isSelected ? "text-brand-600 dark:text-brand-400" : "text-gray-500 dark:text-gray-400"}`} />
                       </div>
                       <div className="flex-1">
-                        <p className={`text-sm font-semibold mb-1 ${isSelected ? "text-foreground" : "text-foreground"}`}>
+                        <p className={`text-sm font-semibold mb-1 ${isSelected ? "text-gray-900 dark:text-white" : "text-gray-700 dark:text-gray-300"}`}>
                           {report.label}
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs text-gray-600 dark:text-gray-400">
                           {report.description}
                         </p>
                       </div>
@@ -460,22 +432,22 @@ export default function PayrollReportsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="glass-card rounded-xl p-6 premium-shadow"
+            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Filter className="w-5 h-5 text-primary" />
-              <h3 className="text-xl font-bold text-foreground">Report Filters</h3>
+              <Filter className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Report Filters</h3>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   Period
                 </label>
                 <select
                   value={period}
                   onChange={(e) => setPeriod(e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-xl bg-card text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all"
                 >
                   <option value="monthly">Monthly</option>
                   <option value="quarterly">Quarterly</option>
@@ -485,13 +457,13 @@ export default function PayrollReportsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   Department
                 </label>
                 <select
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-xl bg-card text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all"
                 >
                   <option value="all">All Departments</option>
                   <option value="engineering">Engineering</option>
@@ -510,30 +482,30 @@ export default function PayrollReportsPage() {
                   className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"
                 >
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       Start Date
                     </label>
                     <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400" />
                       <input
                         type="date"
                         value={dateRange.startDate}
                         onChange={(e) => setDateRange({ ...dateRange, startDate: e.target.value })}
-                        className="w-full pl-10 pr-3 py-2 border border-border rounded-xl bg-card text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       End Date
                     </label>
                     <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400" />
                       <input
                         type="date"
                         value={dateRange.endDate}
                         onChange={(e) => setDateRange({ ...dateRange, endDate: e.target.value })}
-                        className="w-full pl-10 pr-3 py-2 border border-border rounded-xl bg-card text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all"
                       />
                     </div>
                   </div>
@@ -546,7 +518,7 @@ export default function PayrollReportsPage() {
               whileTap={{ scale: 0.98 }}
               onClick={handleGenerateReport}
               disabled={loading}
-              className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-brand-500 text-white rounded-xl hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold px-6 py-3 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -567,14 +539,14 @@ export default function PayrollReportsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="glass-card rounded-xl p-6 premium-shadow"
+            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-foreground">Recent Reports</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Recent Reports</h3>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-sm text-primary hover:underline font-medium"
+                className="text-sm text-brand-600 dark:text-brand-400 hover:underline font-medium"
               >
                 View All
               </motion.button>
@@ -582,7 +554,7 @@ export default function PayrollReportsPage() {
 
             {loading && reports.length === 0 ? (
               <div className="flex justify-center items-center h-32">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
               </div>
             ) : reports.length > 0 ? (
               <div className="space-y-3">
@@ -593,18 +565,18 @@ export default function PayrollReportsPage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ scale: 1.01, x: 5 }}
-                    className="glass-card rounded-lg p-4 border border-border/50 hover:border-primary/50 transition-all cursor-pointer"
+                    className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-500/50 transition-all cursor-pointer shadow-sm hover:shadow-md"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="p-2 rounded-lg text-primary">
-                          <FileText className="w-5 h-5" />
+                        <div className="p-2 rounded-lg bg-brand-50 dark:bg-brand-900/20">
+                          <FileText className="w-5 h-5 text-brand-600 dark:text-brand-400" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-semibold text-foreground">
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white">
                             {report.name}
                           </p>
-                          <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
+                          <div className="flex items-center gap-3 mt-1 text-xs text-gray-600 dark:text-gray-400">
                             <span>{report.period}</span>
                             <span>•</span>
                             <span>{report.format}</span>
@@ -618,7 +590,7 @@ export default function PayrollReportsPage() {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => handleDownloadReport(report)}
-                          className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                          className="p-2 text-brand-600 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/20 rounded-lg transition-colors"
                           title="Download"
                         >
                           <Download className="w-4 h-4" />
@@ -626,7 +598,7 @@ export default function PayrollReportsPage() {
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-2 text-muted-foreground hover:bg-muted rounded-lg transition-colors"
+                          className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                           title="View"
                         >
                           <Eye className="w-4 h-4" />
@@ -638,8 +610,8 @@ export default function PayrollReportsPage() {
               </div>
             ) : (
               <div className="text-center py-8">
-                <FileBarChart className="w-12 h-12 mx-auto text-muted-foreground mb-3" />
-                <p className="text-sm text-muted-foreground">No reports generated yet</p>
+                <FileBarChart className="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500 mb-3" />
+                <p className="text-sm text-gray-600 dark:text-gray-400">No reports generated yet</p>
               </div>
             )}
           </motion.div>
@@ -652,10 +624,10 @@ export default function PayrollReportsPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="glass-card rounded-xl p-6 premium-shadow"
+            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
           >
-            <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-              <PieChart className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <PieChart className="w-5 h-5 text-brand-600 dark:text-brand-400" />
               Department Breakdown
             </h3>
             {analytics?.departmentBreakdown && (
@@ -673,10 +645,10 @@ export default function PayrollReportsPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="glass-card rounded-xl p-6 premium-shadow"
+            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
           >
-            <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-              <LineChart className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <LineChart className="w-5 h-5 text-brand-600 dark:text-brand-400" />
               Payroll Trend
             </h3>
             <ReactApexChart 
@@ -692,10 +664,10 @@ export default function PayrollReportsPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
-            className="glass-card rounded-xl p-6 premium-shadow"
+            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
           >
-            <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-brand-600 dark:text-brand-400" />
               Quick Insights
             </h3>
             <div className="space-y-4">
@@ -710,11 +682,11 @@ export default function PayrollReportsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + index * 0.1 }}
                   whileHover={{ scale: 1.02 }}
-                  className={`p-4 bg-gradient-to-br from-${insight.color}/10 to-${insight.color}/5 rounded-lg border border-${insight.color}/20`}
+                  className={`p-4 rounded-lg border ${insight.color === 'success' ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' : insight.color === 'primary' ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-200 dark:border-brand-800' : 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'}`}
                 >
-                  <p className="text-xs text-muted-foreground mb-1">{insight.label}</p>
-                  <p className="text-lg font-bold text-foreground">{insight.value}</p>
-                  <p className={`text-xs mt-1 ${insight.color === 'success' ? 'text-success' : 'text-muted-foreground'}`}>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">{insight.label}</p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-white">{insight.value}</p>
+                  <p className={`text-xs mt-1 ${insight.color === 'success' ? 'text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-400'}`}>
                     {insight.change}
                   </p>
                 </motion.div>
@@ -727,9 +699,9 @@ export default function PayrollReportsPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
-            className="glass-card rounded-xl p-6 premium-shadow"
+            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
           >
-            <h3 className="text-lg font-bold text-foreground mb-4">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
               Export Format
             </h3>
             <div className="space-y-2">
@@ -744,12 +716,12 @@ export default function PayrollReportsPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 + index * 0.1 }}
                   whileHover={{ scale: 1.02, x: 5 }}
-                  className="w-full p-3 text-left rounded-lg border border-border hover:border-primary/50 hover:bg-muted/50 transition-all flex items-center gap-3"
+                  className="w-full p-3 text-left rounded-lg border border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-500/50 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all flex items-center gap-3"
                 >
-                  <format.icon className={`w-5 h-5 text-${format.color}`} />
+                  <format.icon className={`w-5 h-5 ${format.color === 'destructive' ? 'text-red-600 dark:text-red-400' : format.color === 'success' ? 'text-green-600 dark:text-green-400' : 'text-brand-600 dark:text-brand-400'}`} />
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{format.label}</p>
-                    <p className="text-xs text-muted-foreground">{format.desc}</p>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white">{format.label}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">{format.desc}</p>
                   </div>
                 </motion.button>
               ))}

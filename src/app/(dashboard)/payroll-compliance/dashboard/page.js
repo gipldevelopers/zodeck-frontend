@@ -8,6 +8,8 @@ import PayrollStatusWidget from './components/PayrollStatusWidget';
 import PayrollExceptionsWidget from './components/PayrollExceptionsWidget';
 import StatutoryComplianceWidget from './components/StatutoryComplianceWidget';
 import UpcomingActionsWidget from './components/UpcomingActionsWidget';
+import GettingStartedCard from './components/GettingStartedCard';
+import WelcomeCard from './components/WelcomeCard';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -35,7 +37,7 @@ const itemVariants = {
 
 export default function PayrollComplianceDashboard() {
   return (
-    <div className="min-h-screen bg-background p-4 sm:p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6">
       <Breadcrumb />
 
       <motion.div
@@ -44,10 +46,15 @@ export default function PayrollComplianceDashboard() {
         initial="hidden"
         animate="visible"
       >
+        {/* Welcome Card */}
+        <motion.div variants={itemVariants}>
+          <WelcomeCard />
+        </motion.div>
+
         {/* Header */}
         <motion.div
           variants={itemVariants}
-          className="relative overflow-hidden rounded-3xl glass-card p-8 sm:p-10 premium-shadow border border-primary/10"
+          className="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-8 sm:p-10 shadow-lg border border-gray-200 dark:border-gray-700"
         >
           {/* Animated Background Gradients */}
           <motion.div
@@ -60,7 +67,7 @@ export default function PayrollComplianceDashboard() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl -mr-48 -mt-48 pointer-events-none"
+            className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-brand-500/20 to-brand-400/20 rounded-full blur-3xl -mr-48 -mt-48 pointer-events-none"
           />
           <motion.div
             animate={{
@@ -72,49 +79,11 @@ export default function PayrollComplianceDashboard() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-accent/15 to-primary/15 rounded-full blur-3xl -ml-40 -mb-40 pointer-events-none"
+            className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-brand-400/15 to-brand-500/15 rounded-full blur-3xl -ml-40 -mb-40 pointer-events-none"
           />
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
             <div className="flex items-center gap-5">
-              <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                whileHover={{ scale: 1.15, rotate: 10 }}
-                className="p-5 rounded-2xl bg-gradient-to-br from-primary/30 via-primary/20 to-primary/10 text-primary shadow-2xl border-2 border-primary/20 relative overflow-hidden"
-              >
-                <motion.div
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                />
-                <BarChart3 className="w-10 h-10 relative z-10" />
-              </motion.div>
-              <div>
-                <motion.h1
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-4xl sm:text-5xl font-extrabold text-gradient-primary mb-2"
-                >
-                  Payroll Dashboard
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="text-muted-foreground text-base sm:text-lg"
-                >
-                  Month-wise operational view of payroll readiness, exceptions, and compliance status.
-                </motion.p>
-              </div>
             </div>
 
             <motion.div
@@ -125,14 +94,14 @@ export default function PayrollComplianceDashboard() {
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="text-sm font-semibold bg-card/60 backdrop-blur-xl px-5 py-3 rounded-2xl border-2 border-border/30 flex items-center gap-3 shadow-xl"
+                className="text-sm font-semibold bg-white dark:bg-gray-800 backdrop-blur-xl px-5 py-3 rounded-2xl border-2 border-gray-200 dark:border-gray-700 flex items-center gap-3 shadow-lg"
               >
                 <motion.span
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="w-3 h-3 rounded-full bg-success shadow-lg shadow-success/50"
+                  className="w-3 h-3 rounded-full bg-green-500 shadow-lg shadow-green-500/50"
                 />
-                <span className="text-foreground">
+                <span className="text-gray-900 dark:text-white">
                   {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                 </span>
               </motion.div>
@@ -140,7 +109,7 @@ export default function PayrollComplianceDashboard() {
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="relative px-8 py-3.5 font-bold text-primary-foreground rounded-2xl group overflow-hidden shadow-2xl hover:shadow-primary/50 transition-all duration-300"
+                className="relative px-8 py-3.5 font-bold text-white rounded-2xl group overflow-hidden shadow-xl hover:shadow-brand-500/50 transition-all duration-300"
               >
                 <motion.span
                   animate={{
@@ -151,7 +120,7 @@ export default function PayrollComplianceDashboard() {
                     repeat: Infinity,
                     ease: "linear",
                   }}
-                  className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-teal-500 via-emerald-500 to-primary bg-[length:200%_100%] opacity-100 group-hover:opacity-90"
+                  className="absolute inset-0 w-full h-full bg-gradient-to-r from-brand-500 via-brand-400 via-brand-500 to-brand-600 bg-[length:200%_100%] opacity-100 group-hover:opacity-90"
                 />
                 <motion.span
                   whileHover={{ x: 5 }}
@@ -172,6 +141,15 @@ export default function PayrollComplianceDashboard() {
               </motion.button>
             </motion.div>
           </div>
+        </motion.div>
+
+        {/* Getting Started Card - Full Width */}
+        <motion.div
+          variants={itemVariants}
+          whileHover={{ scale: 1.01 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <GettingStartedCard />
         </motion.div>
 
         {/* Main Dashboard Widgets - 2x2 Grid */}

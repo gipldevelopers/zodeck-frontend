@@ -26,23 +26,6 @@ export default function DocumentManagementPage() {
         }
       />
 
-      {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-4 mb-3">
-          <div className="p-3 bg-gradient-to-br from-brand-100 to-brand-200 dark:from-brand-500/20 dark:to-brand-500/10 rounded-xl shadow-sm">
-            <FileText className="w-7 h-7 text-brand-600 dark:text-brand-400" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
-              Document Management
-            </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Manage employee-related documents with categorization, expiry tracking, and role-based access
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Statistics Cards */}
       <DocumentStatsCards />
 

@@ -56,23 +56,6 @@ export default function ReportsAnalyticsPage() {
       {/* Breadcrumb */}
       <Breadcrumb />
 
-      {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg">
-            <BarChart3 className="w-6 h-6 text-brand-600 dark:text-brand-400" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              HR Reports & Analytics
-            </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              HR-focused insights and analytics
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Tabs */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
         <div className="flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6">

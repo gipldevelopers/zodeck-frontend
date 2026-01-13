@@ -52,7 +52,7 @@ export default function Documents({ data, onUpdate }) {
         <h2 className="text-lg font-semibold text-gray-800 dark:text-white">Documents</h2>
         <button
           onClick={() => setIsUploading(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold"
         >
           <Upload size={16} />
           Upload Document
@@ -111,7 +111,7 @@ export default function Documents({ data, onUpdate }) {
             <button
               onClick={handleUpload}
               disabled={!uploadedFile}
-              className="px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 text-sm bg-brand-500 text-white rounded-lg hover:bg-brand-600 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-sm hover:shadow-md font-semibold"
             >
               Upload Document
             </button>
@@ -133,14 +133,14 @@ export default function Documents({ data, onUpdate }) {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleView(document)}
-                  className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all duration-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
+                  className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-all duration-200 dark:bg-brand-900/30 dark:text-brand-400 dark:hover:bg-brand-900/50"
                   title="View document"
                 >
                   <Eye size={16} />
                 </button>
                 <button
                   onClick={() => handleDownload(document)}
-                  className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-all duration-200 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50"
+                  className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-all duration-200 dark:bg-brand-900/30 dark:text-brand-400 dark:hover:bg-brand-900/50"
                   title="Download document"
                 >
                   <Download size={16} />

@@ -40,22 +40,6 @@ export default function OnboardingExitManagementPage() {
       {/* Breadcrumb */}
       <Breadcrumb />
 
-      {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-4 mb-3">
-          <div className="p-3 bg-gradient-to-br from-brand-100 to-brand-200 dark:from-brand-500/20 dark:to-brand-500/10 rounded-xl shadow-sm">
-            <UserPlus className="w-7 h-7 text-brand-600 dark:text-brand-400" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
-              Onboarding & Exit Management
-            </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Manage employee entry and exit workflows
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* Tabs */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 mb-6 overflow-hidden">

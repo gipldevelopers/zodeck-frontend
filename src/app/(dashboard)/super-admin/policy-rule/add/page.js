@@ -77,19 +77,6 @@ export default function CreatePolicyPage() {
                 {/* Header */}
                 <div className="mb-8">
                     <Breadcrumb pageName="Create Policy" />
-                    <div className="mt-4 flex items-center gap-3">
-                        <div className="p-3 bg-indigo-600 rounded-xl shadow-lg shadow-indigo-600/20 text-white">
-                            <FileText className="h-8 w-8" />
-                        </div>
-                        <div>
-                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
-                                Policy Configuration
-                            </h1>
-                            <p className="text-gray-500 dark:text-gray-400 mt-1">
-                                Define automated rules for attendance, leave, payroll, and expenses.
-                            </p>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Form Container */}
