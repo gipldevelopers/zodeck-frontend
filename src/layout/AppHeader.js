@@ -108,7 +108,7 @@ const AppHeader = () => {
           </button>
 
           {/* Logo - Hidden on tablet/desktop when sidebar is expanded */}
-          <Link 
+          {/* <Link 
             href={
               user?.systemRole === "SUPER_ADMIN" ? "/super-admin/dashboard" :
                 user?.systemRole === "HR_ADMIN" ? "/hr/dashboard" :
@@ -132,7 +132,7 @@ const AppHeader = () => {
               src="/images/logo/GHR2.PNG"
               alt="Logo"
             />
-          </Link>
+          </Link> */}
 
           {/* Search Button for Mobile/Tablet */}
           <button
