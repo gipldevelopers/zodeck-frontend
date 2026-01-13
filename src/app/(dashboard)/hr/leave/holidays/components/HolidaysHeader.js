@@ -34,12 +34,6 @@ const HolidaysHeader = ({
   return (
     <div className="mt-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Holiday Calendar</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage and view all company holidays and festivals
-          </p>
-        </div>
         <div className="text-sm text-gray-600 dark:text-gray-400 mt-2 sm:mt-0">
           {loading ? (
             <span className="inline-flex items-center">

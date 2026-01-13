@@ -40,12 +40,6 @@ export default function UsersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <Breadcrumb />
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mt-2">
-            User Management
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            Oversee user accounts, assign roles, and manage access permissions.
-          </p>
         </div>
 
         {/* Primary Action */}

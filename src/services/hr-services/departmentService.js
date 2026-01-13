@@ -5,7 +5,7 @@ export const departmentService = {
   // Get all departments
   getAllDepartments: async (params = {}) => {
     try {
-      const response = await apiClient.get('/departments', { params });
+      const response = await apiClient.get('/organization-structure/departments', { params });
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to fetch departments';
@@ -16,7 +16,7 @@ export const departmentService = {
   // Get department by ID
   getDepartmentById: async (id) => {
     try {
-      const response = await apiClient.get(`/departments/${id}`);
+      const response = await apiClient.get(`/organization-structure/departments/${id}`);
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to fetch department';
@@ -27,7 +27,7 @@ export const departmentService = {
   // Create new department
   createDepartment: async (departmentData) => {
     try {
-      const response = await apiClient.post('/departments', departmentData);
+      const response = await apiClient.post('/organization-structure/departments', departmentData);
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to create department';
@@ -38,7 +38,7 @@ export const departmentService = {
   // Update department
   updateDepartment: async (id, departmentData) => {
     try {
-      const response = await apiClient.put(`/departments/${id}`, departmentData);
+      const response = await apiClient.put(`/organization-structure/departments/${id}`, departmentData);
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to update department';
@@ -49,7 +49,7 @@ export const departmentService = {
   // Delete department
   deleteDepartment: async (id) => {
     try {
-      const response = await apiClient.delete(`/departments/${id}`);
+      const response = await apiClient.delete(`/organization-structure/departments/${id}`);
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to delete department';
@@ -60,7 +60,7 @@ export const departmentService = {
   // Get department employees
   getDepartmentEmployees: async (id, params = {}) => {
     try {
-      const response = await apiClient.get(`/departments/${id}/employees`, { params });
+      const response = await apiClient.get(`/organization-structure/departments/${id}/employees`, { params });
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to fetch department employees';
@@ -71,7 +71,7 @@ export const departmentService = {
   // get department stat's
   getDepartmentStats: async () => {
     try {
-      const response = await apiClient.get('/departments/stats');
+      const response = await apiClient.get('/organization-structure/departments/stats');
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to fetch department stats';
@@ -82,7 +82,7 @@ export const departmentService = {
   // get org chart
   getOrgChart: async () => {
     try {
-      const response = await apiClient.get('/departments/get-org-chart');
+      const response = await apiClient.get('/organization-structure/departments/get-org-chart');
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to fetch organizational chart';

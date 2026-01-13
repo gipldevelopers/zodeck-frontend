@@ -254,12 +254,6 @@ export default function SalaryStructureTable() {
   return (
     <div className="p-4 sm:p-6 text-center">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4 sm:gap-0">
-        <div className="text-left">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Salary Structures</h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-            Manage employee salary components and structures
-          </p>
-        </div>
         <div className="flex items-center gap-2 px-4 py-2 bg-brand-50 text-brand-600 rounded-lg dark:bg-brand-900/30 dark:text-brand-400 w-full sm:w-auto justify-center">
           <IndianRupee size={18} />
           <span className="font-medium">

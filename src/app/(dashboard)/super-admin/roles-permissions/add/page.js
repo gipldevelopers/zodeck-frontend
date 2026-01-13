@@ -45,19 +45,7 @@ export default function AddRolePage() {
               { label: 'New Role', href: '#' }
             ]}
           />
-          <div className="mt-4 flex items-center gap-3">
-            <div className="p-3 bg-blue-600 rounded-xl shadow-lg shadow-blue-600/20">
-              <ShieldPlus className="h-8 w-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
-                Define New Role
-              </h1>
-              <p className="text-gray-500 dark:text-gray-400 mt-1">
-                Create a new functional role and assign granular permissions in the next step.
-              </p>
-            </div>
-          </div>
+         
         </div>
 
         {/* Content */}

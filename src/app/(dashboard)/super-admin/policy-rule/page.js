@@ -949,13 +949,6 @@ export default function PolicyRulePage() {
           <Breadcrumb pageName="Policy & Rule Engine" />
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-               <div className="p-2.5 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                  <FileText className="h-6 w-6 text-gray-700 dark:text-gray-300" />
-               </div>
-               <div>
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Policy Management</h1>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Configure and assign automated rules.</p>
-               </div>
             </div>
             
             <button

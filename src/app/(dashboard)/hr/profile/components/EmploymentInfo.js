@@ -8,16 +8,16 @@ export default function EmploymentInfo({ data }) {
   const employmentFields = [
     { 
       icon: Users, 
-      iconColor: 'text-blue-600 dark:text-blue-400',
-      bgColor: 'bg-blue-100 dark:bg-blue-900/30',
+      iconColor: 'text-brand-600 dark:text-brand-400',
+      bgColor: 'bg-brand-100 dark:bg-brand-900/30',
       label: 'Employee ID', 
       value: data.employeeId,
       description: 'Unique employee identifier'
     },
     { 
       icon: Building, 
-      iconColor: 'text-green-600 dark:text-green-400',
-      bgColor: 'bg-green-100 dark:bg-green-900/30',
+      iconColor: 'text-brand-600 dark:text-brand-400',
+      bgColor: 'bg-brand-100 dark:bg-brand-900/30',
       label: 'Department', 
       value: data.department,
       description: 'Department assigned'

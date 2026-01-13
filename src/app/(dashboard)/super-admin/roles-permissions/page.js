@@ -40,12 +40,6 @@ export default function RolesPermissionsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <Breadcrumb />
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mt-2">
-            Roles & Permissions
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            Manage system access, define user roles, and configure granular permissions.
-          </p>
         </div>
 
         {/* Primary Action */}
