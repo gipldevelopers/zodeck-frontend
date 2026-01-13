@@ -211,12 +211,12 @@ export default function ExportHistoryTable() {
                 onClick={() => setStatusFilter(tab.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   statusFilter === tab.id
-                    ? "bg-primary text-white shadow-lg"
+                    ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-muted/50 text-foreground hover:bg-muted"
                 }`}
               >
                 {tab.label}
-                <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-white/20 text-xs">
+                <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-card/20 text-xs">
                   {tab.count}
                 </span>
               </motion.button>

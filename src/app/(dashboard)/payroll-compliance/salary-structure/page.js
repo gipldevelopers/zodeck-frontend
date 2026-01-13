@@ -433,41 +433,97 @@ export default function PayrollComplianceSalaryStructurePage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mt-4 mb-6 glass-card rounded-2xl p-6 premium-shadow relative overflow-hidden group"
+        className="mt-4 mb-6 glass-card rounded-3xl p-8 sm:p-10 premium-shadow relative overflow-hidden group border border-primary/10"
       >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 group-hover:bg-primary/10 transition-all"></div>
+        {/* Animated Background Gradients */}
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -mr-48 -mt-48"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.05, 0.15, 0.05],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-0 left-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl -ml-40 -mb-40"
+        />
         
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between relative z-10">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between relative z-10">
+          <div className="flex items-center gap-5">
             <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary shadow-lg border border-primary/10"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              whileHover={{ scale: 1.15, rotate: 10 }}
+              className="p-5 rounded-2xl bg-gradient-to-br from-primary/30 via-primary/20 to-primary/10 text-primary shadow-2xl border-2 border-primary/20 relative overflow-hidden"
             >
-              <Layers className="w-8 h-8" />
+              <motion.div
+                animate={{
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+              />
+              <Layers className="w-10 h-10 relative z-10" />
             </motion.div>
             <div>
-              <h1 className="text-3xl font-bold text-gradient-primary">
+              <motion.h1
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="text-4xl sm:text-5xl font-extrabold text-gradient-primary mb-2"
+              >
                 Salary Structure Management
-              </h1>
-              <p className="mt-1 text-sm text-muted-foreground">
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+                className="text-base sm:text-lg text-muted-foreground"
+              >
                 Define and maintain employee salary components, CTC templates, and effective dates
                 across your organisation.
-              </p>
+              </motion.p>
             </div>
           </div>
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary inline-flex items-center gap-2"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6 }}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            className="btn-primary inline-flex items-center gap-2 shadow-xl hover:shadow-primary/40"
           >
-            <PlusCircle size={18} />
+            <PlusCircle size={20} />
             Quick Create CTC
           </motion.button>
         </div>
 
         {/* Stats Cards */}
         {stats && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-6 relative z-10"
+          >
             {[
               { label: "Total Structures", value: stats.totalStructures, icon: Layers, color: "primary" },
               { label: "Active", value: stats.activeStructures, icon: CheckCircle2, color: "success" },
@@ -476,45 +532,89 @@ export default function PayrollComplianceSalaryStructurePage() {
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                className="glass-card rounded-xl p-4 border border-border/50 text-center"
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 0.4 + index * 0.1, type: "spring", stiffness: 200 }}
+                whileHover={{ scale: 1.08, y: -4 }}
+                className="glass-card rounded-2xl p-5 border-2 border-border/30 text-center relative overflow-hidden group/stat premium-shadow"
               >
-                <div className={`inline-flex p-2 rounded-lg bg-${stat.color}/10 text-${stat.color} mb-2`}>
-                  <stat.icon className="w-5 h-5" />
-                </div>
-                <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-                <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.1, 0.2, 0.1],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.2,
+                  }}
+                  className={`absolute inset-0 bg-${stat.color}/10 rounded-full blur-xl`}
+                />
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.5 + index * 0.1, type: "spring", stiffness: 300 }}
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className={`inline-flex p-3 rounded-xl bg-${stat.color}/20 text-${stat.color} mb-3 border-2 border-${stat.color}/30 shadow-md relative z-10`}
+                >
+                  <stat.icon className="w-6 h-6" />
+                </motion.div>
+                <motion.p
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.6 + index * 0.1, type: "spring" }}
+                  className="text-3xl font-extrabold text-foreground relative z-10"
+                >
+                  {stat.value}
+                </motion.p>
+                <p className="text-xs font-semibold text-muted-foreground mt-2 relative z-10">{stat.label}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
       </motion.div>
 
       {/* Stats Chart */}
       {stats && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-6 glass-card rounded-xl p-6 premium-shadow"
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
+          whileHover={{ scale: 1.01 }}
+          className="mb-6 glass-card rounded-2xl p-6 premium-shadow border border-border/20"
         >
-          <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-primary" />
+          <motion.h3
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.9 }}
+            className="text-xl font-extrabold text-foreground mb-6 flex items-center gap-3"
+          >
+            <motion.div
+              animate={{
+                rotate: [0, 10, -10, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <TrendingUp className="w-6 h-6 text-primary" />
+            </motion.div>
             Structure Overview
-          </h3>
+          </motion.h3>
           <ReactApexChart options={statsChartOptions} series={statsChartSeries} type="bar" height={200} />
         </motion.div>
       )}
 
       {/* Tabs */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="glass-card rounded-2xl premium-shadow"
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 1, type: "spring", stiffness: 200 }}
+        whileHover={{ scale: 1.005 }}
+        className="glass-card rounded-2xl premium-shadow border border-border/20"
       >
         <div className="flex flex-wrap gap-2 border-b border-border px-3 pt-3 sm:px-4">
           {tabs.map((tab) => {

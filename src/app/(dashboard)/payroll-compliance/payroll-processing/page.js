@@ -472,7 +472,7 @@ export default function PayrollProcessingPage() {
                       className="w-full pl-4 pr-10 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary/50 outline-none transition-all"
                       required
                     />
-                    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
                   </div>
                   {payrollData.startDate && (
                     <p className="text-xs text-muted-foreground">
@@ -498,7 +498,7 @@ export default function PayrollProcessingPage() {
                       required
                       min={payrollData.startDate}
                     />
-                    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
                   </div>
                   {payrollData.endDate && (
                     <p className="text-xs text-muted-foreground">
@@ -746,7 +746,7 @@ export default function PayrollProcessingPage() {
 
                 <div className="relative z-10 flex flex-col gap-6">
                   <div className="flex items-start gap-4 p-4 bg-primary/5 rounded-xl border border-primary/10">
-                    <div className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm text-primary">
+                    <div className="p-2 bg-card rounded-lg shadow-sm text-primary">
                       <AlertCircle className="w-5 h-5" />
                     </div>
                     <div>
@@ -768,9 +768,9 @@ export default function PayrollProcessingPage() {
                       disabled={loading || selectedEmployees.length === 0 || (processingStatus.step === 3 && processingStatus.status === 'completed')}
                       className={`w-full py-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all shadow-lg ${
                         processingStatus.step === 3 && processingStatus.status === 'completed'
-                          ? 'bg-green-500 text-white cursor-default'
+                          ? 'bg-success text-success-foreground cursor-default'
                           : selectedEmployees.length === 0
-                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          ? 'bg-muted text-muted-foreground cursor-not-allowed'
                           : 'btn-primary'
                       }`}
                     >
@@ -825,7 +825,7 @@ export default function PayrollProcessingPage() {
           },
           grid: { borderColor: 'var(--border)', strokeDashArray: 4 },
           tooltip: { theme: 'dark' },
-          colors: ['#10b981', '#ef4444', '#3b82f6'] // Green, Red, Blue
+          colors: ['hsl(var(--success))', 'hsl(var(--destructive))', 'hsl(var(--primary))'] // Success, Destructive, Primary
         };
 
         const chartSeries = calculationSummary ? [{
@@ -868,7 +868,7 @@ export default function PayrollProcessingPage() {
                       <div className="glass-card p-6 rounded-2xl border border-white/20 dark:border-white/10 shadow-sm">
                         <h4 className="font-bold text-foreground mb-6">Summary Overview</h4>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                          <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-gray-800">
+                          <div className="p-4 bg-muted rounded-xl border border-border">
                             <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Employees</p>
                             <p className="text-2xl font-bold text-foreground mt-1">{calculationSummary.totalEmployees}</p>
                           </div>

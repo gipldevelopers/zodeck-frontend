@@ -100,7 +100,7 @@ export default function PayrollCostSummaryWidget() {
         fontSize: '14px',
         fontFamily: 'inherit',
         fontWeight: 700,
-        colors: ['#ffffff', '#ffffff'], // White text for better contrast
+        colors: ['hsl(var(--primary-foreground))', 'hsl(var(--primary-foreground))'], // Using CSS variable for text
       },
       dropShadow: {
         enabled: true,
@@ -108,16 +108,16 @@ export default function PayrollCostSummaryWidget() {
         left: 2,
         blur: 4,
         opacity: 0.95,
-        color: '#000000'
+        color: 'hsl(var(--foreground))'
       },
       offsetY: 0,
       background: {
         enabled: true,
-        foreColor: '#ffffff',
+        foreColor: 'hsl(var(--primary-foreground))',
         padding: 10,
         borderRadius: 8,
         borderWidth: 2,
-        borderColor: '#ffffff',
+        borderColor: 'hsl(var(--primary-foreground))',
         opacity: 0.98,
         dropShadow: {
           enabled: true,
@@ -125,7 +125,7 @@ export default function PayrollCostSummaryWidget() {
           left: 2,
           blur: 3,
           opacity: 0.6,
-          color: '#000000'
+          color: 'hsl(var(--foreground))'
         }
       }
     },
@@ -181,106 +181,290 @@ export default function PayrollCostSummaryWidget() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -5 }}
-      className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -8, scale: 1.01 }}
+      className="glass-card glass-card-hover rounded-3xl p-6 sm:p-8 h-full premium-shadow premium-shadow-hover relative overflow-hidden group border border-primary/10"
     >
-      <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20 transition-all group-hover:bg-primary/10"></div>
+      {/* Animated Background Effects */}
+      <motion.div
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-0 right-0 w-60 h-60 bg-primary/10 rounded-full blur-3xl -mr-30 -mt-30 transition-all group-hover:bg-primary/20"
+      />
+      <motion.div
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.05, 0.15, 0.05],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-0 left-0 w-48 h-48 bg-accent/10 rounded-full blur-3xl -ml-24 -mb-24"
+      />
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center gap-3 mb-6 relative z-10"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+        className="flex items-center gap-4 mb-8 relative z-10"
       >
         <motion.div
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary shadow-md border border-primary/10"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
+          whileHover={{ scale: 1.15, rotate: 10 }}
+          className="p-4 rounded-2xl bg-gradient-to-br from-primary/30 via-primary/20 to-primary/10 text-primary shadow-xl border-2 border-primary/20 relative overflow-hidden"
         >
-          <DollarSign className="w-6 h-6" />
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+          />
+          <DollarSign className="w-7 h-7 relative z-10" />
         </motion.div>
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-foreground">Payroll Cost Summary</h3>
-          <p className="text-sm text-muted-foreground">Current Month Overview</p>
+          <motion.h3
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-xl font-extrabold text-foreground mb-1"
+          >
+            Payroll Cost Summary
+          </motion.h3>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-sm text-muted-foreground"
+          >
+            Current Month Overview
+          </motion.p>
         </div>
       </motion.div>
 
       <div className="space-y-6 relative z-10">
         {/* Total Payroll Cost */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-4 border border-primary/20"
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
+          whileHover={{ scale: 1.02, y: -2 }}
+          className="relative bg-gradient-to-br from-primary/15 via-primary/10 to-accent/10 rounded-2xl p-5 sm:p-6 border-2 border-primary/20 shadow-lg overflow-hidden group/card"
         >
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-muted-foreground">Total Payroll Cost</span>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.5, type: "spring" }}
-              className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold ${
-                isIncrease
-                  ? 'bg-success/20 text-success'
-                  : 'bg-destructive/20 text-destructive'
-              }`}
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20"
+          />
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-semibold text-muted-foreground">Total Payroll Cost</span>
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
+                whileHover={{ scale: 1.1 }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold shadow-md ${
+                  isIncrease
+                    ? 'bg-success/30 text-success border border-success/30'
+                    : 'bg-destructive/30 text-destructive border border-destructive/30'
+                }`}
+              >
+                {isIncrease ? (
+                  <motion.div
+                    animate={{ y: [0, -2, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <TrendingUp className="w-3.5 h-3.5" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    animate={{ y: [0, 2, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <TrendingDown className="w-3.5 h-3.5" />
+                  </motion.div>
+                )}
+                {Math.abs(costChange).toFixed(1)}%
+              </motion.div>
+            </div>
+            <motion.h2
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+              className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%]"
             >
-              {isIncrease ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-              {Math.abs(costChange).toFixed(1)}%
-            </motion.div>
+              <motion.span
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="inline-block"
+              >
+                {formatCurrency(data.totalPayrollCost)}
+              </motion.span>
+            </motion.h2>
           </div>
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"
-          >
-            {formatCurrency(data.totalPayrollCost)}
-          </motion.h2>
         </motion.div>
 
         {/* Earnings vs Deductions Chart */}
-        <div className="space-y-4">
-          <h4 className="text-sm font-semibold text-foreground">Earnings vs Deductions</h4>
-          <div className="h-80 flex items-center justify-center -mx-2 relative">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, type: "spring" }}
+          className="space-y-4"
+        >
+          <motion.h4
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7 }}
+            className="text-sm font-bold text-foreground flex items-center gap-2"
+          >
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-2 h-2 rounded-full bg-primary"
+            />
+            Earnings vs Deductions
+          </motion.h4>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
+            className="h-80 flex items-center justify-center -mx-2 relative"
+          >
             <ReactApexChart options={chartOptions} series={chartSeries} type="donut" height={320} width="100%" />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Breakdown */}
-        <div className="grid grid-cols-2 gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9 }}
+          className="grid grid-cols-2 gap-4"
+        >
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-            className="p-3 rounded-lg bg-success/10 border border-success/20"
+            initial={{ opacity: 0, x: -30, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ delay: 1, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.05, x: 5 }}
+            className="relative p-4 rounded-2xl bg-gradient-to-br from-success/20 to-success/10 border-2 border-success/30 shadow-lg overflow-hidden group/earnings"
           >
-            <p className="text-xs text-muted-foreground mb-1">Total Earnings</p>
-            <p className="text-lg font-bold text-success">{formatCurrency(data.earnings)}</p>
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute inset-0 bg-success/20 rounded-full blur-2xl"
+            />
+            <div className="relative z-10">
+              <p className="text-xs font-semibold text-muted-foreground mb-2">Total Earnings</p>
+              <motion.p
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.1, type: "spring" }}
+                className="text-xl font-extrabold text-success"
+              >
+                {formatCurrency(data.earnings)}
+              </motion.p>
+            </div>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6 }}
-            className="p-3 rounded-lg bg-destructive/10 border border-destructive/20"
+            initial={{ opacity: 0, x: 30, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ delay: 1.1, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.05, x: -5 }}
+            className="relative p-4 rounded-2xl bg-gradient-to-br from-destructive/20 to-destructive/10 border-2 border-destructive/30 shadow-lg overflow-hidden group/deductions"
           >
-            <p className="text-xs text-muted-foreground mb-1">Total Deductions</p>
-            <p className="text-lg font-bold text-destructive">{formatCurrency(data.deductions)}</p>
+            <motion.div
+              animate={{
+                scale: [1.2, 1, 1.2],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute inset-0 bg-destructive/20 rounded-full blur-2xl"
+            />
+            <div className="relative z-10">
+              <p className="text-xs font-semibold text-muted-foreground mb-2">Total Deductions</p>
+              <motion.p
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2, type: "spring" }}
+                className="text-xl font-extrabold text-destructive"
+              >
+                {formatCurrency(data.deductions)}
+              </motion.p>
+            </div>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Net Payout */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="pt-4 border-t border-border"
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 1.3, type: "spring", stiffness: 200 }}
+          whileHover={{ scale: 1.02 }}
+          className="relative pt-6 mt-6 border-t-2 border-border/50"
         >
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-foreground">Net Payout Amount</span>
-            <span className="text-2xl font-extrabold text-primary">{formatCurrency(data.netPayout)}</span>
+          <motion.div
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 bg-[length:200%_100%] opacity-50"
+          />
+          <div className="relative z-10 flex items-center justify-between p-4 rounded-xl">
+            <span className="text-sm font-bold text-foreground">Net Payout Amount</span>
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.4, type: "spring" }}
+              className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"
+            >
+              {formatCurrency(data.netPayout)}
+            </motion.span>
           </div>
         </motion.div>
       </div>

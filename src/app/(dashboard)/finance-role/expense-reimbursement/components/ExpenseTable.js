@@ -291,12 +291,12 @@ export default function ExpenseTable({ statusFilter, setStatusFilter }) {
                 onClick={() => setStatusFilter(tab.id)}
                 className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                   statusFilter === tab.id
-                    ? "bg-primary text-white shadow-lg"
+                    ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-muted/50 text-foreground hover:bg-muted"
                 }`}
               >
                 {tab.label}
-                <span className="ml-2 px-2 py-0.5 rounded-full bg-white/20 text-xs">
+                <span className="ml-2 px-2 py-0.5 rounded-full bg-card/20 text-xs">
                   {tab.count}
                 </span>
               </motion.button>
@@ -621,7 +621,7 @@ export default function ExpenseTable({ statusFilter, setStatusFilter }) {
                   whileTap={{ scale: 0.95 }}
                   onClick={handleReject}
                   disabled={!rejectReason.trim()}
-                  className="flex-1 px-4 py-2 rounded-lg bg-destructive text-white font-semibold hover:bg-destructive/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground font-semibold hover:bg-destructive/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Reject
                 </motion.button>

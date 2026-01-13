@@ -279,11 +279,11 @@ export default function StatutoryCompliancePage() {
                   return (
                     <motion.div
                       key={stat.label}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      className={`glass-card rounded-xl p-4 premium-shadow border border-${stat.color}/20`}
+                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ delay: index * 0.1, type: "spring", stiffness: 200 }}
+                      whileHover={{ scale: 1.05, y: -4 }}
+                      className={`glass-card rounded-2xl p-5 premium-shadow border-2 border-${stat.color}/30 relative overflow-hidden group/stat`}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <p className="text-xs text-muted-foreground">{stat.label}</p>
@@ -717,29 +717,74 @@ export default function StatutoryCompliancePage() {
 
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mt-4 mb-6 glass-card rounded-2xl p-6 premium-shadow relative overflow-hidden group"
+        initial={{ opacity: 0, y: -30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="mt-4 mb-6 glass-card rounded-3xl p-8 sm:p-10 premium-shadow relative overflow-hidden group border border-primary/10"
       >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 group-hover:bg-primary/10 transition-all"></div>
-        <div className="flex items-center gap-4 relative z-10">
+        {/* Animated Background Gradients */}
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -mr-48 -mt-48"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.05, 0.15, 0.05],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-0 left-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl -ml-40 -mb-40"
+        />
+        <div className="flex items-center gap-5 relative z-10">
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.2, type: "spring" }}
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            className="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary shadow-lg border border-primary/10"
+            transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.15, rotate: 10 }}
+            className="p-5 rounded-2xl bg-gradient-to-br from-primary/30 via-primary/20 to-primary/10 text-primary shadow-2xl border-2 border-primary/20 relative overflow-hidden"
           >
-            <Shield className="w-8 h-8" />
+            <motion.div
+              animate={{
+                rotate: [0, 360],
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+            />
+            <Shield className="w-10 h-10 relative z-10" />
           </motion.div>
           <div>
-            <h1 className="text-3xl font-bold text-gradient-primary mb-2">
+            <motion.h1
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-4xl sm:text-5xl font-extrabold text-gradient-primary mb-2"
+            >
               Statutory Compliance
-            </h1>
-            <p className="text-sm text-muted-foreground">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-base sm:text-lg text-muted-foreground"
+            >
               Manage mandatory Indian statutory requirements
-            </p>
+            </motion.p>
           </div>
         </div>
       </motion.div>

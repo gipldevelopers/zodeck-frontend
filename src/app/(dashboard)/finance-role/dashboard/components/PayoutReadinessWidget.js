@@ -45,185 +45,321 @@ export default function PayoutReadinessWidget() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -5 }}
-      className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -8, scale: 1.01 }}
+      className="glass-card glass-card-hover rounded-3xl p-6 sm:p-8 h-full premium-shadow premium-shadow-hover relative overflow-hidden group border border-success/10"
     >
-      <div className="absolute top-0 right-0 w-40 h-40 bg-success/5 rounded-full blur-3xl -mr-20 -mt-20 transition-all group-hover:bg-success/10"></div>
+      {/* Animated Background Effects */}
+      <motion.div
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-0 right-0 w-60 h-60 bg-success/10 rounded-full blur-3xl -mr-30 -mt-30 transition-all group-hover:bg-success/20"
+      />
+      <motion.div
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.05, 0.15, 0.05],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-0 left-0 w-48 h-48 bg-primary/10 rounded-full blur-3xl -ml-24 -mb-24"
+      />
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center gap-3 mb-6 relative z-10"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+        className="flex items-center gap-4 mb-8 relative z-10"
       >
         <motion.div
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          className="p-3 rounded-xl bg-gradient-to-br from-success/20 to-success/5 text-success shadow-md border border-success/10"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
+          whileHover={{ scale: 1.15, rotate: 10 }}
+          className="p-4 rounded-2xl bg-gradient-to-br from-success/30 via-success/20 to-success/10 text-success shadow-xl border-2 border-success/20 relative overflow-hidden"
         >
-          <FileCheck className="w-6 h-6" />
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+          />
+          <FileCheck className="w-7 h-7 relative z-10" />
         </motion.div>
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-foreground">Payout Readiness</h3>
-          <p className="text-sm text-muted-foreground">Payment Status Check</p>
+          <motion.h3
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-xl font-extrabold text-foreground mb-1"
+          >
+            Payout Readiness
+          </motion.h3>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-sm text-muted-foreground"
+          >
+            Payment Status Check
+          </motion.p>
         </div>
       </motion.div>
 
       <div className="space-y-4 relative z-10">
         {/* Payroll Approved Status */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          className={`p-4 rounded-xl border-2 transition-all ${
+          initial={{ opacity: 0, x: -30, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
+          whileHover={{ scale: 1.02, x: 5 }}
+          className={`relative p-5 rounded-2xl border-2 transition-all shadow-lg overflow-hidden ${
             data.payrollApproved
-              ? 'bg-success/10 border-success/30'
-              : 'bg-destructive/10 border-destructive/30'
+              ? 'bg-gradient-to-br from-success/15 via-success/10 to-success/5 border-success/40'
+              : 'bg-gradient-to-br from-destructive/15 via-destructive/10 to-destructive/5 border-destructive/40'
           }`}
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className={`absolute inset-0 rounded-full blur-2xl ${
+              data.payrollApproved ? 'bg-success/20' : 'bg-destructive/20'
+            }`}
+          />
+          <div className="relative z-10">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.5, type: "spring", stiffness: 300 }}
+                  animate={{
+                    rotate: data.payrollApproved ? [0, 10, -10, 0] : 0,
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: data.payrollApproved ? Infinity : 0,
+                    ease: "easeInOut",
+                  }}
+                  className={`p-3 rounded-xl shadow-md border ${
+                    data.payrollApproved
+                      ? 'bg-success/30 text-success border-success/40'
+                      : 'bg-destructive/30 text-destructive border-destructive/40'
+                  }`}
+                >
+                  {data.payrollApproved ? (
+                    <CheckCircle2 className="w-6 h-6" />
+                  ) : (
+                    <XCircle className="w-6 h-6" />
+                  )}
+                </motion.div>
+                <div>
+                  <p className="text-sm font-bold text-foreground">Payroll Approved</p>
+                  <p className="text-xs text-muted-foreground">
+                    {data.payrollApproved ? 'Ready for payout' : 'Pending approval'}
+                  </p>
+                </div>
+              </div>
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.4, type: "spring" }}
-                className={`p-2 rounded-lg ${
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
+                whileHover={{ scale: 1.1 }}
+                className={`px-4 py-2 rounded-full text-xs font-bold shadow-lg ${
                   data.payrollApproved
-                    ? 'bg-success/20 text-success'
-                    : 'bg-destructive/20 text-destructive'
+                    ? 'bg-success text-success-foreground border-2 border-success/30'
+                    : 'bg-destructive text-destructive-foreground border-2 border-destructive/30'
                 }`}
               >
-                {data.payrollApproved ? (
-                  <CheckCircle2 className="w-5 h-5" />
-                ) : (
-                  <XCircle className="w-5 h-5" />
-                )}
+                {data.payrollApproved ? 'YES' : 'NO'}
               </motion.div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">Payroll Approved</p>
-                <p className="text-xs text-muted-foreground">
-                  {data.payrollApproved ? 'Ready for payout' : 'Pending approval'}
-                </p>
-              </div>
             </div>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.5, type: "spring" }}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold ${
-                data.payrollApproved
-                  ? 'bg-success text-white'
-                  : 'bg-destructive text-white'
-              }`}
-            >
-              {data.payrollApproved ? 'YES' : 'NO'}
-            </motion.div>
+            {data.payrollApproved && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="text-xs font-semibold text-muted-foreground mt-4"
+              >
+                Approved on {formatDate(data.approvedDate)}
+              </motion.p>
+            )}
           </div>
-          {data.payrollApproved && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-xs text-muted-foreground mt-3"
-            >
-              Approved on {formatDate(data.approvedDate)}
-            </motion.p>
-          )}
         </motion.div>
 
         {/* Bank File Generated Status */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4 }}
-          className={`p-4 rounded-xl border-2 transition-all ${
+          initial={{ opacity: 0, x: -30, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+          whileHover={{ scale: 1.02, x: 5 }}
+          className={`relative p-5 rounded-2xl border-2 transition-all shadow-lg overflow-hidden ${
             data.bankFileGenerated
-              ? 'bg-success/10 border-success/30'
-              : 'bg-warning/10 border-warning/30'
+              ? 'bg-gradient-to-br from-success/15 via-success/10 to-success/5 border-success/40'
+              : 'bg-gradient-to-br from-warning/15 via-warning/10 to-warning/5 border-warning/40'
           }`}
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+          <motion.div
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className={`absolute inset-0 rounded-full blur-2xl ${
+              data.bankFileGenerated ? 'bg-success/20' : 'bg-warning/20'
+            }`}
+          />
+          <div className="relative z-10">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.6, type: "spring", stiffness: 300 }}
+                  animate={{
+                    rotate: data.bankFileGenerated ? [0, 10, -10, 0] : 0,
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: data.bankFileGenerated ? Infinity : 0,
+                    ease: "easeInOut",
+                  }}
+                  className={`p-3 rounded-xl shadow-md border ${
+                    data.bankFileGenerated
+                      ? 'bg-success/30 text-success border-success/40'
+                      : 'bg-warning/30 text-warning border-warning/40'
+                  }`}
+                >
+                  {data.bankFileGenerated ? (
+                    <CheckCircle2 className="w-6 h-6" />
+                  ) : (
+                    <AlertCircle className="w-6 h-6" />
+                  )}
+                </motion.div>
+                <div>
+                  <p className="text-sm font-bold text-foreground">Bank File Generated</p>
+                  <p className="text-xs text-muted-foreground">
+                    {data.bankFileGenerated ? 'File ready for upload' : 'File generation pending'}
+                  </p>
+                </div>
+              </div>
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.5, type: "spring" }}
-                className={`p-2 rounded-lg ${
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.7, type: "spring", stiffness: 300 }}
+                whileHover={{ scale: 1.1 }}
+                className={`px-4 py-2 rounded-full text-xs font-bold shadow-lg ${
                   data.bankFileGenerated
-                    ? 'bg-success/20 text-success'
-                    : 'bg-warning/20 text-warning'
+                    ? 'bg-success text-success-foreground border-2 border-success/30'
+                    : 'bg-warning text-warning-foreground border-2 border-warning/30'
                 }`}
               >
-                {data.bankFileGenerated ? (
-                  <CheckCircle2 className="w-5 h-5" />
-                ) : (
-                  <AlertCircle className="w-5 h-5" />
-                )}
+                {data.bankFileGenerated ? 'YES' : 'NO'}
               </motion.div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">Bank File Generated</p>
-                <p className="text-xs text-muted-foreground">
-                  {data.bankFileGenerated ? 'File ready for upload' : 'File generation pending'}
-                </p>
-              </div>
             </div>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.6, type: "spring" }}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold ${
-                data.bankFileGenerated
-                  ? 'bg-success text-white'
-                  : 'bg-warning text-white'
-              }`}
-            >
-              {data.bankFileGenerated ? 'YES' : 'NO'}
-            </motion.div>
+            {data.bankFileGenerated && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="text-xs font-semibold text-muted-foreground mt-4"
+              >
+                Generated on {formatDate(data.bankFileDate)}
+              </motion.p>
+            )}
           </div>
-          {data.bankFileGenerated && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="text-xs text-muted-foreground mt-3"
-            >
-              Generated on {formatDate(data.bankFileDate)}
-            </motion.p>
-          )}
         </motion.div>
 
         {/* Overall Status */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className={`mt-4 p-4 rounded-xl ${
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
+          whileHover={{ scale: 1.02, y: -3 }}
+          className={`relative mt-6 p-6 rounded-2xl border-2 shadow-xl overflow-hidden ${
             data.payrollApproved && data.bankFileGenerated
-              ? 'bg-gradient-to-r from-success/20 to-success/10 border-2 border-success/30'
-              : 'bg-gradient-to-r from-warning/20 to-warning/10 border-2 border-warning/30'
+              ? 'bg-gradient-to-r from-success/25 via-success/15 to-success/10 border-success/40'
+              : 'bg-gradient-to-r from-warning/25 via-warning/15 to-warning/10 border-warning/40'
           }`}
         >
-          <div className="flex items-center justify-between">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className={`absolute inset-0 rounded-full blur-3xl ${
+              data.payrollApproved && data.bankFileGenerated ? 'bg-success/30' : 'bg-warning/30'
+            }`}
+          />
+          <div className="relative z-10 flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-foreground mb-1">Overall Status</p>
-              <p className={`text-lg font-bold ${
-                data.payrollApproved && data.bankFileGenerated
-                  ? 'text-success'
-                  : 'text-warning'
-              }`}>
+              <p className="text-sm font-bold text-foreground mb-2">Overall Status</p>
+              <motion.p
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.9, type: "spring" }}
+                className={`text-2xl font-extrabold ${
+                  data.payrollApproved && data.bankFileGenerated
+                    ? 'text-success'
+                    : 'text-warning'
+                }`}
+              >
                 {data.payrollApproved && data.bankFileGenerated
                   ? 'Ready for Payout'
                   : 'Action Required'}
-              </p>
+              </motion.p>
             </div>
             {data.payrollApproved && data.bankFileGenerated && (
               <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 1, type: "spring", stiffness: 300 }}
+                animate={{
+                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatDelay: 2,
+                  ease: "easeInOut",
+                }}
+                className="p-3 rounded-xl bg-success/30 border-2 border-success/40 shadow-lg"
               >
-                <CheckCircle2 className="w-8 h-8 text-success" />
+                <CheckCircle2 className="w-10 h-10 text-success" />
               </motion.div>
             )}
           </div>

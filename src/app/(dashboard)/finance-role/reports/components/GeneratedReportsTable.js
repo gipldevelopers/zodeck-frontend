@@ -183,7 +183,7 @@ export default function GeneratedReportsTable() {
                 onClick={() => setTypeFilter(type)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   typeFilter === type
-                    ? "bg-primary text-white shadow-lg"
+                    ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-muted/50 text-foreground hover:bg-muted"
                 }`}
               >

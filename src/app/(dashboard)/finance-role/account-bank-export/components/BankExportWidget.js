@@ -139,7 +139,7 @@ export default function BankExportWidget() {
                   onClick={() => setExportData({ ...exportData, format: format.toLowerCase() })}
                   className={`flex-1 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                     exportData.format === format.toLowerCase()
-                      ? "bg-primary text-white shadow-lg"
+                      ? "bg-primary text-primary-foreground shadow-lg"
                       : "bg-muted/50 text-foreground hover:bg-muted"
                   }`}
                 >
@@ -169,7 +169,7 @@ export default function BankExportWidget() {
             whileTap={{ scale: 0.98 }}
             onClick={handleGenerateExport}
             disabled={isGenerating}
-            className="w-full px-4 py-3 bg-gradient-to-r from-primary via-teal-500 to-emerald-500 text-white rounded-lg font-bold shadow-lg hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-3 bg-gradient-to-r from-primary via-teal-500 to-emerald-500 text-primary-foreground rounded-lg font-bold shadow-lg hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isGenerating ? (
               <>

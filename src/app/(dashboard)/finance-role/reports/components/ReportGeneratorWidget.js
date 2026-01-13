@@ -163,7 +163,7 @@ export default function ReportGeneratorWidget({ selectedReportType }) {
                   onClick={() => setFormData({ ...formData, format: format.id })}
                   className={`p-3 rounded-lg text-xs font-semibold transition-all ${
                     formData.format === format.id
-                      ? "bg-primary text-white shadow-lg"
+                      ? "bg-primary text-primary-foreground shadow-lg"
                       : "bg-muted/50 text-foreground hover:bg-muted"
                   }`}
                 >
@@ -195,7 +195,7 @@ export default function ReportGeneratorWidget({ selectedReportType }) {
           whileTap={{ scale: 0.98 }}
           onClick={handleGenerate}
           disabled={loading}
-          className="w-full px-4 py-3 bg-gradient-to-r from-primary via-teal-500 to-emerald-500 text-white rounded-lg font-bold shadow-lg hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-4 py-3 bg-gradient-to-r from-primary via-teal-500 to-emerald-500 text-primary-foreground rounded-lg font-bold shadow-lg hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? (
             <>

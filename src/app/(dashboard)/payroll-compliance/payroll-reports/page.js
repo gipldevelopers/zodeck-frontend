@@ -68,6 +68,30 @@ const reportTypes = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 export default function PayrollReportsPage() {
   const [selectedReportType, setSelectedReportType] = useState("payroll-summary");
   const [dateRange, setDateRange] = useState({
@@ -307,7 +331,12 @@ export default function PayrollReportsPage() {
       </motion.div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6"
+      >
         {[
           { label: "Total Reports", value: analytics?.totalReports || 0, icon: FileText, color: "primary" },
           { label: "This Month", value: analytics?.reportsThisMonth || 0, icon: TrendingUp, color: "success" },
@@ -315,37 +344,66 @@ export default function PayrollReportsPage() {
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            whileHover={{ y: -5, scale: 1.02 }}
-            className="glass-card glass-card-hover rounded-xl p-5 premium-shadow premium-shadow-hover relative overflow-hidden group"
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.7 + index * 0.1, type: "spring", stiffness: 200 }}
+            whileHover={{ y: -8, scale: 1.03 }}
+            className="glass-card glass-card-hover rounded-2xl p-6 premium-shadow premium-shadow-hover relative overflow-hidden group border border-border/20"
           >
-            <div className={`absolute top-0 right-0 w-24 h-24 bg-${stat.color}/5 rounded-full blur-2xl -mr-12 -mt-12 group-hover:bg-${stat.color}/10 transition-all`}></div>
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.1, 0.2, 0.1],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: index * 0.2,
+              }}
+              className={`absolute top-0 right-0 w-32 h-32 bg-${stat.color}/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-${stat.color}/15 transition-all`}
+            />
             <div className="flex items-center gap-4 relative z-10">
-              <div className={`p-3 rounded-xl bg-${stat.color}/10 text-${stat.color} border border-${stat.color}/20`}>
-                <stat.icon className="w-6 h-6" />
-              </div>
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.8 + index * 0.1, type: "spring", stiffness: 300 }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className={`p-4 rounded-xl bg-${stat.color}/20 text-${stat.color} border-2 border-${stat.color}/30 shadow-lg`}
+              >
+                <stat.icon className="w-7 h-7" />
+              </motion.div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
-                <p className="text-2xl font-bold text-foreground">
+                <p className="text-sm font-semibold text-muted-foreground mb-2">{stat.label}</p>
+                <motion.p
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.9 + index * 0.1, type: "spring" }}
+                  className="text-3xl font-extrabold text-foreground"
+                >
                   {stat.value}
-                </p>
+                </motion.p>
               </div>
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8"
+      >
         {/* Report Generation Panel */}
         <div className="lg:col-span-2 space-y-6">
           {/* Report Type Selection */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="glass-card rounded-xl p-6 premium-shadow"
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.9, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.01 }}
+            className="glass-card rounded-2xl p-6 premium-shadow border border-border/20"
           >
             <h3 className="text-xl font-bold text-foreground mb-4">
               Select Report Type
@@ -698,7 +756,7 @@ export default function PayrollReportsPage() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

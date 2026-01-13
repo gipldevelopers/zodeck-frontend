@@ -95,7 +95,7 @@ export default function PayrollExceptionsWidget() {
       enabled: true,
       textAnchor: 'start',
       style: {
-        colors: ['#fff']
+        colors: ['hsl(var(--card))']
       },
       formatter: function (val, opt) {
         return val > 0 ? val : ''
@@ -126,7 +126,7 @@ export default function PayrollExceptionsWidget() {
         left: -10
       }
     },
-    colors: ['hsl(var(--primary))', '#ef4444', '#8b5cf6'],
+    colors: ['hsl(var(--primary))', 'hsl(var(--destructive))', 'hsl(var(--accent))'],
     legend: { show: false },
     tooltip: {
       theme: 'light',

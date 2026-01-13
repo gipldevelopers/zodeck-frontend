@@ -271,9 +271,9 @@ export default function FullFinalSettlementPage() {
         {/* Tabs */}
         <motion.div
           variants={itemVariants}
-          className="glass-card rounded-2xl border border-white/20 dark:border-white/10 shadow-xl overflow-hidden"
+          className="glass-card rounded-2xl border border-border/20 shadow-xl overflow-hidden"
         >
-          <div className="flex flex-wrap gap-1 p-2 bg-gray-50/50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-800">
+          <div className="flex flex-wrap gap-1 p-2 bg-muted/50 border-b border-border">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -282,16 +282,16 @@ export default function FullFinalSettlementPage() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`relative flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 ${isActive
-                      ? "text-emerald-600 dark:text-emerald-400 bg-white dark:bg-gray-800 shadow-sm"
-                      : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      ? "text-success bg-card shadow-sm"
+                      : "text-foreground hover:bg-muted"
                     }`}
                 >
-                  <Icon size={18} className={isActive ? "text-emerald-600 dark:text-emerald-400" : "text-gray-500"} />
+                  <Icon size={18} className={isActive ? "text-success" : "text-muted-foreground"} />
                   <span>{tab.label}</span>
                   {isActive && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 rounded-lg ring-1 ring-black/5 dark:ring-white/10"
+                      className="absolute inset-0 rounded-lg ring-1 ring-foreground/5"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -300,7 +300,7 @@ export default function FullFinalSettlementPage() {
             })}
           </div>
 
-          <div className="p-6 sm:p-8 bg-white/50 dark:bg-gray-900/50 min-h-[500px]">
+          <div className="p-6 sm:p-8 bg-card/50 min-h-[500px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -324,7 +324,7 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -402,7 +402,7 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -2 }}
-                className="glass-card hover:bg-white/80 dark:hover:bg-gray-800/80 rounded-xl p-5 border border-white/20 dark:border-white/10 transition-all group premium-shadow-hover"
+                className="glass-card hover:bg-card/80 rounded-xl p-5 border border-border/20 transition-all group premium-shadow-hover"
               >
                 <div className="flex flex-col md:flex-row items-start justify-between gap-6">
                   <div className="flex items-start gap-4 flex-1">
@@ -419,12 +419,12 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                         />
                       ) : null}
                       <div 
-                        className={`w-16 h-16 rounded-2xl shadow-md flex items-center justify-center text-white font-bold text-lg bg-gradient-to-br from-primary to-accent ${settlement.employee?.profileImage ? 'hidden' : ''}`}
+                        className={`w-16 h-16 rounded-2xl shadow-md flex items-center justify-center text-primary-foreground font-bold text-lg bg-gradient-to-br from-primary to-accent ${settlement.employee?.profileImage ? 'hidden' : ''}`}
                         style={{ display: settlement.employee?.profileImage ? 'none' : 'flex' }}
                       >
                         {settlement.employee?.name?.charAt(0)?.toUpperCase() || 'E'}
                       </div>
-                      <div className="absolute -bottom-2 -right-2 bg-white dark:bg-gray-900 rounded-full p-1 shadow-sm border border-gray-100 dark:border-gray-800">
+                      <div className="absolute -bottom-2 -right-2 bg-card rounded-full p-1 shadow-sm border border-border">
                         <UserX className="w-3 h-3 text-emerald-500" />
                       </div>
                     </div>
@@ -441,7 +441,7 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                       </p>
 
                       <div className="flex flex-col sm:flex-row gap-3 mt-3">
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-gray-700">
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-muted border border-border">
                           <Clock className="w-3.5 h-3.5 text-muted-foreground" />
                           <div>
                             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Resignation</p>
@@ -450,7 +450,7 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                             </p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-gray-700">
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-muted border border-border">
                           <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
                           <div>
                             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Last Day</p>
@@ -473,7 +473,7 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                   </div>
 
                   <div className="flex flex-col gap-2 w-full md:w-auto mt-4 md:mt-0">
-                    <button className="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-500 text-white rounded-xl hover:shadow-lg hover:shadow-emerald-500/20 transition-all text-sm font-bold flex items-center justify-center gap-2">
+                    <button className="px-6 py-2.5 bg-gradient-to-r from-success to-primary text-primary-foreground rounded-xl hover:shadow-lg hover:shadow-success/20 transition-all text-sm font-bold flex items-center justify-center gap-2">
                       <Calculator className="w-4 h-4" />
                       Process
                     </button>
@@ -487,7 +487,7 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white/50 dark:bg-white/5 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
+          <div className="text-center py-16 bg-card/50 rounded-2xl border border-dashed border-border">
             <Clock className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
             <h4 className="text-lg font-semibold text-foreground">No Pending Settlements</h4>
             <p className="text-muted-foreground">All settlement requests are up to date.</p>
@@ -593,18 +593,18 @@ function CalculateSettlementTab({
             Search Employee
           </label>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Name or ID..."
               value={searchQuery}
               onChange={(e) => onSearch(e.target.value)}
-              className="w-full pl-10 pr-3 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all outline-none"
+              className="w-full pl-10 pr-3 py-3 rounded-xl border border-border bg-muted focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
             />
           </div>
 
           {employees.length > 0 && (
-            <div className="mt-3 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg bg-white dark:bg-gray-800 max-h-60 overflow-y-auto custom-scrollbar">
+            <div className="mt-3 border border-border rounded-xl overflow-hidden shadow-lg bg-card max-h-60 overflow-y-auto custom-scrollbar">
               {employees.map((emp) => {
                 const employeeName = emp.name || `${emp.firstName || ""} ${emp.lastName || ""}`.trim();
                 return (
@@ -630,7 +630,7 @@ function CalculateSettlementTab({
                       />
                     ) : null}
                     <div 
-                      className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm bg-gradient-to-br from-primary to-accent ${emp.profileImage ? 'hidden' : ''}`}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm bg-gradient-to-br from-primary to-accent ${emp.profileImage ? 'hidden' : ''}`}
                       style={{ display: emp.profileImage ? 'none' : 'flex' }}
                     >
                       {employeeName?.charAt(0)?.toUpperCase() || 'E'}
@@ -839,7 +839,7 @@ function ClearedSettlementsTab({ settlements, loading, getStatusBadge, formatCur
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
