@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import CustomDropdown from '../../../leave/components/CustomDropdown';
 
 export default function PayrollProcessForm({ payrollData, onChange, onNext }) {
   const [formData, setFormData] = useState(payrollData);
@@ -54,22 +55,20 @@ export default function PayrollProcessForm({ payrollData, onChange, onNext }) {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Payroll Period *
             </label>
-            <div className="relative">
-              <select
-                name="payrollPeriod"
-                value={formData.payrollPeriod}
-                onChange={handleChange}
-                className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white appearance-none"
-                required
-              >
-                <option value="">Select Period</option>
-                {periods.map(p => (
-                  <option key={p.value} value={p.value}>{p.label}</option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <Calendar className="w-5 h-5 text-gray-400" />
-              </div>
+            <div className="flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-gray-400 flex-shrink-0" />
+              <CustomDropdown
+                value={formData.payrollPeriod || ''}
+                onChange={(value) => {
+                  const option = periods.find(p => p.value === value);
+                  const updatedData = { ...formData, payrollPeriod: value, period: option ? option.label : '' };
+                  setFormData(updatedData);
+                  onChange(updatedData);
+                }}
+                options={periods.map(p => ({ value: p.value, label: p.label }))}
+                placeholder="Select Period"
+                className="flex-1"
+              />
             </div>
           </div>
 
@@ -83,7 +82,7 @@ export default function PayrollProcessForm({ payrollData, onChange, onNext }) {
                 name="paymentDate"
                 value={formData.paymentDate}
                 onChange={handleChange}
-                className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 required
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -102,7 +101,7 @@ export default function PayrollProcessForm({ payrollData, onChange, onNext }) {
             value={formData.notes}
             onChange={handleChange}
             rows={3}
-            className="w-full px-3 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             placeholder="Add any notes about this payroll run..."
           />
         </div>
@@ -110,7 +109,7 @@ export default function PayrollProcessForm({ payrollData, onChange, onNext }) {
         <div className="flex justify-end pt-4">
           <button
             type="submit"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-white hover:bg-blue-700 transition w-full sm:w-auto font-medium"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-5 py-2.5 text-white hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold w-full sm:w-auto"
           >
             Next: Select Employees
             <ArrowRight size={18} />

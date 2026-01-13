@@ -76,7 +76,7 @@ export default function AssetClearanceTab() {
                 placeholder="Enter resignation ID..."
                 value={selectedResignationId}
                 onChange={(e) => setSelectedResignationId(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               />
             </div>
           </div>

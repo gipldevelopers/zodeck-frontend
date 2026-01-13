@@ -18,7 +18,7 @@ export default function DocumentManagementPage() {
         rightContent={
           <Link
             href="/hr/employees"
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
+            className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2.5 text-white hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold"
           >
             <Upload size={18} />
             Upload Document
@@ -28,15 +28,15 @@ export default function DocumentManagementPage() {
 
       {/* Header */}
       <div className="mb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-            <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+        <div className="flex items-center gap-4 mb-3">
+          <div className="p-3 bg-gradient-to-br from-brand-100 to-brand-200 dark:from-brand-500/20 dark:to-brand-500/10 rounded-xl shadow-sm">
+            <FileText className="w-7 h-7 text-brand-600 dark:text-brand-400" />
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
               Document Management
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Manage employee-related documents with categorization, expiry tracking, and role-based access
             </p>
           </div>

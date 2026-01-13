@@ -35,7 +35,7 @@ export default function DailyAttendanceViewTab() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
       </div>
     );
   }
@@ -99,18 +99,20 @@ export default function DailyAttendanceViewTab() {
           type="date"
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all"
         />
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
-          <div className="flex items-center gap-3 mb-2">
-            <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            <p className="text-sm text-gray-600 dark:text-gray-400">Total Employees</p>
+        <div className="bg-gradient-to-br from-brand-50 to-brand-100/50 dark:from-brand-500/20 dark:to-brand-500/10 p-4 rounded-xl border-2 border-brand-200 dark:border-brand-500/30 shadow-sm hover:shadow-md transition-all overflow-hidden">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg flex-shrink-0">
+              <Users className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+            </div>
+            <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide break-words min-w-0">Total Employees</p>
           </div>
-          <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+          <p className="text-2xl font-bold text-brand-600 dark:text-brand-400">
             {summary.totalEmployees || 0}
           </p>
         </div>
@@ -170,7 +172,7 @@ export default function DailyAttendanceViewTab() {
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-900">
+            <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
               <tr>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Employee
@@ -257,7 +259,7 @@ export default function DailyAttendanceViewTab() {
                           </span>
                         )}
                         {record.metrics?.isCorrected && (
-                          <span className="text-blue-600 dark:text-blue-400">Corrected</span>
+                          <span className="text-brand-600 dark:text-brand-400 font-medium">Corrected</span>
                         )}
                       </div>
                     </td>
@@ -267,7 +269,7 @@ export default function DailyAttendanceViewTab() {
                           setSelectedAttendance({ ...record, raw: record });
                           setIsCorrectionModalOpen(true);
                         }}
-                        className="p-2 rounded-lg bg-orange-50 text-orange-600 hover:bg-orange-100 transition-colors dark:bg-orange-900/30 dark:text-orange-400"
+                        className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-colors dark:bg-brand-900/30 dark:text-brand-400 shadow-sm hover:shadow"
                         title="Correct Attendance"
                       >
                         <Edit className="w-4 h-4" />

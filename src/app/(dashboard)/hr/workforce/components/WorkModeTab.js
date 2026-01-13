@@ -115,7 +115,7 @@ export default function WorkModeTab() {
             <select
               value={filters.departmentId}
               onChange={(e) => setFilters({ ...filters, departmentId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white transition-all"
             >
               <option value="all">All Departments</option>
               {departments.map((dept) => (
@@ -133,7 +133,7 @@ export default function WorkModeTab() {
             <select
               value={filters.workMode}
               onChange={(e) => setFilters({ ...filters, workMode: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white transition-all"
             >
               <option value="all">All Modes</option>
               <option value="WFO">Work From Office</option>
@@ -144,7 +144,7 @@ export default function WorkModeTab() {
 
           <button
             onClick={fetchWorkModes}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+            className="px-4 py-2.5 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold flex items-center gap-2"
           >
             <RefreshCw className="w-4 h-4" />
             Refresh
@@ -157,16 +157,18 @@ export default function WorkModeTab() {
         <div className="overflow-x-auto">
           {loading ? (
             <div className="flex justify-center items-center h-64">
-              <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+              <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
             </div>
           ) : workModes.length === 0 ? (
             <div className="text-center py-12">
-              <Users className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+              <div className="p-4 bg-brand-50 dark:bg-brand-500/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                <Users className="w-10 h-10 text-brand-500 dark:text-brand-400" />
+              </div>
               <p className="text-gray-500 dark:text-gray-400">No work mode assignments found</p>
             </div>
           ) : (
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-900">
+              <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
                 <tr>
                   <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Employee
@@ -230,7 +232,7 @@ export default function WorkModeTab() {
                     <td className="px-4 py-3">
                       <button
                         onClick={() => handleEdit(employee)}
-                        className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors dark:bg-blue-900/30 dark:text-blue-400"
+                        className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-colors dark:bg-brand-900/30 dark:text-brand-400 shadow-sm hover:shadow"
                         title="Edit Work Mode"
                       >
                         <Edit className="w-4 h-4" />

@@ -19,7 +19,7 @@ export default function HolidayForm({
     applicableTo: 'all',
     country: 'India',
     state: 'All',
-    color: '#3b82f6'
+    color: '#14b8a6'
   });
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function HolidayForm({
         applicableTo: holiday.applicableTo || 'all',
         country: holiday.country || 'India',
         state: holiday.state || 'All',
-        color: holiday.color || '#3b82f6'
+        color: holiday.color || '#14b8a6'
       });
     }
   }, [holiday]);
@@ -92,8 +92,8 @@ export default function HolidayForm({
           <ArrowLeft size={20} />
         </button>
         <div className="flex items-center">
-          <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 mr-3">
-            <Calendar className="text-blue-600 dark:text-blue-400" size={24} />
+          <div className="p-2 rounded-lg bg-brand-100 dark:bg-brand-900/30 mr-3">
+            <Calendar className="text-brand-600 dark:text-brand-400" size={24} />
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -120,7 +120,7 @@ export default function HolidayForm({
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors"
                 placeholder="Enter holiday name"
                 required
                 disabled={isSubmitting}
@@ -137,7 +137,7 @@ export default function HolidayForm({
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors"
                 required
                 disabled={isSubmitting}
               />
@@ -153,7 +153,7 @@ export default function HolidayForm({
                   name="type"
                   value={formData.type}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
                   required
                   disabled={isSubmitting}
                 >
@@ -181,7 +181,7 @@ export default function HolidayForm({
                     name="color"
                     value={formData.color}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
                     disabled={isSubmitting}
                   >
                     {colorOptions.map(color => (
@@ -213,7 +213,7 @@ export default function HolidayForm({
                   name="applicableTo"
                   value={formData.applicableTo}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none transition-colors"
                   required
                   disabled={isSubmitting}
                 >
@@ -239,7 +239,7 @@ export default function HolidayForm({
                   name="state"
                   value={formData.state}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors"
                   placeholder="e.g., Maharashtra, Goa, Karnataka"
                   required
                   disabled={isSubmitting}
@@ -255,7 +255,7 @@ export default function HolidayForm({
                 name="isRecurring"
                 checked={formData.isRecurring}
                 onChange={handleChange}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
                 disabled={isSubmitting}
               />
               <label htmlFor="isRecurring" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
@@ -274,7 +274,7 @@ export default function HolidayForm({
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors"
               placeholder="Brief description of the holiday..."
               disabled={isSubmitting}
             />
@@ -293,7 +293,7 @@ export default function HolidayForm({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-brand-500 hover:bg-brand-600 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
             >
               <Save size={18} />
               {isSubmitting

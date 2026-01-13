@@ -73,11 +73,11 @@ export default function PayrollStatsCards() {
       title: "Employees Paid",
       value: statsData.employeesPaid,
       icon: Users,
-      iconBg: "bg-gradient-to-r from-blue-500 to-blue-400",
+      iconBg: "bg-gradient-to-r from-brand-500 to-brand-400",
       iconColor: "text-white",
       growth: statsData.employeesGrowth || 0,
-      growthColor: (statsData.employeesGrowth || 0) >= 0 ? "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
-      cardBg: "bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-gray-900",
+      growthColor: (statsData.employeesGrowth || 0) >= 0 ? "bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400" : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+      cardBg: "bg-gradient-to-br from-white to-brand-50 dark:from-gray-800 dark:to-gray-900",
       hoverEffect: "hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
     },
     {

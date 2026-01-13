@@ -59,11 +59,11 @@ export default function ReportsAnalyticsPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-            <BarChart3 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          <div className="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg">
+            <BarChart3 className="w-6 h-6 text-brand-600 dark:text-brand-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               HR Reports & Analytics
             </h1>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
@@ -82,7 +82,7 @@ export default function ReportsAnalyticsPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
                 activeTab === tab.id
-                  ? "border-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                  ? "border-brand-600 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20"
                   : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600"
               }`}
             >

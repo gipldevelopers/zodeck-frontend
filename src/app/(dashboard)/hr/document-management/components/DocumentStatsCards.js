@@ -51,8 +51,8 @@ export default function DocumentStatsCards() {
       title: "Total Documents",
       value: stats.totalDocuments || 0,
       icon: FileText,
-      iconBg: "bg-gradient-to-br from-blue-500 to-blue-600",
-      textColor: "text-blue-600 dark:text-blue-400",
+      iconBg: "bg-gradient-to-br from-brand-500 to-brand-600",
+      textColor: "text-brand-600 dark:text-brand-400",
     },
     {
       title: "Verified Documents",
@@ -94,7 +94,7 @@ export default function DocumentStatsCards() {
             className="group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
           >
             {/* Background decoration */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-100/50 to-transparent dark:from-blue-900/20 rounded-bl-full opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+            <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${index === 0 ? 'from-brand-100/50 to-transparent dark:from-brand-900/20' : 'from-gray-100/50 to-transparent dark:from-gray-900/20'} rounded-bl-full opacity-50 group-hover:opacity-70 transition-opacity duration-300`}></div>
             
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-3">

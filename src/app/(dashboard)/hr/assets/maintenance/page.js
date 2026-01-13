@@ -93,13 +93,13 @@ export default function MaintenanceHistory() {
 
   const statusColors = {
     completed: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-    scheduled: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+    scheduled: 'bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400',
     cancelled: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
     in_progress: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
   };
 
   const typeColors = {
-    preventive: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+    preventive: 'bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400',
     corrective: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
     emergency: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
     routine: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400'
@@ -134,7 +134,7 @@ export default function MaintenanceHistory() {
           <div className="flex gap-2">
             <Link
               href="/hr/assets/maintenance/add"
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2 text-white hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold"
             >
               <Plus size={18} /> Add Record
             </Link>
@@ -212,7 +212,7 @@ export default function MaintenanceHistory() {
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-700">
+            <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                   Asset
@@ -279,7 +279,7 @@ export default function MaintenanceHistory() {
                     <div className="flex items-center space-x-2">
                       <Link
                         href={`/hr/assets/maintenance/view/${record.id}`}
-                        className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+                        className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
                       >
                         <Eye className="w-4 h-4" />
                       </Link>

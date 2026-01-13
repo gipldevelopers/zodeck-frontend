@@ -76,7 +76,7 @@ const LeaveStatsCards = ({ stats }) => {
               {stat.href && (
                 <Link
                   href={stat.href}
-                  className="text-blue-600 dark:text-blue-400 hover:underline text-xs font-medium ml-2"
+                  className="text-brand-600 dark:text-brand-400 hover:underline text-xs font-medium ml-2"
                 >
                   View Details
                 </Link>

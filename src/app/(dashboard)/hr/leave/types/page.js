@@ -87,7 +87,7 @@ export default function LeaveTypes() {
           rightContent={
             <Link
               href="/hr/leave/types/add"
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2.5 text-white hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold"
             >
               <PlusCircle size={18} /> Add Leave Type
             </Link>
@@ -95,7 +95,7 @@ export default function LeaveTypes() {
         />
 
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
         </div>
       </div>
     );
@@ -131,7 +131,7 @@ export default function LeaveTypes() {
       {/* Leave Types Grid */}
       {leaveTypes.length === 0 ? (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 text-center">
-          <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+          <Calendar className="w-12 h-12 text-brand-400 dark:text-brand-500 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
             No Leave Types Found
           </h3>
@@ -172,7 +172,7 @@ export default function LeaveTypes() {
               {/* Status Badge */}
               <div className="mb-4">
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${leaveType.isActive
-                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                    ? 'bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400'
                     : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
                   }`}>
                   {leaveType.isActive ? 'Active' : 'Inactive'}
@@ -210,7 +210,7 @@ export default function LeaveTypes() {
 
               {/* View Details CTA */}
               <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">
+                <p className="text-sm text-brand-600 dark:text-brand-400 font-medium">
                   Click to view details →
                 </p>
               </div>

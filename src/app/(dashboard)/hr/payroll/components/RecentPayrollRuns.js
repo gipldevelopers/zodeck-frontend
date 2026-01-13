@@ -79,8 +79,8 @@ export default function RecentPayrollRuns() {
   const SortIcon = ({ field }) => {
     if (sortField !== field) return null;
     return sortDirection === 'asc' ?
-      <ChevronUp className="ml-1 w-4 h-4 text-blue-500" /> :
-      <ChevronDown className="ml-1 w-4 h-4 text-blue-500" />;
+      <ChevronUp className="ml-1 w-4 h-4 text-brand-600" /> :
+      <ChevronDown className="ml-1 w-4 h-4 text-brand-600" />;
   };
 
   const handleViewDetails = (run) => {
@@ -135,7 +135,7 @@ export default function RecentPayrollRuns() {
           Recent Payroll Runs
         </h2>
         <button
-          className="flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition w-full sm:w-auto justify-center"
+          className="flex items-center gap-2 px-4 py-2 text-sm bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold w-full sm:w-auto justify-center"
           onClick={() => router.push('/hr/payroll/process')}
         >
           <Calendar size={16} />
@@ -146,7 +146,7 @@ export default function RecentPayrollRuns() {
       <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="min-w-[1000px]">
           <table className="w-full">
-            <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+            <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
               <tr className="border-b border-gray-200 dark:border-gray-700">
                 <th
                   className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors duration-150"
@@ -210,7 +210,7 @@ export default function RecentPayrollRuns() {
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {sortedRuns.map((run) => (
                 <tr key={run.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors duration-150">
-                  <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                  <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-brand-600 dark:text-brand-400">
                     {run.payrollId}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
@@ -234,7 +234,7 @@ export default function RecentPayrollRuns() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleViewDetails(run)}
-                        className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all duration-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
+                        className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-all duration-200 dark:bg-brand-900/30 dark:text-brand-400 dark:hover:bg-brand-900/50"
                         title="View Details"
                       >
                         <Eye className="w-4 h-4" />
@@ -262,7 +262,7 @@ export default function RecentPayrollRuns() {
           Showing {sortedRuns.length} of {pagination.totalItems} payroll runs
         </p>
         <button
-          className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          className="text-sm text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-medium"
           onClick={() => {
             // Navigate to all payroll history
             // router.push('/hr/payroll/history');

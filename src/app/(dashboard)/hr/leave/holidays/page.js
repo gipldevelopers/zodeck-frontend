@@ -131,7 +131,7 @@ export default function Holidays() {
         rightContent={
           <Link
             href="/hr/leave/holidays/add"
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
+            className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2.5 text-white hover:bg-brand-600 transition-all shadow-sm hover:shadow-md font-semibold"
           >
             <PlusCircle size={18} /> Add Holiday
           </Link>
@@ -153,7 +153,7 @@ export default function Holidays() {
       <div className="mt-6 bg-white rounded-lg shadow dark:bg-gray-800 min-h-[400px]">
         {loading ? (
           <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600 mx-auto"></div>
             <p className="mt-4 text-gray-600 dark:text-gray-400">Loading holidays...</p>
           </div>
         ) : view === 'calendar' ? (

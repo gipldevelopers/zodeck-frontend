@@ -11,13 +11,13 @@ export default function LateEarlyTrackingTab() {
   return (
     <div className="space-y-6">
       {/* View Toggle */}
-      <div className="flex gap-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex gap-1 border-b border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 rounded-t-lg px-2">
         <button
           onClick={() => setActiveView("late")}
-          className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors border-b-2 ${
+          className={`flex items-center gap-2 px-4 py-2.5 text-sm font-semibold transition-all border-b-2 ${
             activeView === "late"
-              ? "border-orange-600 text-orange-600 dark:text-orange-400"
-              : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              ? "border-brand-500 text-brand-600 dark:text-brand-400 bg-white dark:bg-gray-800 shadow-sm"
+              : "border-transparent text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-300 dark:hover:border-brand-600/50"
           }`}
         >
           <TrendingUp className="w-4 h-4" />
@@ -25,10 +25,10 @@ export default function LateEarlyTrackingTab() {
         </button>
         <button
           onClick={() => setActiveView("early")}
-          className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors border-b-2 ${
+          className={`flex items-center gap-2 px-4 py-2.5 text-sm font-semibold transition-all border-b-2 ${
             activeView === "early"
-              ? "border-purple-600 text-purple-600 dark:text-purple-400"
-              : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              ? "border-brand-500 text-brand-600 dark:text-brand-400 bg-white dark:bg-gray-800 shadow-sm"
+              : "border-transparent text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-300 dark:hover:border-brand-600/50"
           }`}
         >
           <TrendingDown className="w-4 h-4" />

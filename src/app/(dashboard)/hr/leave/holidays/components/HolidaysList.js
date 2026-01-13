@@ -23,7 +23,7 @@ const HolidaysList = ({ holidays, onDeleteHoliday }) => {
     switch (type) {
       case 'national': return 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400';
       case 'religious': return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400';
-      case 'regional': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
+      case 'regional': return 'bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400';
       case 'company': return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
     }
@@ -76,7 +76,7 @@ const HolidaysList = ({ holidays, onDeleteHoliday }) => {
                 <div className="flex items-center gap-2 mt-3 sm:mt-0 sm:ml-4 self-end sm:self-start">
                   <Link
                     href={`/hr/leave/holidays/edit/${holiday.id}`}
-                    className="p-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                    className="p-2 text-brand-600 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300"
                     title="Edit Holiday"
                   >
                     <Edit className="w-4 h-4" />
@@ -104,7 +104,7 @@ const HolidaysList = ({ holidays, onDeleteHoliday }) => {
 
       {holidays.length === 0 && (
         <div className="text-center py-12">
-          <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+          <Calendar className="w-12 h-12 text-brand-400 dark:text-brand-500 mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">No holidays found</p>
           <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
             Try adjusting your filters or add new holidays

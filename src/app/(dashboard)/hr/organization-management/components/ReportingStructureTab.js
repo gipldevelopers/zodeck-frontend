@@ -53,61 +53,69 @@ export default function ReportingStructureTab() {
     return (
       <div key={employee.id} className="mb-2">
         <div
-          className={`flex items-center gap-3 p-3 rounded-lg border ${
+          className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
             level === 0
-              ? "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+              ? "bg-gradient-to-r from-gray-50 to-gray-100/50 dark:from-gray-800 dark:to-gray-700/50 border-gray-200 dark:border-gray-700 shadow-sm"
               : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
-          } hover:shadow-md transition-shadow`}
+          } hover:shadow-lg hover:scale-[1.01]`}
           style={{ marginLeft: `${level * 24}px` }}
         >
           {hasReports && (
             <button
               onClick={() => toggleManager(employee.id)}
-              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
             >
               <ChevronRight
                 className={`w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform ${
                   isExpanded ? "rotate-90" : ""
-                }`}
+                } group-hover:text-gray-700 dark:group-hover:text-gray-300`}
               />
             </button>
           )}
           {!hasReports && <div className="w-6" />}
 
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-3">
-            <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-gray-400" />
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="flex items-center gap-2.5">
+              <div className="p-1.5 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                <User className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              </div>
               <div>
-                <p className="font-medium text-gray-900 dark:text-white">
+                <p className="font-semibold text-gray-900 dark:text-white">
                   {employee.name || `${employee.firstName} ${employee.lastName}`}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                   {employee.employeeId}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-gray-400" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2.5">
+              <div className="p-1.5 bg-emerald-100 dark:bg-emerald-500/20 rounded-lg">
+                <Mail className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                 {employee.email || "N/A"}
               </span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <Building className="w-4 h-4 text-gray-400" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2.5">
+              <div className="p-1.5 bg-accent-100 dark:bg-accent-500/20 rounded-lg">
+                <Building className="w-4 h-4 text-accent-600 dark:text-accent-400" />
+              </div>
+              <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                 {employee.department || "N/A"}
               </span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <Briefcase className="w-4 h-4 text-gray-400" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2.5">
+              <div className="p-1.5 bg-accent-100 dark:bg-accent-500/20 rounded-lg">
+                <Briefcase className="w-4 h-4 text-accent-600 dark:text-accent-400" />
+              </div>
+              <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                 {employee.designation || "N/A"}
               </span>
               {employee.orgLevel && (
-                <span className="px-2 py-0.5 text-xs bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 rounded-full">
+                <span className="px-2.5 py-1 text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 rounded-full">
                   L{employee.orgLevel}
                 </span>
               )}
@@ -115,9 +123,11 @@ export default function ReportingStructureTab() {
           </div>
 
           {hasReports && (
-            <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-              <Users className="w-4 h-4" />
-              <span>{employee.directReports.length} reports</span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 dark:bg-emerald-500/10 rounded-lg">
+              <Users className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+                {employee.directReports.length} reports
+              </span>
             </div>
           )}
         </div>
@@ -134,7 +144,7 @@ export default function ReportingStructureTab() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500"></div>
       </div>
     );
   }
@@ -142,7 +152,9 @@ export default function ReportingStructureTab() {
   if (!reportingStructure) {
     return (
       <div className="text-center py-12">
-        <Network className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+        <div className="p-4 bg-brand-50 dark:bg-brand-500/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+          <Network className="w-10 h-10 text-brand-500 dark:text-brand-400" />
+        </div>
         <p className="text-gray-500 dark:text-gray-400">No reporting structure data available</p>
       </div>
     );
@@ -151,22 +163,22 @@ export default function ReportingStructureTab() {
   return (
     <div className="space-y-6">
       {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Top-Level Managers</p>
-          <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="bg-gradient-to-br from-brand-50 to-brand-100/50 dark:from-brand-500/20 dark:to-brand-500/10 p-5 rounded-xl border-2 border-brand-200 dark:border-brand-500/30 shadow-sm hover:shadow-md transition-all">
+          <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wide">Top-Level Managers</p>
+          <p className="text-3xl font-bold text-brand-600 dark:text-brand-400">
             {reportingStructure.topLevelManagers?.length || 0}
           </p>
         </div>
-        <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Reporting Lines</p>
-          <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+        <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-500/20 dark:to-emerald-500/10 p-5 rounded-xl border-2 border-emerald-200 dark:border-emerald-500/30 shadow-sm hover:shadow-md transition-all">
+          <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wide">Total Reporting Lines</p>
+          <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
             {reportingStructure.reportingLines?.length || 0}
           </p>
         </div>
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Employees</p>
-          <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+        <div className="bg-gradient-to-br from-accent-50 to-accent-100/50 dark:from-accent-500/20 dark:to-accent-500/10 p-5 rounded-xl border-2 border-accent-200 dark:border-accent-500/30 shadow-sm hover:shadow-md transition-all">
+          <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wide">Total Employees</p>
+          <p className="text-3xl font-bold text-accent-600 dark:text-accent-400">
             {reportingStructure.totalEmployees ||
               (reportingStructure.topLevelManagers?.length || 0) +
                 (reportingStructure.reportingLines?.length || 0)}
@@ -176,10 +188,14 @@ export default function ReportingStructureTab() {
 
       {/* Reporting Hierarchy */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-          <Network className="w-5 h-5" />
-          Reporting Hierarchy
-        </h3>
+        <div className="flex items-center gap-3 pb-2 border-b border-gray-200 dark:border-gray-700">
+          <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg">
+            <Network className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          </div>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+            Reporting Hierarchy
+          </h3>
+        </div>
 
         {reportingStructure.topLevelManagers && reportingStructure.topLevelManagers.length > 0 ? (
           <div className="space-y-2">
@@ -197,31 +213,38 @@ export default function ReportingStructureTab() {
       {/* Reporting Lines List (Alternative View) */}
       {reportingStructure.reportingLines && reportingStructure.reportingLines.length > 0 && (
         <div className="mt-8 space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            All Reporting Lines
-          </h3>
-          <div className="space-y-2">
+          <div className="flex items-center gap-3 pb-2 border-b border-gray-200 dark:border-gray-700">
+            <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg">
+              <Network className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+              All Reporting Lines
+            </h3>
+          </div>
+          <div className="space-y-3">
             {reportingStructure.reportingLines.map((line, index) => (
               <div
                 key={index}
-                className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                className="p-4 bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md transition-all"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div>
-                      <p className="font-medium text-gray-900 dark:text-white">
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="flex-1 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
+                      <p className="font-semibold text-gray-900 dark:text-white">
                         {line.employee?.name || `${line.employee?.firstName} ${line.employee?.lastName}`}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                         {line.employee?.designation}
                       </p>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
-                    <div>
-                      <p className="font-medium text-gray-900 dark:text-white">
+                    <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-full">
+                      <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                    </div>
+                    <div className="flex-1 p-3 bg-emerald-50 dark:bg-emerald-500/10 rounded-lg border border-emerald-200 dark:border-emerald-500/20">
+                      <p className="font-semibold text-gray-900 dark:text-white">
                         {line.reportsTo?.name || `${line.reportsTo?.firstName} ${line.reportsTo?.lastName}`}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                         {line.reportsTo?.designation}
                       </p>
                     </div>

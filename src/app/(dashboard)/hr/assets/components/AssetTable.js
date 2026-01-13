@@ -10,6 +10,7 @@ import {
   QrCode,
 } from 'lucide-react';
 import { useRouter } from "next/navigation";
+import CustomDropdown from '../../leave/components/CustomDropdown';
 
 export default function AssetTable({
   assets,
@@ -37,7 +38,7 @@ export default function AssetTable({
 
   const statusColors = {
     available: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-    assigned: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+    assigned: 'bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400',
     maintenance: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
     retired: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
   };
@@ -45,7 +46,7 @@ export default function AssetTable({
 
   const conditionColors = {
     excellent: 'text-green-600 dark:text-green-400',
-    good: 'text-blue-600 dark:text-blue-400',
+    good: 'text-brand-600 dark:text-brand-400',
     fair: 'text-yellow-600 dark:text-yellow-400',
     poor: 'text-red-600 dark:text-red-400'
   };
@@ -76,38 +77,48 @@ export default function AssetTable({
                 placeholder="Search assets..."
                 value={filters.search}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-            <select
-              value={filters.status}
-              onChange={(e) => handleFilterChange('status', e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-            >
-              <option value="all">All Status</option>
-              <option value="available">Available</option>
-              <option value="assigned">Assigned</option>
-              <option value="maintenance">Maintenance</option>
-              <option value="retired">Retired</option>
-            </select>
-            <select
-              value={filters.category}
-              onChange={(e) => handleFilterChange('category', e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-            >
-              <option value="all">All Categories</option>
-              <option value="Laptop">Laptop</option>
-              <option value="Mobile Phone">Mobile Phone</option>
-              <option value="Tablet">Tablet</option>
-              <option value="Monitor">Monitor</option>
-              <option value="Furniture">Furniture</option>
-              <option value="Accessory">Accessory</option>
-            </select>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2 flex-shrink-0 relative">
+              <Filter className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <CustomDropdown
+                value={filters.status}
+                onChange={(value) => handleFilterChange('status', value)}
+                options={[
+                  { value: 'all', label: 'All Status' },
+                  { value: 'available', label: 'Available' },
+                  { value: 'assigned', label: 'Assigned' },
+                  { value: 'maintenance', label: 'Maintenance' },
+                  { value: 'retired', label: 'Retired' }
+                ]}
+                placeholder="All Status"
+                className="min-w-[150px]"
+              />
+            </div>
+            <div className="flex items-center gap-2 flex-shrink-0 relative">
+              <Filter className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <CustomDropdown
+                value={filters.category}
+                onChange={(value) => handleFilterChange('category', value)}
+                options={[
+                  { value: 'all', label: 'All Categories' },
+                  { value: 'Laptop', label: 'Laptop' },
+                  { value: 'Mobile Phone', label: 'Mobile Phone' },
+                  { value: 'Tablet', label: 'Tablet' },
+                  { value: 'Monitor', label: 'Monitor' },
+                  { value: 'Furniture', label: 'Furniture' },
+                  { value: 'Accessory', label: 'Accessory' }
+                ]}
+                placeholder="All Categories"
+                className="min-w-[150px]"
+              />
+            </div>
             <button
               onClick={clearFilters}
-              className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:bg-gray-600 flex items-center justify-center"
+              className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:bg-gray-600 flex items-center justify-center flex-shrink-0"
             >
               <Filter className="w-4 h-4 mr-2" /> Clear Filters
             </button>
@@ -118,12 +129,12 @@ export default function AssetTable({
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-700">
+          <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
                 />
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
@@ -155,7 +166,7 @@ export default function AssetTable({
                 <td className="px-6 py-4 whitespace-nowrap">
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
                   />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -192,7 +203,7 @@ export default function AssetTable({
 
                     <button
                       onClick={() => router.push(`/hr/assets/view/${asset.id}`)}
-                      className="text-blue-600 hover:text-blue-900 dark:text-blue-400"
+                      className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
                     >
                       <Eye className="w-4 h-4" />
                     </button>

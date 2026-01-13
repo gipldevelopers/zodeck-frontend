@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Calendar, Users, Filter, Loader2 } from 'lucide-react';
+import { Calendar, Users, Filter, Loader2, User } from 'lucide-react';
 import { departmentService } from '@/services/hr-services/departmentService';
 import { employeeService } from '@/services/hr-services/employeeService';
+import CustomDropdown from '../../components/CustomDropdown';
 
 const ReportFilters = ({ filters, onFilterChange }) => {
   const [departments, setDepartments] = useState([]);
@@ -52,6 +53,24 @@ const ReportFilters = ({ filters, onFilterChange }) => {
     ? employees.filter(emp => emp.department?.id === filters.department || emp.departmentId === filters.department)
     : employees;
 
+  // Convert departments to options format
+  const departmentOptions = [
+    { value: 'all', label: 'All Departments' },
+    ...departments.map(dept => ({
+      value: dept.id,
+      label: dept.name
+    }))
+  ];
+
+  // Convert employees to options format
+  const employeeOptions = [
+    { value: 'all', label: 'All Employees' },
+    ...filteredEmployees.map(emp => ({
+      value: emp.id,
+      label: `${emp.firstName} ${emp.lastName}`
+    }))
+  ];
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6">
       <div className="flex items-center gap-2 mb-4">
@@ -62,57 +81,50 @@ const ReportFilters = ({ filters, onFilterChange }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            <Calendar className="w-4 h-4 inline mr-1" />
             Date Range
           </label>
-          <select
-            value={filters.dateRange}
-            onChange={(e) => handleFilterChange('dateRange', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-          >
-            {dateRangeOptions.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            <CustomDropdown
+              value={filters.dateRange}
+              onChange={(value) => handleFilterChange('dateRange', value)}
+              options={dateRangeOptions}
+              placeholder="Select date range"
+              className="flex-1"
+            />
+          </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            <Users className="w-4 h-4 inline mr-1" />
             Department
           </label>
-          <select
-            value={filters.department}
-            onChange={(e) => handleFilterChange('department', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-          >
-            <option value="all">All Departments</option>
-            {departments.map(dept => (
-              <option key={dept.id} value={dept.id}>
-                {dept.name}
-              </option>
-            ))}
-          </select>
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            <CustomDropdown
+              value={filters.department}
+              onChange={(value) => handleFilterChange('department', value)}
+              options={departmentOptions}
+              placeholder="All Departments"
+              className="flex-1"
+            />
+          </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Employee
           </label>
-          <select
-            value={filters.employee}
-            onChange={(e) => handleFilterChange('employee', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-          >
-            <option value="all">All Employees</option>
-            {filteredEmployees.map(emp => (
-              <option key={emp.id} value={emp.id}>
-                {emp.firstName} {emp.lastName}
-              </option>
-            ))}
-          </select>
+          <div className="flex items-center gap-2">
+            <User className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            <CustomDropdown
+              value={filters.employee}
+              onChange={(value) => handleFilterChange('employee', value)}
+              options={employeeOptions}
+              placeholder="All Employees"
+              className="flex-1"
+            />
+          </div>
         </div>
       </div>
 
@@ -129,7 +141,7 @@ const ReportFilters = ({ filters, onFilterChange }) => {
         </button>
         <button
           onClick={() => console.log('Filters applied')}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+          className="px-4 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md flex items-center gap-2"
         >
           {loading && <Loader2 className="w-4 h-4 animate-spin" />}
           Apply Filters

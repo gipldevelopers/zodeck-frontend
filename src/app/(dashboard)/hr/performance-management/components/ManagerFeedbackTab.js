@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { MessageSquare, Loader2, Filter, User } from "lucide-react";
 import { performanceManagementService } from "@/services/hr-services/performance-management.service";
 import { toast } from "react-hot-toast";
+import CustomDropdown from "../../leave/components/CustomDropdown";
 
 export default function ManagerFeedbackTab() {
   const [feedback, setFeedback] = useState([]);
@@ -37,7 +38,7 @@ export default function ManagerFeedbackTab() {
   const getRatingBadge = (rating) => {
     const config = {
       EXCEEDS_EXPECTATIONS: { label: "Exceeds Expectations", className: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" },
-      MEETS_EXPECTATIONS: { label: "Meets Expectations", className: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" },
+      MEETS_EXPECTATIONS: { label: "Meets Expectations", className: "bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400" },
       NEEDS_IMPROVEMENT: { label: "Needs Improvement", className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400" },
       UNSATISFACTORY: { label: "Unsatisfactory", className: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" },
     };
@@ -58,13 +59,13 @@ export default function ManagerFeedbackTab() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Appraisal Cycle
             </label>
-            <select
+            <CustomDropdown
               value={filters.cycleId}
-              onChange={(e) => setFilters({ ...filters, cycleId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Cycles</option>
-            </select>
+              onChange={(value) => setFilters({ ...filters, cycleId: value })}
+              options={[{ value: 'all', label: 'All Cycles' }]}
+              placeholder="All Cycles"
+              className="w-full"
+            />
           </div>
         </div>
       </div>
@@ -73,7 +74,7 @@ export default function ManagerFeedbackTab() {
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
           </div>
         ) : feedback.length > 0 ? (
           <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -81,8 +82,8 @@ export default function ManagerFeedbackTab() {
               <div key={item.id} className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                      <User className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    <div className="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
+                      <User className="w-6 h-6 text-brand-600 dark:text-brand-400" />
                     </div>
                   </div>
                   <div className="flex-1">

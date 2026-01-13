@@ -307,7 +307,7 @@ export default function AssetReports() {
                       setReportData(null); // Clear data to show loading for new report
                     }}
                     className={`w-full text-left p-4 rounded-lg transition-colors ${activeReport === report.id
-                      ? 'bg-blue-50 border border-blue-200 text-blue-700 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-300'
+                      ? 'bg-brand-50 border border-brand-200 text-brand-700 dark:bg-brand-900/20 dark:border-brand-800 dark:text-brand-300'
                       : 'bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600'
                       }`}
                   >
@@ -362,7 +362,7 @@ export default function AssetReports() {
                     <button
                       onClick={handleGenerateReport}
                       disabled={loading}
-                      className="w-full inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="w-full inline-flex items-center justify-center px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-sm hover:shadow-md font-semibold"
                     >
                       <Filter className="w-4 h-4 mr-2" />
                       {loading ? 'Generating...' : 'Generate Report'}
@@ -376,9 +376,9 @@ export default function AssetReports() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {activeReport === 'inventory' && (
                       <>
-                        <div className="bg-blue-50 rounded-lg p-4 dark:bg-blue-900/20">
-                          <h3 className="text-sm font-medium text-blue-800 dark:text-blue-300">Total Assets</h3>
-                          <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                        <div className="bg-brand-50 rounded-lg p-4 dark:bg-brand-900/20">
+                          <h3 className="text-sm font-medium text-brand-800 dark:text-brand-300">Total Assets</h3>
+                          <p className="text-2xl font-bold text-brand-900 dark:text-brand-100">
                             {getSafeValue(reportData.data.totalAssets)}
                           </p>
                         </div>
@@ -388,9 +388,9 @@ export default function AssetReports() {
                             {getCurrencyValue(reportData.data.totalValue)}
                           </p>
                         </div>
-                        <div className="bg-purple-50 rounded-lg p-4 dark:bg-purple-900/20">
-                          <h3 className="text-sm font-medium text-purple-800 dark:text-purple-300">Avg. Value</h3>
-                          <p className="text-2xl font-bold text-purple-900 dark:text-purple-100">
+                        <div className="bg-brand-50 rounded-lg p-4 dark:bg-brand-900/20">
+                          <h3 className="text-sm font-medium text-brand-800 dark:text-brand-300">Avg. Value</h3>
+                          <p className="text-2xl font-bold text-brand-900 dark:text-brand-100">
                             {getCurrencyValue(getAverageValue())}
                           </p>
                         </div>
@@ -398,9 +398,9 @@ export default function AssetReports() {
                     )}
                     {activeReport === 'maintenance' && (
                       <>
-                        <div className="bg-blue-50 rounded-lg p-4 dark:bg-blue-900/20">
-                          <h3 className="text-sm font-medium text-blue-800 dark:text-blue-300">Total Cost</h3>
-                          <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                        <div className="bg-brand-50 rounded-lg p-4 dark:bg-brand-900/20">
+                          <h3 className="text-sm font-medium text-brand-800 dark:text-brand-300">Total Cost</h3>
+                          <p className="text-2xl font-bold text-brand-900 dark:text-brand-100">
                             {getCurrencyValue(reportData.data.totalCost)}
                           </p>
                         </div>
@@ -410,9 +410,9 @@ export default function AssetReports() {
                             {getCurrencyValue(reportData.data.averageCost)}
                           </p>
                         </div>
-                        <div className="bg-purple-50 rounded-lg p-4 dark:bg-purple-900/20">
-                          <h3 className="text-sm font-medium text-purple-800 dark:text-purple-300">Maintenance Events</h3>
-                          <p className="text-2xl font-bold text-purple-900 dark:text-purple-100">
+                        <div className="bg-brand-50 rounded-lg p-4 dark:bg-brand-900/20">
+                          <h3 className="text-sm font-medium text-brand-800 dark:text-brand-300">Maintenance Events</h3>
+                          <p className="text-2xl font-bold text-brand-900 dark:text-brand-100">
                             {getSafeValue(reportData.data.maintenanceEvents)}
                           </p>
                         </div>
@@ -420,9 +420,9 @@ export default function AssetReports() {
                     )}
                     {activeReport === 'depreciation' && (
                       <>
-                        <div className="bg-blue-50 rounded-lg p-4 dark:bg-blue-900/20">
-                          <h3 className="text-sm font-medium text-blue-800 dark:text-blue-300">Total Depreciation</h3>
-                          <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                        <div className="bg-brand-50 rounded-lg p-4 dark:bg-brand-900/20">
+                          <h3 className="text-sm font-medium text-brand-800 dark:text-brand-300">Total Depreciation</h3>
+                          <p className="text-2xl font-bold text-brand-900 dark:text-brand-100">
                             {getCurrencyValue(reportData.data.totalDepreciation)}
                           </p>
                         </div>
@@ -432,9 +432,9 @@ export default function AssetReports() {
                             {getCurrencyValue(reportData.data.currentValue)}
                           </p>
                         </div>
-                        <div className="bg-purple-50 rounded-lg p-4 dark:bg-purple-900/20">
-                          <h3 className="text-sm font-medium text-purple-800 dark:text-purple-300">Avg. Depreciation Rate</h3>
-                          <p className="text-2xl font-bold text-purple-900 dark:text-purple-100">
+                        <div className="bg-brand-50 rounded-lg p-4 dark:bg-brand-900/20">
+                          <h3 className="text-sm font-medium text-brand-800 dark:text-brand-300">Avg. Depreciation Rate</h3>
+                          <p className="text-2xl font-bold text-brand-900 dark:text-brand-100">
                             {getSafeNumber(reportData.data.avgDepreciationRate)}%
                           </p>
                         </div>
@@ -442,9 +442,9 @@ export default function AssetReports() {
                     )}
                     {activeReport === 'assignments' && (
                       <>
-                        <div className="bg-blue-50 rounded-lg p-4 dark:bg-blue-900/20">
-                          <h3 className="text-sm font-medium text-blue-800 dark:text-blue-300">Total Assignments</h3>
-                          <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">
+                        <div className="bg-brand-50 rounded-lg p-4 dark:bg-brand-900/20">
+                          <h3 className="text-sm font-medium text-brand-800 dark:text-brand-300">Total Assignments</h3>
+                          <p className="text-2xl font-bold text-brand-900 dark:text-brand-100">
                             {getSafeValue(reportData.data.totalAssignments)}
                           </p>
                         </div>
@@ -454,9 +454,9 @@ export default function AssetReports() {
                             {getSafeValue(reportData.data.activeAssignments)}
                           </p>
                         </div>
-                        <div className="bg-purple-50 rounded-lg p-4 dark:bg-purple-900/20">
-                          <h3 className="text-sm font-medium text-purple-800 dark:text-purple-300">Return Rate</h3>
-                          <p className="text-2xl font-bold text-purple-900 dark:text-purple-100">
+                        <div className="bg-brand-50 rounded-lg p-4 dark:bg-brand-900/20">
+                          <h3 className="text-sm font-medium text-brand-800 dark:text-brand-300">Return Rate</h3>
+                          <p className="text-2xl font-bold text-brand-900 dark:text-brand-100">
                             {getSafeNumber(reportData.data.returnRate)}%
                           </p>
                         </div>
@@ -541,7 +541,7 @@ export default function AssetReports() {
                               <td className="px-4 py-3 text-sm text-gray-900 dark:text-white">
                                 <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
                                   <div
-                                    className="bg-blue-600 h-2 rounded-full"
+                                    className="bg-brand-500 h-2 rounded-full"
                                     style={{
                                       width: `${item.percentage || Math.round(item.count / getSafeNumber(reportData.data.totalAssignments) * 100)}%`
                                     }}

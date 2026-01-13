@@ -78,7 +78,7 @@
 //               name="name"
 //               value={formData.name}
 //               onChange={handleChange}
-//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
 //               required
 //             />
 //           </div>
@@ -92,7 +92,7 @@
 //               name="icon"
 //               value={formData.icon}
 //               onChange={handleChange}
-//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
 //             >
 //               {iconOptions.map(option => (
 //                 <option key={option.value} value={option.value}>
@@ -130,7 +130,7 @@
 //               value={formData.limitDays}
 //               onChange={handleChange}
 //               min="0"
-//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
 //               required
 //             />
 //           </div>
@@ -146,7 +146,7 @@
 //               value={formData.accrualRate}
 //               onChange={handleChange}
 //               placeholder="e.g., 1.75 days per month"
-//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
 //             />
 //           </div>
 //         </div>
@@ -163,7 +163,7 @@
 //               value={formData.carryOver}
 //               onChange={handleChange}
 //               placeholder="e.g., Up to 5 days"
-//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
 //             />
 //           </div>
 
@@ -178,7 +178,7 @@
 //               value={formData.eligibility}
 //               onChange={handleChange}
 //               placeholder="e.g., After 6 months of employment"
-//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+//               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
 //             />
 //           </div>
 //         </div>
@@ -191,7 +191,7 @@
 //               name="isPaid"
 //               checked={formData.isPaid}
 //               onChange={handleChange}
-//               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+//               className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
 //             />
 //             <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Paid Leave</span>
 //           </label>
@@ -202,7 +202,7 @@
 //               name="requireAttachment"
 //               checked={formData.requireAttachment}
 //               onChange={handleChange}
-//               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+//               className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
 //             />
 //             <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Require Attachment</span>
 //           </label>
@@ -213,7 +213,7 @@
 //               name="isEncashable"
 //               checked={formData.isEncashable}
 //               onChange={handleChange}
-//               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+//               className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
 //             />
 //             <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Encashment Available</span>
 //           </label>
@@ -252,7 +252,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    color: '#3b82f6',
+    color: '#14b8a6',
     icon: '🏖️',
     isActive: true,
     isDeductible: true,
@@ -272,7 +272,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
       setFormData({
         name: initialData.name || '',
         description: initialData.description || '',
-        color: initialData.color || '#3b82f6',
+        color: initialData.color || '#14b8a6',
         icon: initialData.icon || '🏖️',
         isActive: initialData.isActive !== undefined ? initialData.isActive : true,
         isDeductible: initialData.isDeductible !== undefined ? initialData.isDeductible : true,
@@ -359,7 +359,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               required
             />
           </div>
@@ -373,7 +373,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               name="icon"
               value={formData.icon}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             >
               {iconOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -416,7 +416,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
                 name="isActive"
                 value={formData.isActive}
                 onChange={(e) => setFormData(prev => ({ ...prev, isActive: e.target.value === 'true' }))}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               >
                 <option value={true}>Active</option>
                 <option value={false}>Inactive</option>
@@ -452,7 +452,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               value={formData.limitDays}
               onChange={handleNumberChange}
               min="0"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               required
             />
           </div>
@@ -468,7 +468,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               value={formData.maxConsecutiveDays || ''}
               onChange={handleNumberChange}
               min="1"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
@@ -483,7 +483,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               value={formData.advanceNoticeDays || ''}
               onChange={handleNumberChange}
               min="0"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
 
@@ -499,7 +499,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               onChange={handleNumberChange}
               step="0.01"
               min="0"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               placeholder="e.g., 1.75"
             />
           </div>
@@ -515,7 +515,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               value={formData.carryOver || ''}
               onChange={handleNumberChange}
               min="0"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               placeholder="e.g., 5"
             />
           </div>
@@ -530,7 +530,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               name="eligibility"
               value={formData.eligibility}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               placeholder="e.g., After 6 months of employment"
             />
           </div>
@@ -544,7 +544,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               name="isDeductible"
               checked={formData.isDeductible}
               onChange={handleChange}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
             />
             <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Deductible from Balance</span>
           </label>
@@ -555,7 +555,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               name="requiresApproval"
               checked={formData.requiresApproval}
               onChange={handleChange}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
             />
             <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Requires Approval</span>
           </label>
@@ -566,7 +566,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               name="requiresAttachment"
               checked={formData.requiresAttachment}
               onChange={handleChange}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
             />
             <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Require Attachment</span>
           </label>
@@ -577,7 +577,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
               name="isEncashable"
               checked={formData.isEncashable}
               onChange={handleChange}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
             />
             <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Encashment Available</span>
           </label>
@@ -596,7 +596,7 @@ const LeaveTypeForm = ({ initialData = null, onSave, onCancel, isSubmitting = fa
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="px-4 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting
               ? (isEdit ? 'Saving...' : 'Creating...')

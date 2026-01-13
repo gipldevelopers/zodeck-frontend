@@ -84,7 +84,7 @@ export default function BiometricSyncTab() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
       </div>
     );
   }
@@ -104,14 +104,16 @@ export default function BiometricSyncTab() {
   return (
     <div className="space-y-6">
       {/* Info Banner */}
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+      <div className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/20 dark:to-brand-500/10 border-2 border-brand-200 dark:border-brand-500/30 rounded-lg p-4 shadow-sm">
         <div className="flex items-start gap-3">
-          <Activity className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+          <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg flex-shrink-0">
+            <Activity className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          </div>
           <div>
-            <p className="text-sm font-medium text-blue-900 dark:text-blue-400">
+            <p className="text-sm font-semibold text-brand-700 dark:text-brand-400">
               Biometric Sync Monitoring (View-Only)
             </p>
-            <p className="text-xs text-blue-700 dark:text-blue-300 mt-1">
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
               This section displays biometric integration status and sync monitoring information.
               All data is read-only and automatically updated from the biometric system.
             </p>
@@ -121,12 +123,14 @@ export default function BiometricSyncTab() {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+        <div className="bg-gradient-to-br from-brand-50 to-brand-100/50 dark:from-brand-500/20 dark:to-brand-500/10 p-5 rounded-xl border-2 border-brand-200 dark:border-brand-500/30 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center gap-3 mb-2">
-            <RefreshCw className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            <p className="text-sm text-gray-600 dark:text-gray-400">Total Syncs</p>
+            <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg">
+              <RefreshCw className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+            </div>
+            <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">Total Syncs</p>
           </div>
-          <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+          <p className="text-3xl font-bold text-brand-600 dark:text-brand-400">
             {statistics.totalSyncs || 0}
           </p>
         </div>
@@ -162,13 +166,17 @@ export default function BiometricSyncTab() {
       {/* Biometric Integrations */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-          <Database className="w-5 h-5" />
+          <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg">
+            <Database className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          </div>
           Biometric Integrations
         </h3>
 
         {integrations.length === 0 ? (
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
-            <Database className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-3" />
+            <div className="p-4 bg-brand-50 dark:bg-brand-500/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+              <Database className="w-10 h-10 text-brand-500 dark:text-brand-400" />
+            </div>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               No biometric integrations configured
             </p>
@@ -271,7 +279,9 @@ export default function BiometricSyncTab() {
       {syncStatus.recentSyncLogs && syncStatus.recentSyncLogs.length > 0 && (
         <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <Activity className="w-5 h-5" />
+            <div className="p-2 bg-brand-100 dark:bg-brand-500/20 rounded-lg">
+              <Activity className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+            </div>
             Recent Sync Logs
           </h3>
           <div className="space-y-2 max-h-96 overflow-y-auto">

@@ -18,7 +18,7 @@ const LeaveAnalytics = ({ analytics, period, onPeriodChange }) => {
         <select 
           value={period || "thisWeek"}
           onChange={handlePeriodChange}
-          className="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+          className="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:ring-brand-500 focus:border-brand-500"
         >
           <option value="thisWeek">This Week</option>
           <option value="lastWeek">Last Week</option>

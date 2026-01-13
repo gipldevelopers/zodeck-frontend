@@ -67,7 +67,7 @@ const LeaveTypeDetail = ({
                   <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Status</p>
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${leaveType.isActive
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                        ? 'bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400'
                         : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
                       }`}>
                       {leaveType.isActive ? 'Active' : 'Inactive'}
@@ -195,7 +195,7 @@ const LeaveTypeDetail = ({
                     </button>
                     <button
                       onClick={() => onEdit(leaveType)}
-                      className="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                      className="flex items-center px-4 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 transition-all shadow-sm hover:shadow-md"
                     >
                       <Edit className="w-4 h-4 mr-2" />
                       Edit

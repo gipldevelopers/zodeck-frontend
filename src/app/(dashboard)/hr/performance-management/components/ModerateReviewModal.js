@@ -110,7 +110,7 @@ export default function ModerateReviewModal({ isOpen, onClose, review, onSuccess
               <select
                 value={formData.hrRating}
                 onChange={(e) => handleInputChange("hrRating", e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white ${
+                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white ${
                   errors.hrRating ? "border-red-500" : "border-gray-300 dark:border-gray-600"
                 }`}
               >
@@ -133,7 +133,7 @@ export default function ModerateReviewModal({ isOpen, onClose, review, onSuccess
                 value={formData.hrComments}
                 onChange={(e) => handleInputChange("hrComments", e.target.value)}
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 placeholder="Add comments for the moderation..."
               />
             </div>
@@ -149,7 +149,7 @@ export default function ModerateReviewModal({ isOpen, onClose, review, onSuccess
               <button
                 type="submit"
                 disabled={loading}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>

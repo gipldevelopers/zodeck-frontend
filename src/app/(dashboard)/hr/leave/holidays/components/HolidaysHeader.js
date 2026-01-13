@@ -1,4 +1,5 @@
 import { Calendar, List, Filter, Calendar as CalendarIcon } from 'lucide-react';
+import CustomDropdown from '../../components/CustomDropdown';
 
 const HolidaysHeader = ({
   view,
@@ -20,15 +21,21 @@ const HolidaysHeader = ({
   ];
 
   // Ensure availableYears has at least current year
-  const yearOptions = availableYears.length > 0 
+  const yearOptionsArray = availableYears.length > 0 
     ? availableYears 
     : [yearFilter - 1, yearFilter, yearFilter + 1];
+
+  // Convert years to options format
+  const yearOptions = yearOptionsArray.map(year => ({
+    value: year,
+    label: year.toString()
+  }));
 
   return (
     <div className="mt-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Holiday Calendar</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Holiday Calendar</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
             Manage and view all company holidays and festivals
           </p>
@@ -36,7 +43,7 @@ const HolidaysHeader = ({
         <div className="text-sm text-gray-600 dark:text-gray-400 mt-2 sm:mt-0">
           {loading ? (
             <span className="inline-flex items-center">
-              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 mr-2"></div>
+              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-brand-600 mr-2"></div>
               Loading...
             </span>
           ) : (
@@ -52,7 +59,7 @@ const HolidaysHeader = ({
             onClick={() => onViewChange('list')}
             disabled={loading}
             className={`p-2 rounded-md flex items-center gap-2 text-sm ${view === 'list'
-                ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow'
+                ? 'bg-white dark:bg-gray-600 text-brand-600 dark:text-brand-400 shadow'
                 : 'text-gray-600 dark:text-gray-400'
               } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
@@ -63,7 +70,7 @@ const HolidaysHeader = ({
             onClick={() => onViewChange('calendar')}
             disabled={loading}
             className={`p-2 rounded-md flex items-center gap-2 text-sm ${view === 'calendar'
-                ? 'bg-white dark:bg-gray-600 text-blue-600 dark:text-blue-400 shadow'
+                ? 'bg-white dark:bg-gray-600 text-brand-600 dark:text-brand-400 shadow'
                 : 'text-gray-600 dark:text-gray-400'
               } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
@@ -75,33 +82,23 @@ const HolidaysHeader = ({
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-gray-400" />
-            <select
+            <Filter className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            <CustomDropdown
               value={yearFilter}
-              onChange={(e) => onYearFilterChange(parseInt(e.target.value))}
-              disabled={loading}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {yearOptions.map(year => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => onYearFilterChange(parseInt(value))}
+              options={yearOptions}
+              placeholder="Select Year"
+              className="min-w-[120px]"
+            />
           </div>
 
-          <select
+          <CustomDropdown
             value={typeFilter}
-            onChange={(e) => onTypeFilterChange(e.target.value)}
-            disabled={loading}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {typeOptions.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+            onChange={onTypeFilterChange}
+            options={typeOptions}
+            placeholder="All Types"
+            className="min-w-[150px]"
+          />
         </div>
       </div>
     </div>

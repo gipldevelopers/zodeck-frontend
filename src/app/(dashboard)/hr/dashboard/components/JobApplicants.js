@@ -29,9 +29,9 @@ const JobApplicants = () => {
         </h5>
         <Link
           href="/hr/recruitment"
-          className="px-3 py-1 text-xs font-semibold rounded-md 
-                     bg-gray-100 hover:bg-gray-200 text-gray-600 
-                     dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300"
+          className="px-3 py-1.5 text-xs font-semibold rounded-md 
+                     bg-brand-50 hover:bg-brand-100 text-brand-600 
+                     dark:bg-brand-500/10 dark:hover:bg-brand-500/20 dark:text-brand-400 transition-colors"
         >
           View All
         </Link>
@@ -44,8 +44,8 @@ const JobApplicants = () => {
                         border border-gray-200 dark:border-gray-700">
           <button
             onClick={() => setActiveTab("openings")}
-            className={`py-1.5 text-xs sm:text-sm font-semibold transition ${activeTab === "openings"
-                ? "bg-primary text-white"
+            className={`py-1.5 text-xs sm:text-sm font-semibold transition-all ${activeTab === "openings"
+                ? "bg-brand-500 text-white shadow-sm"
                 : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
               }`}
           >
@@ -53,8 +53,8 @@ const JobApplicants = () => {
           </button>
           <button
             onClick={() => setActiveTab("applicants")}
-            className={`py-1.5 text-xs sm:text-sm font-semibold transition ${activeTab === "applicants"
-                ? "bg-primary text-white"
+            className={`py-1.5 text-xs sm:text-sm font-semibold transition-all ${activeTab === "applicants"
+                ? "bg-brand-500 text-white shadow-sm"
                 : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
               }`}
           >

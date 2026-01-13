@@ -60,8 +60,8 @@ const EmployeeLeaveTable = ({ filters }) => {
       return <div className="ml-1 flex flex-col"><ChevronUp className="w-3 h-3 -mb-0.5 text-gray-400" /><ChevronDown className="w-3 h-3 -mt-0.5 text-gray-400" /></div>;
     }
     return sortConfig.direction === 'asc' ?
-      <ChevronUp className="ml-1 w-4 h-4 text-blue-500" /> :
-      <ChevronDown className="ml-1 w-4 h-4 text-blue-500" />;
+      <ChevronUp className="ml-1 w-4 h-4 text-brand-600" /> :
+      <ChevronDown className="ml-1 w-4 h-4 text-brand-600" />;
   };
 
   const handlePageChange = (newPage) => {
@@ -92,7 +92,7 @@ const EmployeeLeaveTable = ({ filters }) => {
               placeholder="Search employees or departments..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
@@ -104,7 +104,7 @@ const EmployeeLeaveTable = ({ filters }) => {
 
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-700">
+          <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
             <tr>
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer"
@@ -167,7 +167,7 @@ const EmployeeLeaveTable = ({ filters }) => {
               <tr>
                 <td colSpan="6" className="px-6 py-4 text-center">
                   <div className="flex justify-center items-center py-4">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600"></div>
                   </div>
                 </td>
               </tr>

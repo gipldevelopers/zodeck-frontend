@@ -1,9 +1,10 @@
 // src/app/(dashboard)/hr/payroll/reports/components/ReportFilters.js
 "use client";
 import { useState, useEffect } from 'react';
-import { Calendar } from 'lucide-react';
+import { Calendar, FileText, Users, User } from 'lucide-react';
 import { departmentService } from '../../../../../../services/hr-services/departmentService';
 import { employeeService } from '../../../../../../services/hr-services/employeeService';
+import CustomDropdown from '../../../leave/components/CustomDropdown';
 
 const ReportFilters = ({
   selectedReportType,
@@ -60,21 +61,15 @@ const ReportFilters = ({
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Report Type
         </label>
-        <div className="relative">
-          <select
+        <div className="flex items-center gap-2">
+          <FileText className="w-4 h-4 text-gray-400 flex-shrink-0" />
+          <CustomDropdown
             value={selectedReportType}
-            onChange={(e) => setSelectedReportType(e.target.value)}
-            className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white appearance-none"
-          >
-            {reportTypes.map(report => (
-              <option key={report.id} value={report.id}>{report.name}</option>
-            ))}
-          </select>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-          </div>
+            onChange={(value) => setSelectedReportType(value)}
+            options={reportTypes.map(report => ({ value: report.id, label: report.name }))}
+            placeholder="All Reports"
+            className="flex-1"
+          />
         </div>
       </div>
 
@@ -90,7 +85,7 @@ const ReportFilters = ({
               name="startDate"
               value={dateRange.startDate}
               onChange={handleDateChange}
-              className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <Calendar className="w-4 h-4 text-gray-400" />
@@ -102,7 +97,7 @@ const ReportFilters = ({
               name="endDate"
               value={dateRange.endDate}
               onChange={handleDateChange}
-              className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <Calendar className="w-4 h-4 text-gray-400" />
@@ -117,15 +112,19 @@ const ReportFilters = ({
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Department
           </label>
-          <select
-            disabled={loading.deps}
-            className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-          >
-            <option value="">{loading.deps ? 'Loading...' : 'All Departments'}</option>
-            {departments.map(dep => (
-              <option key={dep.id} value={dep.id}>{dep.name}</option>
-            ))}
-          </select>
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            <CustomDropdown
+              value=""
+              onChange={() => {}}
+              options={[
+                { value: '', label: loading.deps ? 'Loading...' : 'All Departments' },
+                ...departments.map(dep => ({ value: dep.id, label: dep.name }))
+              ]}
+              placeholder={loading.deps ? 'Loading...' : 'All Departments'}
+              className="flex-1"
+            />
+          </div>
         </div>
       )}
 
@@ -134,15 +133,19 @@ const ReportFilters = ({
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Employee
           </label>
-          <select
-            disabled={loading.emps}
-            className="w-full pl-3 pr-10 py-2 text-base border border-gray-100 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-          >
-            <option value="">{loading.emps ? 'Loading...' : 'All Employees'}</option>
-            {employees.map(emp => (
-              <option key={emp.id} value={emp.id}>{emp.firstName} {emp.lastName} ({emp.employeeId})</option>
-            ))}
-          </select>
+          <div className="flex items-center gap-2">
+            <User className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            <CustomDropdown
+              value=""
+              onChange={() => {}}
+              options={[
+                { value: '', label: loading.emps ? 'Loading...' : 'All Employees' },
+                ...employees.map(emp => ({ value: emp.id, label: `${emp.firstName} ${emp.lastName} (${emp.employeeId})` }))
+              ]}
+              placeholder={loading.emps ? 'Loading...' : 'All Employees'}
+              className="flex-1"
+            />
+          </div>
         </div>
       )}
     </div>

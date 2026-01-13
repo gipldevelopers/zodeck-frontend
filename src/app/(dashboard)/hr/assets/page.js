@@ -89,7 +89,7 @@ export default function AssetInventory() {
           <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             <Link
               href="/hr/assets/add"
-              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 py-2 text-white hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold"
             >
               <Plus size={18} /> Add Asset
             </Link>

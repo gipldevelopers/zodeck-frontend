@@ -14,7 +14,7 @@ export default function SalaryStructure() {
         rightContent={
           <Link
             href="/hr/payroll/salary-structure/add"
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition w-full sm:w-auto justify-center"
+            className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2 text-white hover:bg-brand-600 transition shadow-sm hover:shadow-md font-semibold w-full sm:w-auto justify-center"
           >
             <PlusCircle size={18} /> Add Salary Structure
           </Link>

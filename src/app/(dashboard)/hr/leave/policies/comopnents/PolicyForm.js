@@ -218,7 +218,7 @@ const PolicyForm = ({
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 required
                 disabled={isSaving}
                 placeholder="Enter policy name"
@@ -234,7 +234,7 @@ const PolicyForm = ({
                 name="effectiveDate"
                 value={formData.effectiveDate}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 required
                 disabled={isSaving}
               />
@@ -250,7 +250,7 @@ const PolicyForm = ({
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               placeholder="Describe the purpose and details of this policy"
               disabled={isSaving}
             />
@@ -264,7 +264,7 @@ const PolicyForm = ({
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               disabled={isSaving}
             >
               {statusOptions.map(option => (
@@ -290,7 +290,7 @@ const PolicyForm = ({
                 name="applicableTo"
                 value={formData.applicableTo}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 required
                 disabled={isSaving}
               >
@@ -312,7 +312,7 @@ const PolicyForm = ({
                 value={formData.minServicePeriod}
                 onChange={handleNumberChange}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 disabled={isSaving}
               />
             </div>
@@ -326,7 +326,7 @@ const PolicyForm = ({
               name="genderSpecific"
               value={formData.genderSpecific}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
               disabled={isSaving}
             >
               {genderOptions.map(option => (
@@ -344,7 +344,7 @@ const PolicyForm = ({
                 name="probationApplicable"
                 checked={formData.probationApplicable}
                 onChange={handleChange}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
                 disabled={isSaving}
               />
               <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
@@ -368,7 +368,7 @@ const PolicyForm = ({
                 name="accrualMethod"
                 value={formData.accrualMethod}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 required
                 disabled={isSaving}
               >
@@ -390,7 +390,7 @@ const PolicyForm = ({
                 value={formData.maxAccrual}
                 onChange={handleNumberChange}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 required
                 disabled={isSaving}
               />
@@ -406,7 +406,7 @@ const PolicyForm = ({
                 value={formData.carryOverLimit}
                 onChange={handleNumberChange}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 disabled={isSaving}
               />
             </div>
@@ -423,7 +423,7 @@ const PolicyForm = ({
                 value={formData.maxConsecutiveDays}
                 onChange={handleNumberChange}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 disabled={isSaving}
               />
             </div>
@@ -438,7 +438,7 @@ const PolicyForm = ({
                 value={formData.advanceNoticeDays}
                 onChange={handleNumberChange}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 disabled={isSaving}
               />
             </div>
@@ -458,7 +458,7 @@ const PolicyForm = ({
                     type="checkbox"
                     checked={formData.leaveTypeIds.includes(leaveType.id)}
                     onChange={(e) => handleMultiSelect('leaveTypeIds', leaveType.id, e.target.checked)}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
+                    className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded mt-1"
                     disabled={isSaving}
                   />
                   <div className="ml-2">
@@ -489,7 +489,7 @@ const PolicyForm = ({
                 name="encashment"
                 checked={formData.encashment}
                 onChange={handleChange}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
                 disabled={isSaving}
               />
               <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Encashment Allowed</span>
@@ -501,7 +501,7 @@ const PolicyForm = ({
                 name="requiresApproval"
                 checked={formData.requiresApproval}
                 onChange={handleChange}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
                 disabled={isSaving}
               />
               <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Requires Approval</span>
@@ -513,7 +513,7 @@ const PolicyForm = ({
                 name="attachmentRequired"
                 checked={formData.attachmentRequired}
                 onChange={handleChange}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
                 disabled={isSaving}
               />
               <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Attachment Required</span>
@@ -527,7 +527,7 @@ const PolicyForm = ({
                 name="autoApprove"
                 checked={formData.autoApprove}
                 onChange={handleChange}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
                 disabled={isSaving}
               />
               <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Auto Approve Leave Requests</span>
@@ -544,7 +544,7 @@ const PolicyForm = ({
                 onChange={handleNumberChange}
                 min="1"
                 max="5"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white"
                 disabled={isSaving}
               />
             </div>
@@ -564,7 +564,7 @@ const PolicyForm = ({
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="flex items-center px-4 py-2 text-sm font-medium text-white bg-brand-500 rounded-lg hover:bg-brand-600 transition-colors shadow-sm hover:shadow-md font-semibold disabled:opacity-50"
           >
             {isSaving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
             {isEditMode ? 'Update Policy' : 'Create Policy'}

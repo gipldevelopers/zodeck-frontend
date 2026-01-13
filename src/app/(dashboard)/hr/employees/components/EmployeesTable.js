@@ -138,7 +138,7 @@ export default function EmployeeTable() {
         accessorKey: "id",
         header: "Emp ID",
         cell: info => (
-          <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+          <span className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 cursor-pointer transition-colors">
             {info.getValue()}
           </span>
         ),
@@ -186,19 +186,19 @@ export default function EmployeeTable() {
           const status = info.getValue();
           // Map API status values to display labels
           const statusMap = {
-            ACTIVE: { label: "Active", style: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" },
-            PROBATION: { label: "Probation", style: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" },
-            NOTICE_PERIOD: { label: "Notice Period", style: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400" },
-            RESIGNED: { label: "Resigned", style: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400" },
-            TERMINATED: { label: "Terminated", style: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" },
-            SUSPENDED: { label: "Suspended", style: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" },
-            RETIRED: { label: "Retired", style: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400" },
+            ACTIVE: { label: "Active", style: "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30" },
+            PROBATION: { label: "Probation", style: "bg-brand-50 text-brand-700 dark:bg-brand-500/20 dark:text-brand-400 border border-brand-200 dark:border-brand-500/30" },
+            NOTICE_PERIOD: { label: "Notice Period", style: "bg-amber-50 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30" },
+            RESIGNED: { label: "Resigned", style: "bg-orange-50 text-orange-700 dark:bg-orange-500/20 dark:text-orange-400 border border-orange-200 dark:border-orange-500/30" },
+            TERMINATED: { label: "Terminated", style: "bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30" },
+            SUSPENDED: { label: "Suspended", style: "bg-rose-50 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30" },
+            RETIRED: { label: "Retired", style: "bg-slate-50 text-slate-700 dark:bg-slate-500/20 dark:text-slate-400 border border-slate-200 dark:border-slate-500/30" },
           };
 
           const statusInfo = statusMap[status] || { label: status, style: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400" };
 
           return (
-            <span className={`px-2.5 py-0.5 rounded-xs text-xs font-medium ${statusInfo.style}`}>
+            <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${statusInfo.style}`}>
               {statusInfo.label}
             </span>
           );
@@ -212,13 +212,15 @@ export default function EmployeeTable() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => handleView(info.row.original.raw)}
-              className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400"
+              className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 dark:bg-brand-500/20 dark:text-brand-400 dark:hover:bg-brand-500/30 transition-colors"
+              title="View"
             >
               <Eye className="w-4 h-4" />
             </button>
             <button
               onClick={() => handleEdit(info.row.original.raw)}
-              className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 dark:bg-green-900/30 dark:text-green-400"
+              className="p-2 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-400 dark:hover:bg-emerald-500/30 transition-colors"
+              title="Edit"
             >
               <Edit className="w-4 h-4" />
             </button>
@@ -351,22 +353,22 @@ export default function EmployeeTable() {
 
       <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 mt-6">
         <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-900">
+          <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5 border-b border-brand-200 dark:border-brand-500/20">
             {table.getHeaderGroups().map(hg => (
               <tr key={hg.id}>
                 {hg.headers.map(header => (
-                  <th key={header.id} className="px-3 py-3 text-left text-sm font-semibold">
+                  <th key={header.id} className="px-4 py-3.5 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
             {table.getRowModel().rows.map(row => (
-              <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+              <tr key={row.id} className="hover:bg-brand-50/30 dark:hover:bg-brand-500/5 transition-colors">
                 {row.getVisibleCells().map(cell => (
-                  <td key={cell.id} className="px-3 py-2">
+                  <td key={cell.id} className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}

@@ -99,32 +99,32 @@ export default function ProcessPayroll() {
       <div className="mb-8 overflow-x-auto">
         <div className="flex justify-center min-w-[300px] p-2">
           <div className="flex items-center">
-            <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full shrink-0 ${currentStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'}`}>
+            <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full shrink-0 ${currentStep >= 1 ? 'bg-brand-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'}`}>
               1
             </div>
-            <div className={`ml-2 text-sm font-medium whitespace-nowrap ${currentStep >= 1 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500'}`}>
+            <div className={`ml-2 text-sm font-medium whitespace-nowrap ${currentStep >= 1 ? 'text-brand-600 dark:text-brand-400' : 'text-gray-500'}`}>
               Select Period
             </div>
           </div>
 
-          <div className={`flex-auto border-t-2 mx-2 sm:mx-4 w-8 sm:w-16 self-center ${currentStep >= 2 ? 'border-blue-600' : 'border-gray-200 dark:border-gray-700'}`}></div>
+          <div className={`flex-auto border-t-2 mx-2 sm:mx-4 w-8 sm:w-16 self-center ${currentStep >= 2 ? 'border-brand-500' : 'border-gray-200 dark:border-gray-700'}`}></div>
 
           <div className="flex items-center">
-            <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full shrink-0 ${currentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'}`}>
+            <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full shrink-0 ${currentStep >= 2 ? 'bg-brand-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'}`}>
               2
             </div>
-            <div className={`ml-2 text-sm font-medium whitespace-nowrap ${currentStep >= 2 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500'}`}>
+            <div className={`ml-2 text-sm font-medium whitespace-nowrap ${currentStep >= 2 ? 'text-brand-600 dark:text-brand-400' : 'text-gray-500'}`}>
               Select Employees
             </div>
           </div>
 
-          <div className={`flex-auto border-t-2 mx-2 sm:mx-4 w-8 sm:w-16 self-center ${currentStep >= 3 ? 'border-blue-600' : 'border-gray-200 dark:border-gray-700'}`}></div>
+          <div className={`flex-auto border-t-2 mx-2 sm:mx-4 w-8 sm:w-16 self-center ${currentStep >= 3 ? 'border-brand-500' : 'border-gray-200 dark:border-gray-700'}`}></div>
 
           <div className="flex items-center">
-            <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full shrink-0 ${currentStep >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'}`}>
+            <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full shrink-0 ${currentStep >= 3 ? 'bg-brand-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'}`}>
               3
             </div>
-            <div className={`ml-2 text-sm font-medium whitespace-nowrap ${currentStep >= 3 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500'}`}>
+            <div className={`ml-2 text-sm font-medium whitespace-nowrap ${currentStep >= 3 ? 'text-brand-600 dark:text-brand-400' : 'text-gray-500'}`}>
               Review & Process
             </div>
           </div>
