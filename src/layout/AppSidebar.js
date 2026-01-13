@@ -1,4 +1,3 @@
-// src\layout\AppSidebar.js
 "use client";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
@@ -9,7 +8,6 @@ import {
   Users,
   Target,
   Grid,
-  Building2,
   Building,
   Calendar,
   CalendarDays,
@@ -36,7 +34,7 @@ import {
   Box,
   FolderKanban,
   DollarSign,
-  LogOut
+  LogOut,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
@@ -47,7 +45,7 @@ const superAdminNavItems = [
     name: "Dashboard",
     path: "/super-admin/dashboard",
   },
-    {
+  {
     icon: <Shield size={20} />,
     name: "Roles & Permissions",
     subItems: [
@@ -62,7 +60,7 @@ const superAdminNavItems = [
       { name: "All Users", path: "/super-admin/users" },
     ],
   },
-   {
+  {
     icon: <CalendarDays size={20} />,
     name: "Policy & Rule",
     subItems: [
@@ -75,7 +73,6 @@ const superAdminNavItems = [
     name: "Company & Organization",
     path: "/super-admin/company-orgranization",
   },
- 
   {
     icon: <GitBranch size={18} />,
     name: "Workflow Management",
@@ -90,29 +87,6 @@ const superAdminNavItems = [
     subItems: [
       { name: "All Integrations", path: "/super-admin/integration-management" },
       { name: "Add Integration", path: "/super-admin/integration-management/add" },
-    ],
-  },
-  {
-    icon: <FileCheck size={18} />,
-    name: "Policy & Rule",
-    subItems: [
-      { name: "Policy List", path: "/super-admin/policy-rule" },
-      { name: "Add Policy", path: "/super-admin/policy-rule/add" },
-    ],
-  },
-  {
-    icon: <Shield size={18} />,
-    name: "Roles & Permissions",
-    subItems: [
-      { name: "Role Management", path: "/super-admin/roles-permissions" },
-      { name: "Add New Role", path: "/super-admin/roles-permissions/add" },
-    ],
-  },
-  {
-    icon: <Users size={18} />,
-    name: "User Management",
-    subItems: [
-      { name: "All Users", path: "/super-admin/users" },
     ],
   },
 ];
@@ -247,13 +221,14 @@ const employeeNavItems = [
     icon: <Wallet size={18} />,
     name: "Payrolls",
     subItems: [
-      { name: "Salery Summery", path: "/employee/payslips/salery-summery" },
+      { name: "Salary Summary", path: "/employee/payslips/salary-summary" },
       { name: "Payslip", path: "/employee/payslips/pay-slips" },
       { name: "Payment History", path: "/employee/payslips/payment-history" },
       { name: "Tax Information", path: "/employee/payslips/tax-info" },
-      { name: "Rembursment", path: "/employee/payslips/rembursment" },
+      { name: "Reimbursement", path: "/employee/payslips/reimbursement" },
     ],
-  }, {
+  },
+  {
     icon: <TrendingUp size={18} />,
     name: "Performance & Goals",
     subItems: [
@@ -278,7 +253,6 @@ const employeeNavItems = [
   },
 
 ];
-
 
 // Finance Admin Navigation Items
 const financeAdminNavItems = [
@@ -342,7 +316,6 @@ const payrollComplianceNavItems = [
     path: "/payroll-compliance/statutory-compliance",
   },
 ];
-
 
 const AppSidebar = () => {
   const { user, logout } = useAuth();
@@ -567,14 +540,6 @@ const AppSidebar = () => {
 
   return (
     <>
-      {/* Mobile header toggle button - Removed as AppHeader provides one */
-      /* <button
-        onClick={toggleMobileSidebar}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-md"
-      >
-        {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
-      </button> */}
-
       <aside
         className={`fixed flex flex-col top-0 left-0 bg-white/95 backdrop-blur-xl dark:bg-gray-900/95 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200/50 dark:border-gray-800 shadow-sm
           /* Mobile: Full screen with backdrop */
@@ -650,7 +615,6 @@ const AppSidebar = () => {
             )}
           </Link>
         </div>
-        {/* <div className="h-[1px] w-full bg-gradient-to-r from-blue-500 via-violet-500 to-cyan-500 mb-4"></div> */}
 
         <div className="flex flex-col overflow-y-auto duration-300 ease-linear custom-scrollbar flex-1 px-3 lg:px-4 py-4">
           <nav>
