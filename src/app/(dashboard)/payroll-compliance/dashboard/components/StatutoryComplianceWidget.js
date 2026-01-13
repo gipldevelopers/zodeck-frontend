@@ -35,7 +35,7 @@ export default function StatutoryComplianceWidget() {
         animate={{ opacity: 1, scale: 1 }}
         className="glass-card rounded-2xl p-6 h-full flex items-center justify-center premium-shadow"
       >
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
       </motion.div>
     );
   }
@@ -285,7 +285,7 @@ export default function StatutoryComplianceWidget() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <span className="text-xs text-muted-foreground hover:text-primary cursor-pointer transition-colors font-medium">
+          <span className="text-xs text-muted-foreground hover:text-brand-600 dark:hover:text-brand-400 cursor-pointer transition-colors font-medium">
             View all {complianceItems.length} compliances
           </span>
         </motion.div>

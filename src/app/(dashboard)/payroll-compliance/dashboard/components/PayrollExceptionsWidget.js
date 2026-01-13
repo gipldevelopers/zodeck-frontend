@@ -33,7 +33,7 @@ export default function PayrollExceptionsWidget() {
         animate={{ opacity: 1, scale: 1 }}
         className="glass-card rounded-2xl p-6 h-full flex items-center justify-center premium-shadow"
       >
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
       </motion.div>
     );
   }
@@ -242,7 +242,7 @@ export default function PayrollExceptionsWidget() {
           >
             <Link
               href="/hr/payroll/process"
-              className="mt-2 flex items-center justify-center gap-2 w-full py-2.5 bg-gradient-to-r from-primary to-primary/80 text-white rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all font-medium text-sm"
+              className="mt-2 flex items-center justify-center gap-2 w-full py-2.5 bg-gradient-to-r from-brand-500 to-brand-600 text-white rounded-xl shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all font-medium text-sm"
             >
               <span>Review All Exceptions</span>
               <ExternalLink className="w-4 h-4" />

@@ -463,45 +463,6 @@ export default function PayrollComplianceSalaryStructurePage() {
         
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between relative z-10">
           <div className="flex items-center gap-5">
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              whileHover={{ scale: 1.15, rotate: 10 }}
-              className="p-5 rounded-2xl bg-gradient-to-br from-primary/30 via-primary/20 to-primary/10 text-primary shadow-2xl border-2 border-primary/20 relative overflow-hidden"
-            >
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-              />
-              <Layers className="w-10 h-10 relative z-10" />
-            </motion.div>
-            <div>
-              <motion.h1
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="text-4xl sm:text-5xl font-extrabold text-gradient-primary mb-2"
-              >
-                Salary Structure Management
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="text-base sm:text-lg text-muted-foreground"
-              >
-                Define and maintain employee salary components, CTC templates, and effective dates
-                across your organisation.
-              </motion.p>
-            </div>
           </div>
           <motion.button
             initial={{ opacity: 0, x: 20 }}

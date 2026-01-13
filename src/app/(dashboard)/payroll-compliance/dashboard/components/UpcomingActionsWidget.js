@@ -50,7 +50,7 @@ export default function UpcomingActionsWidget() {
         className="bg-card text-card-foreground rounded-2xl shadow-lg border border-border p-6 h-full backdrop-blur-sm"
       >
         <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
         </div>
       </motion.div>
     );
@@ -94,9 +94,9 @@ export default function UpcomingActionsWidget() {
       title: "Payroll Run Due Date",
       date: payrollRunDueDate,
       icon: <Calendar className="w-5 h-5" />,
-      color: "text-primary",
-      bgColor: "bg-primary/10",
-      borderColor: "border-primary/20",
+      color: "text-brand-600 dark:text-brand-400",
+      bgColor: "bg-brand-50 dark:bg-brand-900/30",
+      borderColor: "border-brand-200 dark:border-brand-500/30",
     },
     ...filingReminders.map((reminder) => ({
       type: "filing",
@@ -149,7 +149,7 @@ export default function UpcomingActionsWidget() {
       whileHover={{ y: -5 }}
       className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
     >
-      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-primary/10"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-brand-500/10"></div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -160,7 +160,7 @@ export default function UpcomingActionsWidget() {
         <motion.div
           animate={{ rotate: [0, 10, -10, 0] }}
           transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-          className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary shadow-md border border-primary/10"
+          className="p-3 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 text-brand-600 dark:text-brand-400 shadow-md border border-brand-500/10"
         >
           <Bell className="w-6 h-6" />
         </motion.div>

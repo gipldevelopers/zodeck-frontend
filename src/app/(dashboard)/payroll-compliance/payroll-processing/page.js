@@ -1508,32 +1508,6 @@ export default function PayrollProcessingPage() {
         initial="hidden"
         animate="visible"
       >
-        {/* Header */}
-        <motion.div
-          variants={itemVariants}
-          className="relative overflow-hidden rounded-2xl glass-card p-8 premium-shadow"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
-
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
-            <div className="flex items-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary shadow-lg border border-primary/10"
-              >
-                <Calculator className="w-8 h-8" />
-              </motion.div>
-              <div>
-                <h1 className="text-3xl font-bold text-gradient-primary">
-                  Payroll Processing
-                </h1>
-                <p className="text-muted-foreground mt-1">
-                  End-to-end payroll run management, from data fetch to payslip generation.
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
 
         {/* Workflow Steps Indicator */}
         <motion.div

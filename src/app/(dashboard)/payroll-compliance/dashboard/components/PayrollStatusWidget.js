@@ -32,7 +32,7 @@ export default function PayrollStatusWidget() {
         animate={{ opacity: 1, scale: 1 }}
         className="glass-card rounded-2xl p-6 h-full flex items-center justify-center premium-shadow"
       >
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
       </motion.div>
     );
   }
@@ -166,7 +166,7 @@ export default function PayrollStatusWidget() {
       whileHover={{ y: -5 }}
       className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
     >
-      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-primary/10"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-brand-500/10"></div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -206,8 +206,8 @@ export default function PayrollStatusWidget() {
             transition={{ delay: 0.4 }}
             className="flex items-center gap-1.5 mt-4 bg-white/50 dark:bg-black/20 backdrop-blur-sm w-fit px-3 py-1.5 rounded-full border border-white/20"
           >
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-            <span className="text-xs font-medium text-primary-700 dark:text-primary-300">{statusConfig.label}</span>
+            <div className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+            <span className="text-xs font-medium text-brand-700 dark:text-brand-300">{statusConfig.label}</span>
           </motion.div>
         </div>
 

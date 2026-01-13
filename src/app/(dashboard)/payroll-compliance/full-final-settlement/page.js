@@ -173,7 +173,7 @@ export default function FullFinalSettlementPage() {
       },
       COMPLETED: {
         label: "Completed",
-        className: "text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800",
+        className: "text-brand-600 dark:text-brand-400 border-brand-200 dark:border-brand-800",
       },
       ON_HOLD: {
         label: "On Hold",
@@ -225,7 +225,7 @@ export default function FullFinalSettlementPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4 sm:p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6">
       <Breadcrumb />
 
       <motion.div
@@ -234,46 +234,12 @@ export default function FullFinalSettlementPage() {
         initial="hidden"
         animate="visible"
       >
-        {/* Header */}
-        <motion.div
-          variants={itemVariants}
-          className="relative overflow-hidden rounded-2xl glass-card p-8 premium-shadow"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
-
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 relative z-10">
-            <div className="flex items-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="p-4 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 text-emerald-600 shadow-lg border border-emerald-500/10"
-              >
-                <FileCheck className="w-8 h-8" />
-              </motion.div>
-              <div>
-                <h1 className="text-3xl font-bold text-gradient-primary">
-                  Full & Final Settlement
-                </h1>
-                <p className="text-muted-foreground mt-1">
-                  Streamline employee exit settlements, automate calculations, and manage final payments with ease.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <button className="relative px-5 py-2.5 font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl hover:bg-emerald-100 transition-colors flex items-center gap-2">
-                <FileCheck className="w-5 h-5" />
-                <span>Policy Guide</span>
-              </button>
-            </div>
-          </div>
-        </motion.div>
-
         {/* Tabs */}
         <motion.div
           variants={itemVariants}
-          className="glass-card rounded-2xl border border-border/20 shadow-xl overflow-hidden"
+          className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden"
         >
-          <div className="flex flex-wrap gap-1 p-2 bg-muted/50 border-b border-border">
+          <div className="flex flex-wrap gap-1 p-2 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-200 dark:border-gray-700">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -282,11 +248,11 @@ export default function FullFinalSettlementPage() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`relative flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 ${isActive
-                      ? "text-success bg-card shadow-sm"
-                      : "text-foreground hover:bg-muted"
+                      ? "text-brand-600 dark:text-brand-400 bg-white dark:bg-gray-800 shadow-sm"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                     }`}
                 >
-                  <Icon size={18} className={isActive ? "text-success" : "text-muted-foreground"} />
+                  <Icon size={18} className={isActive ? "text-brand-600 dark:text-brand-400" : "text-gray-500 dark:text-gray-400"} />
                   <span>{tab.label}</span>
                   {isActive && (
                     <motion.div
@@ -300,7 +266,7 @@ export default function FullFinalSettlementPage() {
             })}
           </div>
 
-          <div className="p-6 sm:p-8 bg-card/50 min-h-[500px]">
+          <div className="p-6 sm:p-8 bg-white dark:bg-gray-800 min-h-[500px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -324,7 +290,7 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
       </div>
     );
   }
@@ -419,19 +385,19 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                         />
                       ) : null}
                       <div 
-                        className={`w-16 h-16 rounded-2xl shadow-md flex items-center justify-center text-primary-foreground font-bold text-lg bg-gradient-to-br from-primary to-accent ${settlement.employee?.profileImage ? 'hidden' : ''}`}
+                        className={`w-16 h-16 rounded-2xl shadow-md flex items-center justify-center text-white font-bold text-lg bg-gradient-to-br from-brand-500 to-brand-600 ${settlement.employee?.profileImage ? 'hidden' : ''}`}
                         style={{ display: settlement.employee?.profileImage ? 'none' : 'flex' }}
                       >
                         {settlement.employee?.name?.charAt(0)?.toUpperCase() || 'E'}
                       </div>
                       <div className="absolute -bottom-2 -right-2 bg-card rounded-full p-1 shadow-sm border border-border">
-                        <UserX className="w-3 h-3 text-emerald-500" />
+                        <UserX className="w-3 h-3 text-brand-500" />
                       </div>
                     </div>
 
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-1">
-                        <h4 className="text-lg font-bold text-foreground group-hover:text-emerald-600 transition-colors">
+                        <h4 className="text-lg font-bold text-foreground group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                           {settlement.employee?.name}
                         </h4>
                         {getStatusBadge(settlement.status)}
@@ -459,11 +425,11 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                             </p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-800/30 ml-auto sm:ml-0">
-                          <DollarSign className="w-4 h-4 text-emerald-600" />
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-50 dark:bg-brand-900/10 border border-brand-100 dark:border-brand-800/30 ml-auto sm:ml-0">
+                          <DollarSign className="w-4 h-4 text-brand-600 dark:text-brand-400" />
                           <div>
-                            <p className="text-[10px] uppercase tracking-wider text-emerald-600/80 dark:text-emerald-400/80 font-semibold">Est. Amount</p>
-                            <p className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400">
+                            <p className="text-[10px] uppercase tracking-wider text-brand-600/80 dark:text-brand-400/80 font-semibold">Est. Amount</p>
+                            <p className="text-sm font-extrabold text-brand-700 dark:text-brand-400">
                               {formatCurrency(settlement.totalSettlement)}
                             </p>
                           </div>
@@ -473,7 +439,7 @@ function PendingSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                   </div>
 
                   <div className="flex flex-col gap-2 w-full md:w-auto mt-4 md:mt-0">
-                    <button className="px-6 py-2.5 bg-gradient-to-r from-success to-primary text-primary-foreground rounded-xl hover:shadow-lg hover:shadow-success/20 transition-all text-sm font-bold flex items-center justify-center gap-2">
+                    <button className="px-6 py-2.5 bg-gradient-to-r from-brand-500 to-brand-600 text-white rounded-xl hover:shadow-lg hover:shadow-brand-500/20 transition-all text-sm font-bold flex items-center justify-center gap-2">
                       <Calculator className="w-4 h-4" />
                       Process
                     </button>
@@ -615,7 +581,7 @@ function CalculateSettlementTab({
                       setSearchQuery(employeeName);
                       onSearch("");
                     }}
-                    className={`w-full p-3 text-left hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0 flex items-center gap-3 ${selectedEmployee?.id === emp.id ? "bg-emerald-50 dark:bg-emerald-900/20" : ""
+                    className={`w-full p-3 text-left hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0 flex items-center gap-3 ${selectedEmployee?.id === emp.id ? "bg-brand-50 dark:bg-brand-900/20" : ""
                       }`}
                   >
                     {emp.profileImage ? (
@@ -630,7 +596,7 @@ function CalculateSettlementTab({
                       />
                     ) : null}
                     <div 
-                      className={`w-10 h-10 rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm bg-gradient-to-br from-primary to-accent ${emp.profileImage ? 'hidden' : ''}`}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm bg-gradient-to-br from-brand-500 to-brand-600 ${emp.profileImage ? 'hidden' : ''}`}
                       style={{ display: emp.profileImage ? 'none' : 'flex' }}
                     >
                       {employeeName?.charAt(0)?.toUpperCase() || 'E'}
@@ -651,7 +617,7 @@ function CalculateSettlementTab({
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-4 bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-800 rounded-xl relative group"
+              className="mt-4 p-4 bg-brand-50/50 dark:bg-brand-900/10 border border-brand-100 dark:border-brand-800 rounded-xl relative group"
             >
               <button
                 onClick={() => {
@@ -677,7 +643,7 @@ function CalculateSettlementTab({
                   />
                 ) : null}
                 <div 
-                  className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg bg-gradient-to-br from-primary to-accent ring-2 ring-white dark:ring-gray-800 shadow-sm ${selectedEmployee.profileImage ? 'hidden' : ''}`}
+                  className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg bg-gradient-to-br from-brand-500 to-brand-600 ring-2 ring-white dark:ring-gray-800 shadow-sm ${selectedEmployee.profileImage ? 'hidden' : ''}`}
                   style={{ display: selectedEmployee.profileImage ? 'none' : 'flex' }}
                 >
                   {(selectedEmployee.name || `${selectedEmployee.firstName || ""} ${selectedEmployee.lastName || ""}`.trim())?.charAt(0)?.toUpperCase() || 'E'}
@@ -702,7 +668,7 @@ function CalculateSettlementTab({
           <button
             onClick={handleCalculate}
             disabled={!selectedEmployee || calculating}
-            className="mt-6 w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 transition-all font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="mt-6 w-full py-4 bg-gradient-to-r from-brand-500 to-brand-600 text-white rounded-xl hover:shadow-lg hover:shadow-brand-500/30 transition-all font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {calculating ? <Loader2 className="w-5 h-5 animate-spin" /> : <Calculator className="w-5 h-5" />}
             {calculating ? "Calculating..." : "Calculate Settlement"}
@@ -718,14 +684,14 @@ function CalculateSettlementTab({
             animate={{ opacity: 1, scale: 1 }}
             className="glass-card rounded-2xl border border-white/20 dark:border-white/10 p-8 shadow-xl relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-500/5 to-transparent rounded-bl-full pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-brand-500/5 to-transparent rounded-bl-full pointer-events-none"></div>
 
             <div className="flex items-center justify-between mb-8 relative z-10">
               <h4 className="text-2xl font-bold text-foreground flex items-center gap-2">
-                <Receipt className="w-6 h-6 text-emerald-500" />
+                <Receipt className="w-6 h-6 text-brand-500" />
                 Settlement Breakdown
               </h4>
-              <div className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full text-sm font-semibold">
+              <div className="bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 px-3 py-1 rounded-full text-sm font-semibold">
                 Draft Calculation
               </div>
             </div>
@@ -796,11 +762,11 @@ function CalculateSettlementTab({
 
             {/* Net Settlement */}
             <div className="mt-8 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 blur-xl"></div>
-              <div className="relative bg-white/60 dark:bg-gray-800/60 backdrop-blur-md rounded-2xl p-6 border border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-500/10 to-brand-400/10 blur-xl"></div>
+              <div className="relative bg-white/60 dark:bg-gray-800/60 backdrop-blur-md rounded-2xl p-6 border border-brand-500/20 flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Net Settlement Amount</p>
-                  <p className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 mt-1">
+                  <p className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-500 mt-1">
                     {formatCurrency(calculationData.netSettlement)}
                   </p>
                 </div>
@@ -810,7 +776,7 @@ function CalculateSettlementTab({
                     <Download className="w-4 h-4" />
                     Statement
                   </button>
-                  <button className="flex-1 sm:flex-none px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl hover:shadow-lg hover:shadow-emerald-500/20 transition-all font-bold text-sm flex items-center justify-center gap-2">
+                  <button className="flex-1 sm:flex-none px-6 py-3 bg-gradient-to-r from-brand-500 to-brand-600 text-white rounded-xl hover:shadow-lg hover:shadow-brand-500/20 transition-all font-bold text-sm flex items-center justify-center gap-2">
                     Generate Letter
                     <ArrowRight className="w-4 h-4" />
                   </button>
@@ -839,7 +805,7 @@ function ClearedSettlementsTab({ settlements, loading, getStatusBadge, formatCur
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
       </div>
     );
   }
@@ -861,7 +827,7 @@ function ClearedSettlementsTab({ settlements, loading, getStatusBadge, formatCur
         <div className="rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm bg-white dark:bg-gray-800">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-700">
+              <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5 border-b border-gray-200 dark:border-gray-700">
                 <tr>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">Employee</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">Exit Date</th>
@@ -887,7 +853,7 @@ function ClearedSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                           />
                         ) : null}
                         <div 
-                          className={`w-10 h-10 rounded-full shadow-sm flex items-center justify-center text-white font-bold text-sm bg-gradient-to-br from-primary to-accent ${settlement.employee?.profileImage ? 'hidden' : ''}`}
+                          className={`w-10 h-10 rounded-full shadow-sm flex items-center justify-center text-white font-bold text-sm bg-gradient-to-br from-brand-500 to-brand-600 ${settlement.employee?.profileImage ? 'hidden' : ''}`}
                           style={{ display: settlement.employee?.profileImage ? 'none' : 'flex' }}
                         >
                           {settlement.employee?.name?.charAt(0)?.toUpperCase() || 'E'}
@@ -906,14 +872,14 @@ function ClearedSettlementsTab({ settlements, loading, getStatusBadge, formatCur
                       {new Date(settlement.lastWorkingDate).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4">
-                      <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                      <p className="text-sm font-bold text-brand-600 dark:text-brand-400 font-mono">
                         {formatCurrency(settlement.totalSettlement)}
                       </p>
                     </td>
                     <td className="px-6 py-4">{getStatusBadge(settlement.status)}</td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="text-sm font-medium text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80 transition-colors inline-flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-primary/10">
+                        <button className="text-sm font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 transition-colors inline-flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-brand-50 dark:hover:bg-brand-900/20">
                           <Download className="w-4 h-4" />
                           Download
                         </button>
