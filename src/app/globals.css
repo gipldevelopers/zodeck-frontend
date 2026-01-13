@@ -97,7 +97,6 @@
   --primary: 174 72% 50%;
   --primary-foreground: 0 0% 100%;
   --secondary: 220 30% 18%;
-<<<<<<< HEAD
   --secondary-foreground: 168 60% 70%;
   --accent: 15 85% 57%;
   --accent-foreground: 0 0% 100%;
@@ -116,9 +115,7 @@
   --border: 220 30% 20%;
   --input: 220 30% 20%;
   --ring: 168 70% 45%;
-=======
   --accent: 195 85% 45%;
->>>>>>> feature/hradmihn
   
   /* Additional dark mode variables */
   --color-primary: hsl(174, 72%, 50%);
