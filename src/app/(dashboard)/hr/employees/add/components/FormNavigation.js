@@ -34,8 +34,8 @@ export default function FormNavigation({
             type="button"
             onClick={onNext}
             disabled={!canProceed || isSubmitting}
-            className={`w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2 rounded-lg font-medium transition-colors ${canProceed && !isSubmitting
-                ? 'bg-blue-600 text-white hover:bg-blue-700'
+            className={`w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all shadow-sm ${canProceed && !isSubmitting
+                ? 'bg-brand-500 text-white hover:bg-brand-600 dark:bg-brand-500 dark:hover:bg-brand-600 hover:shadow-md'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600 dark:text-gray-400'
               }`}
           >
@@ -47,8 +47,8 @@ export default function FormNavigation({
             type="button"
             onClick={onSubmit}
             disabled={!canProceed || isSubmitting}
-            className={`w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2 rounded-lg font-medium transition-colors ${canProceed && !isSubmitting
-                ? 'bg-green-600 text-white hover:bg-green-700'
+            className={`w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all shadow-sm ${canProceed && !isSubmitting
+                ? 'bg-brand-500 text-white hover:bg-brand-600 dark:bg-brand-500 dark:hover:bg-brand-600 hover:shadow-md'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600 dark:text-gray-400'
               }`}
           >

@@ -119,14 +119,14 @@ export default function PersonalInfoForm({ formData, errors, onChange, dropdownD
       {/* Header */}
       <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-            <User className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          <div className="p-3 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl shadow-md">
+            <User className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
               Personal Information
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm text-brand-600 dark:text-brand-400 mt-1 font-medium">
               Complete employee personal details
             </p>
           </div>
@@ -134,10 +134,12 @@ export default function PersonalInfoForm({ formData, errors, onChange, dropdownD
       </div>
 
       {/* Profile Photo Upload Section */}
-      <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
-          <Camera className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-          <h3 className="font-medium text-gray-900 dark:text-white">
+          <div className="p-2 bg-brand-50 dark:bg-brand-500/20 rounded-lg">
+            <Camera className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          </div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">
             Profile Photo
           </h3>
         </div>
@@ -147,12 +149,12 @@ export default function PersonalInfoForm({ formData, errors, onChange, dropdownD
           <div className="flex flex-col items-center">
             <div className="relative">
               <div className={`
-                w-20 h-20 rounded-full flex items-center justify-center overflow-hidden
+                w-24 h-24 rounded-full flex items-center justify-center overflow-hidden
                 border-2 transition-all duration-200 bg-gray-100 dark:bg-gray-700
                 ${isDragging
-                  ? 'border-blue-400 ring-1 ring-blue-100 dark:ring-blue-900/20'
+                  ? 'border-brand-400 ring-2 ring-brand-100 dark:ring-brand-500/20 shadow-md'
                   : profilePreview
-                    ? 'border-transparent'
+                    ? 'border-brand-300 dark:border-brand-500/50 ring-2 ring-brand-100 dark:ring-brand-500/10'
                     : 'border-dashed border-gray-300 dark:border-gray-600'
                 }
               `}>
@@ -197,40 +199,44 @@ export default function PersonalInfoForm({ formData, errors, onChange, dropdownD
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               className={`
-                p-3 border-2 border-dashed rounded-lg text-center cursor-pointer transition-colors
+                p-4 border-2 border-dashed rounded-lg text-center cursor-pointer transition-all
                 ${isDragging
-                  ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                  : 'border-gray-300 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-600'
+                  ? 'border-brand-400 bg-brand-50 dark:bg-brand-500/20 ring-2 ring-brand-100 dark:ring-brand-500/20'
+                  : 'border-gray-300 dark:border-gray-600 hover:border-brand-400 dark:hover:border-brand-500 hover:bg-brand-50/50 dark:hover:bg-brand-500/10'
                 }
               `}
               onClick={triggerFileInput}
             >
-              <div className="flex flex-col items-center justify-center gap-1">
-                <Upload className="w-5 h-5 text-gray-400" />
+              <div className="flex flex-col items-center justify-center gap-2">
+                <div className={`p-2 rounded-lg ${isDragging ? 'bg-brand-100 dark:bg-brand-500/30' : 'bg-gray-100 dark:bg-gray-700'}`}>
+                  <Upload className={`w-5 h-5 ${isDragging ? 'text-brand-600 dark:text-brand-400' : 'text-gray-400'}`} />
+                </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
                     Click to upload
                   </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
                     JPG, PNG, GIF (Max 5MB)
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-xs text-green-600 dark:text-green-400">
-              <CheckCircle className="w-3 h-3" />
-              <span>Helps in employee identification</span>
+            <div className="flex items-center gap-2 text-xs text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 px-3 py-2 rounded-lg border border-brand-200 dark:border-brand-500/20">
+              <CheckCircle className="w-3.5 h-3.5" />
+              <span className="font-medium">Helps in employee identification</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Basic Information Section */}
-      <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-        <div className="flex items-center gap-2 mb-6">
-          <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-          <h3 className="font-medium text-gray-900 dark:text-white">
+      <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+        <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
+          <div className="p-2 bg-brand-50 dark:bg-brand-500/20 rounded-lg">
+            <User className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          </div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">
             Basic Information
           </h3>
         </div>
@@ -396,10 +402,12 @@ export default function PersonalInfoForm({ formData, errors, onChange, dropdownD
       </div>
 
       {/* Additional Personal Details */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-        <div className="flex items-center gap-2 mb-6">
-          <MapPin className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-          <h3 className="font-medium text-gray-900 dark:text-white">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+        <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
+          <div className="p-2 bg-brand-50 dark:bg-brand-500/20 rounded-lg">
+            <MapPin className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          </div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">
             Additional Details
           </h3>
         </div>
@@ -487,37 +495,37 @@ export default function PersonalInfoForm({ formData, errors, onChange, dropdownD
       </div>
 
       {/* Guidelines Card */}
-      <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
+      <div className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5 p-4 rounded-xl border border-brand-200 dark:border-brand-500/20 shadow-sm">
         <div className="flex items-start gap-3">
-          <div className="p-1.5 bg-blue-600 rounded-md flex-shrink-0 mt-0.5">
+          <div className="p-2 bg-brand-500 rounded-lg flex-shrink-0 mt-0.5 shadow-md">
             <AlertCircle className="w-4 h-4 text-white" />
           </div>
           <div className="flex-1">
-            <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
               Important Guidelines
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-xs text-gray-700 dark:text-gray-300">
+                <CheckCircle className="w-4 h-4 text-brand-600 dark:text-brand-400 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   Match government-issued documents
                 </span>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-xs text-gray-700 dark:text-gray-300">
+                <CheckCircle className="w-4 h-4 text-brand-600 dark:text-brand-400 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   Use recent, high-quality photo
                 </span>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-xs text-gray-700 dark:text-gray-300">
+                <CheckCircle className="w-4 h-4 text-brand-600 dark:text-brand-400 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   Verify spellings and formats
                 </span>
               </div>
               <div className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-xs text-gray-700 dark:text-gray-300">
+                <CheckCircle className="w-4 h-4 text-brand-600 dark:text-brand-400 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   * indicates required fields
                 </span>
               </div>

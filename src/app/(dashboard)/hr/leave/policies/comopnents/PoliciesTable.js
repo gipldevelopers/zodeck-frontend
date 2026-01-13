@@ -127,8 +127,8 @@ const PoliciesTable = ({
       return <div className="ml-1 flex flex-col"><ChevronUp className="w-3 h-3 -mb-0.5 text-gray-400" /><ChevronDown className="w-3 h-3 -mt-0.5 text-gray-400" /></div>;
     }
     return sortConfig.direction === 'asc' ?
-      <ChevronUp className="ml-1 w-4 h-4 text-blue-500" /> :
-      <ChevronDown className="ml-1 w-4 h-4 text-blue-500" />;
+      <ChevronUp className="ml-1 w-4 h-4 text-brand-600" /> :
+      <ChevronDown className="ml-1 w-4 h-4 text-brand-600" />;
   };
 
   const formatDate = (dateString) => {
@@ -221,7 +221,7 @@ const PoliciesTable = ({
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600"></div>
       </div>
     );
   }
@@ -230,7 +230,7 @@ const PoliciesTable = ({
     <>
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-700">
+          <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
             <tr>
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer"
@@ -305,7 +305,7 @@ const PoliciesTable = ({
                   <div className="flex items-center gap-2">
                     <Link
                       href={`/hr/leave/policies/edit/${policy.id}`}
-                      className="p-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                      className="p-2 text-brand-600 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300"
                       title="Edit Policy"
                     >
                       <Edit className="w-4 h-4" />
@@ -329,7 +329,7 @@ const PoliciesTable = ({
 
         {sortedPolicies.length === 0 && !loading && (
           <div className="text-center py-12">
-            <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <FileText className="w-12 h-12 text-brand-400 mx-auto mb-4" />
             <p className="text-gray-600 dark:text-gray-400">No policies found</p>
             <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
               Try adjusting your search or filter criteria
@@ -369,7 +369,7 @@ const PoliciesTable = ({
                 }}
                 className="flex items-center w-full px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
-                <FileText className="w-4 h-4 mr-3 text-blue-600" />
+                <FileText className="w-4 h-4 mr-3 text-brand-600" />
                 <div className="text-left">
                   <div className="font-medium">Mark Draft</div>
                   <div className="text-xs text-gray-500 mt-0.5">Set policy to draft status</div>

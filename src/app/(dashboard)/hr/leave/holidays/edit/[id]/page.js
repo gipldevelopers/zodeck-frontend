@@ -50,7 +50,7 @@ export default function EditHolidayPage() {
     return (
       <div className="bg-gray-50 min-h-screen dark:bg-gray-900 p-6">
         <div className="bg-white rounded-lg shadow dark:bg-gray-800 p-6 text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600 mx-auto"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-400">Loading holiday...</p>
         </div>
       </div>

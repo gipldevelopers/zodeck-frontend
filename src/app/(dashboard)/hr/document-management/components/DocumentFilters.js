@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Search, Filter, X, ChevronDown, ChevronUp } from "lucide-react";
+import CustomDropdown from "./CustomDropdown";
 
 const DocumentFilters = ({
   globalFilter,
@@ -60,7 +61,7 @@ const DocumentFilters = ({
           placeholder="Search documents by name, description, or employee name..."
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          className="w-full pl-10 pr-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all"
         />
       </div>
 
@@ -90,22 +91,12 @@ const DocumentFilters = ({
             <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
               Document Type
             </label>
-            <div className="relative">
-              <select
-                value={typeFilter}
-                onChange={(e) => setTypeFilter(e.target.value)}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
-              >
-                {documentTypes.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.label}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <Filter className="w-4 h-4 text-gray-400" />
-              </div>
-            </div>
+            <CustomDropdown
+              value={typeFilter}
+              onChange={(value) => setTypeFilter(value)}
+              options={documentTypes}
+              placeholder="All Types"
+            />
           </div>
 
           {/* Status Filter */}
@@ -113,22 +104,12 @@ const DocumentFilters = ({
             <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
               Status
             </label>
-            <div className="relative">
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
-              >
-                {statusOptions.map((status) => (
-                  <option key={status.value} value={status.value}>
-                    {status.label}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <Filter className="w-4 h-4 text-gray-400" />
-              </div>
-            </div>
+            <CustomDropdown
+              value={statusFilter}
+              onChange={(value) => setStatusFilter(value)}
+              options={statusOptions}
+              placeholder="All Status"
+            />
           </div>
 
           {/* Employee Filter */}
@@ -136,23 +117,18 @@ const DocumentFilters = ({
             <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
               Employee
             </label>
-            <div className="relative">
-              <select
-                value={employeeFilter}
-                onChange={(e) => setEmployeeFilter(e.target.value)}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
-              >
-                <option value="all">All Employees</option>
-                {employees.map((emp) => (
-                  <option key={emp.id} value={emp.id}>
-                    {emp.firstName} {emp.lastName} ({emp.employeeId})
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <Filter className="w-4 h-4 text-gray-400" />
-              </div>
-            </div>
+            <CustomDropdown
+              value={employeeFilter}
+              onChange={(value) => setEmployeeFilter(value)}
+              options={[
+                { value: "all", label: "All Employees" },
+                ...employees.map((emp) => ({
+                  value: emp.id,
+                  label: `${emp.firstName} ${emp.lastName} (${emp.employeeId})`,
+                })),
+              ]}
+              placeholder="All Employees"
+            />
           </div>
 
           {/* Expiring Soon Filter */}
@@ -160,19 +136,15 @@ const DocumentFilters = ({
             <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
               Expiring Soon
             </label>
-            <div className="relative">
-              <select
-                value={expiringSoonFilter ? "true" : "false"}
-                onChange={(e) => setExpiringSoonFilter(e.target.value === "true")}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
-              >
-                <option value="false">All Documents</option>
-                <option value="true">Expiring Soon</option>
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <Filter className="w-4 h-4 text-gray-400" />
-              </div>
-            </div>
+            <CustomDropdown
+              value={expiringSoonFilter ? "true" : "false"}
+              onChange={(value) => setExpiringSoonFilter(value === "true")}
+              options={[
+                { value: "false", label: "All Documents" },
+                { value: "true", label: "Expiring Soon" },
+              ]}
+              placeholder="All Documents"
+            />
           </div>
 
           {/* Clear Filters Button */}
@@ -193,7 +165,7 @@ const DocumentFilters = ({
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2">
           {globalFilter && (
-            <span className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-400">
+            <span className="inline-flex items-center px-2 py-1 bg-brand-100 text-brand-800 text-xs rounded-full dark:bg-brand-900/30 dark:text-brand-400">
               Search: "{globalFilter}"
               <button
                 onClick={() => setGlobalFilter("")}

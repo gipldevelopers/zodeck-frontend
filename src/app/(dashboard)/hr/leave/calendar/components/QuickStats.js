@@ -15,8 +15,8 @@ const QuickStats = ({ leaves }) => {
       title: "Total Leaves",
       value: stats.total,
       icon: <Calendar className="w-5 h-5" />,
-      color: "bg-blue-500",
-      textColor: "text-blue-500"
+      color: "bg-brand-500",
+      textColor: "text-brand-500"
     },
     {
       title: "Approved",

@@ -80,7 +80,7 @@ export default function ReportRenderer({ reportType, dateRange, customDateRange,
     if (isLoading) {
       return (
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500"></div>
         </div>
       );
     }
@@ -128,7 +128,7 @@ export default function ReportRenderer({ reportType, dateRange, customDateRange,
           <button className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
             Print
           </button>
-          <button className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+          <button className="flex-1 sm:flex-none px-4 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-md hover:bg-brand-600 transition-all shadow-sm hover:shadow-md">
             Export CSV
           </button>
           <button className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700">

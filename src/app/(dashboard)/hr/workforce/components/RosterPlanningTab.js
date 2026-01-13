@@ -89,7 +89,7 @@ export default function RosterPlanningTab() {
             <select
               value={selectedDepartment}
               onChange={(e) => setSelectedDepartment(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white transition-all"
             >
               <option value="all">All Departments</option>
               {departments.map((dept) => (
@@ -103,21 +103,21 @@ export default function RosterPlanningTab() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => navigateWeek("prev")}
-              className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-brand-50 dark:hover:bg-brand-500/20 hover:border-brand-300 dark:hover:border-brand-500/30 transition-colors"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
             </button>
             <input
               type="date"
               value={weekStartDate}
               onChange={(e) => setWeekStartDate(e.target.value)}
-              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              className="px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:text-white transition-all"
             />
             <button
               onClick={() => navigateWeek("next")}
-              className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-brand-50 dark:hover:bg-brand-500/20 hover:border-brand-300 dark:hover:border-brand-500/30 transition-colors"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
             </button>
           </div>
         </div>
@@ -127,19 +127,21 @@ export default function RosterPlanningTab() {
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
           </div>
         ) : roster.length === 0 ? (
           <div className="text-center py-12">
-            <Calendar className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+            <div className="p-4 bg-brand-50 dark:bg-brand-500/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+              <Calendar className="w-10 h-10 text-brand-500 dark:text-brand-400" />
+            </div>
             <p className="text-gray-500 dark:text-gray-400">No roster data found for this week</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-900">
+              <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 sticky left-0 bg-gray-50 dark:bg-gray-900 z-10">
+                  <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 sticky left-0 bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5 z-10">
                     Employee
                   </th>
                   {days.map((day) => (
@@ -161,7 +163,7 @@ export default function RosterPlanningTab() {
                     key={item.employee?.id || item.employee?.publicId}
                     className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   >
-                    <td className="px-4 py-3 sticky left-0 bg-white dark:bg-gray-800 z-10">
+                    <td className="px-4 py-3 sticky left-0 bg-white dark:bg-gray-800 z-10 border-r border-gray-200 dark:border-gray-700">
                       <div className="flex items-center">
                         <img
                           src={item.employee?.profileImage || "/images/users/user-default.png"}

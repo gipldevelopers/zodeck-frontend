@@ -53,7 +53,7 @@ export default function ReportSelector({ selectedReport, onReportChange }) {
             key={report.id}
             className={`p-4 rounded-lg border cursor-pointer transition-all duration-200 ${
               selectedReport === report.id
-                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20'
                 : 'border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600'
             }`}
             onClick={() => onReportChange(report.id)}
@@ -63,7 +63,7 @@ export default function ReportSelector({ selectedReport, onReportChange }) {
               <div>
                 <h4 className={`font-medium ${
                   selectedReport === report.id 
-                    ? 'text-blue-700 dark:text-blue-300' 
+                    ? 'text-brand-700 dark:text-brand-300' 
                     : 'text-gray-900 dark:text-white'
                 }`}>
                   {report.name}

@@ -2,6 +2,7 @@
 "use client";
 import { useState } from 'react';
 import { Search, Filter, X, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
+import CustomDropdown from '../../../leave/components/CustomDropdown';
 
 const PayslipFilters = ({
   globalFilter,
@@ -50,7 +51,7 @@ const PayslipFilters = ({
           placeholder="Search by employee name or ID..."
           value={globalFilter}
           onChange={e => setGlobalFilter(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
         />
       </div>
 
@@ -74,40 +75,36 @@ const PayslipFilters = ({
           {/* Status Filter */}
           <div className="space-y-1">
             <label className="text-xs font-medium text-gray-700 dark:text-gray-300">Status</label>
-            <div className="relative">
-              <select
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <CustomDropdown
                 value={statusFilter}
-                onChange={e => setStatusFilter(e.target.value)}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
-              >
-                <option value="all">All Status</option>
-                {uniqueStatuses.map(({value, key}) => (
-                  <option key={key} value={value}>{value}</option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <Filter className="w-4 h-4 text-gray-400" />
-              </div>
+                onChange={(value) => setStatusFilter(value)}
+                options={[
+                  { value: 'all', label: 'All Status' },
+                  ...uniqueStatuses.map(({value}) => ({ value, label: value }))
+                ]}
+                placeholder="All Status"
+                className="flex-1"
+              />
             </div>
           </div>
 
           {/* Period Filter */}
           <div className="space-y-1">
             <label className="text-xs font-medium text-gray-700 dark:text-gray-300">Pay Period</label>
-            <div className="relative">
-              <select
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <CustomDropdown
                 value={periodFilter}
-                onChange={e => setPeriodFilter(e.target.value)}
-                className="w-full pl-3 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
-              >
-                <option value="all">All Periods</option>
-                {uniquePeriods.map(({value, key}) => (
-                  <option key={key} value={value}>{value}</option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <Calendar className="w-4 h-4 text-gray-400" />
-              </div>
+                onChange={(value) => setPeriodFilter(value)}
+                options={[
+                  { value: 'all', label: 'All Periods' },
+                  ...uniquePeriods.map(({value}) => ({ value, label: value }))
+                ]}
+                placeholder="All Periods"
+                className="flex-1"
+              />
             </div>
           </div>
 
@@ -129,7 +126,7 @@ const PayslipFilters = ({
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2">
           {globalFilter && (
-            <span className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-400">
+            <span className="inline-flex items-center px-2 py-1 bg-brand-100 text-brand-800 text-xs rounded-full dark:bg-brand-900/30 dark:text-brand-400">
               Search: "{globalFilter}"
               <button onClick={() => setGlobalFilter('')} className="ml-1">
                 <X className="w-3 h-3" />

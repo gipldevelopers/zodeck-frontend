@@ -123,7 +123,7 @@ export default function DesignationTableWrapper() {
         accessorKey: "level",
         header: "Level",
         cell: (info) => (
-          <span className="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
+          <span className="px-2 py-1 rounded-full text-xs font-medium bg-brand-100 text-brand-800 dark:bg-brand-500/30 dark:text-brand-400">
             {info.getValue()}
           </span>
         ),
@@ -143,14 +143,14 @@ export default function DesignationTableWrapper() {
         ),
       },
       {
-        accessorKey: "employeeCount",
-        header: "Employees",
-        cell: (info) => (
-          <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-            {info.getValue()}
-          </span>
-        ),
-      },
+      accessorKey: "employeeCount",
+      header: "Employees",
+      cell: (info) => (
+        <span className="text-sm font-semibold text-brand-600 dark:text-brand-400">
+          {info.getValue()}
+        </span>
+      ),
+    },
       {
         accessorKey: "status",
         header: "Status",
@@ -175,14 +175,14 @@ export default function DesignationTableWrapper() {
           <div className="flex items-center gap-2">
             <Link
               href={`/hr/organization-management/designations/view/${info.row.original.id}`}
-              className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors dark:bg-blue-900/30 dark:text-blue-400"
+              className="p-2 rounded-lg bg-brand-50 text-brand-600 hover:bg-brand-100 transition-colors dark:bg-brand-900/30 dark:text-brand-400 shadow-sm hover:shadow"
               title="View"
             >
               <Eye className="w-4 h-4" />
             </Link>
             <Link
               href={`/hr/organization-management/designations/edit/${info.row.original.id}`}
-              className="p-2 rounded-lg bg-purple-50 text-purple-600 hover:bg-purple-100 transition-colors dark:bg-purple-900/30 dark:text-purple-400"
+              className="p-2 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors dark:bg-emerald-900/30 dark:text-emerald-400 shadow-sm hover:shadow"
               title="Edit"
             >
               <Edit className="w-4 h-4" />
@@ -203,7 +203,7 @@ export default function DesignationTableWrapper() {
                   }
                 }
               }}
-              className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors dark:bg-red-900/30 dark:text-red-400"
+              className="p-2 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors dark:bg-rose-900/30 dark:text-rose-400 shadow-sm hover:shadow"
               title="Delete"
             >
               <Trash2 className="w-4 h-4" />
@@ -231,7 +231,7 @@ export default function DesignationTableWrapper() {
   if (loading && data.length === 0) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500"></div>
       </div>
     );
   }
@@ -249,7 +249,7 @@ export default function DesignationTableWrapper() {
               setGlobalFilter(e.target.value);
               setPagination((prev) => ({ ...prev, pageIndex: 0 }));
             }}
-            className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all"
           />
         </div>
         <div className="flex gap-2">
@@ -259,7 +259,7 @@ export default function DesignationTableWrapper() {
               setDepartmentFilter(e.target.value);
               setPagination((prev) => ({ ...prev, pageIndex: 0 }));
             }}
-            className="px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all"
           >
             <option value="all">All Departments</option>
             {departments.map((dept) => (
@@ -274,7 +274,7 @@ export default function DesignationTableWrapper() {
               setStatusFilter(e.target.value);
               setPagination((prev) => ({ ...prev, pageIndex: 0 }));
             }}
-            className="px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all"
           >
             <option value="all">All Status</option>
             <option value="ACTIVE">Active</option>
@@ -286,19 +286,19 @@ export default function DesignationTableWrapper() {
       {/* Table */}
       <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
         <table className="w-full">
-          <thead className="bg-gray-50 dark:bg-gray-900">
+          <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300"
+                    className="px-4 py-3.5 text-left text-sm font-semibold text-gray-700 dark:text-gray-300"
                   >
                     {header.isPlaceholder ? null : (
                       <div
                         className={`flex items-center gap-2 ${
                           header.column.getCanSort()
-                            ? "cursor-pointer select-none hover:text-gray-900 dark:hover:text-white"
+                            ? "cursor-pointer select-none hover:text-brand-600 dark:hover:text-brand-400"
                             : ""
                         }`}
                         onClick={header.column.getToggleSortingHandler()}
@@ -309,14 +309,14 @@ export default function DesignationTableWrapper() {
                             <ChevronUp
                               className={`w-3 h-3 ${
                                 header.column.getIsSorted() === "asc"
-                                  ? "text-blue-600"
+                                  ? "text-brand-600 dark:text-brand-400"
                                   : "text-gray-400"
                               }`}
                             />
                             <ChevronDown
                               className={`w-3 h-3 -mt-1 ${
                                 header.column.getIsSorted() === "desc"
-                                  ? "text-blue-600"
+                                  ? "text-brand-600 dark:text-brand-400"
                                   : "text-gray-400"
                               }`}
                             />

@@ -190,7 +190,7 @@ export default function EmployeeSelectionTable({ selectedEmployees, onChange, on
       <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm mb-6">
         <div className="min-w-[800px]">
           <table className="w-full">
-            <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+            <thead className="bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-brand-500/10 dark:to-brand-500/5">
               {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id} className="border-b border-gray-200 dark:border-gray-700">
                   {headerGroup.headers.map(header => (
@@ -206,8 +206,8 @@ export default function EmployeeSelectionTable({ selectedEmployees, onChange, on
                             onClick={header.column.getToggleSortingHandler()}
                           >
                             {{
-                              asc: <ChevronUp className="w-4 h-4 text-blue-500" />,
-                              desc: <ChevronDown className="w-4 h-4 text-blue-500" />,
+                              asc: <ChevronUp className="w-4 h-4 text-brand-600" />,
+                              desc: <ChevronDown className="w-4 h-4 text-brand-600" />,
                             }[header.column.getIsSorted()] ?? (
                                 <div className="flex flex-col">
                                   <ChevronUp className="w-3 h-3 -mb-0.5 text-gray-400" />

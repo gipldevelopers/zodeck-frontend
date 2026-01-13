@@ -98,7 +98,7 @@ const FullPageCalendar = ({ leaves, currentDate, view, onLeaveClick, onDateChang
                   className={`min-h-[120px] p-3 border rounded-lg transition-all duration-200 ${isEmpty
                       ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
                       : isTodayDate
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-md'
+                        ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20 shadow-md'
                         : isWeekendDay
                           ? 'bg-gray-50 dark:bg-gray-700/50 border-gray-200 dark:border-gray-600'
                           : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-md'
@@ -107,14 +107,14 @@ const FullPageCalendar = ({ leaves, currentDate, view, onLeaveClick, onDateChang
                 >
                   {/* Date Header */}
                   <div className={`text-sm font-medium mb-2 flex justify-between items-center ${isTodayDate
-                      ? 'text-blue-600 dark:text-blue-400'
+                      ? 'text-brand-600 dark:text-brand-400'
                       : isCurrentMonthDay
                         ? 'text-gray-900 dark:text-white'
                         : 'text-gray-400 dark:text-gray-500'
                     }`}>
                     <span>{formatDate(date)}</span>
                     {dateLeaves.length > 0 && (
-                      <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-1 rounded-full">
+                      <span className="text-xs bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 px-2 py-1 rounded-full">
                         {dateLeaves.length}
                       </span>
                     )}
@@ -161,7 +161,7 @@ const FullPageCalendar = ({ leaves, currentDate, view, onLeaveClick, onDateChang
                             isMulti: true
                           });
                         }}
-                        className="text-xs text-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer p-1 bg-blue-50 dark:bg-blue-900/20 rounded"
+                        className="text-xs text-center text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 cursor-pointer p-1 bg-brand-50 dark:bg-brand-900/20 rounded"
                       >
                         +{dateLeaves.length - 3} more leaves
                       </div>
@@ -179,7 +179,7 @@ const FullPageCalendar = ({ leaves, currentDate, view, onLeaveClick, onDateChang
         <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Calendar Legend</h4>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-4 h-4 bg-blue-600 rounded"></div>
+            <div className="w-4 h-4 bg-brand-500 rounded"></div>
             <div>
               <span className="text-sm font-medium text-gray-900 dark:text-white">Annual Leave</span>
               <div className="text-xs text-gray-600 dark:text-gray-400">Paid time off</div>

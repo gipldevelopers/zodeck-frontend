@@ -5,6 +5,7 @@ import { CheckCircle, Loader2, Filter, Target } from "lucide-react";
 import { performanceManagementService } from "@/services/hr-services/performance-management.service";
 import { organizationService } from "@/services/hr-services/organization.service";
 import { toast } from "react-hot-toast";
+import CustomDropdown from "../../leave/components/CustomDropdown";
 
 export default function GoalCompletionTab() {
   const [goalData, setGoalData] = useState(null);
@@ -55,7 +56,7 @@ export default function GoalCompletionTab() {
   const getStatusBadge = (status) => {
     const config = {
       NOT_STARTED: { label: "Not Started", className: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400" },
-      IN_PROGRESS: { label: "In Progress", className: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" },
+      IN_PROGRESS: { label: "In Progress", className: "bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-400" },
       ON_TRACK: { label: "On Track", className: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" },
       AT_RISK: { label: "At Risk", className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400" },
       COMPLETED: { label: "Completed", className: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400" },
@@ -78,18 +79,16 @@ export default function GoalCompletionTab() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Department
             </label>
-            <select
+            <CustomDropdown
               value={filters.departmentId}
-              onChange={(e) => setFilters({ ...filters, departmentId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="all">All Departments</option>
-              {departments.map((dept) => (
-                <option key={dept.id} value={dept.id}>
-                  {dept.name}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => setFilters({ ...filters, departmentId: value })}
+              options={[
+                { value: 'all', label: 'All Departments' },
+                ...departments.map(dept => ({ value: dept.id, label: dept.name }))
+              ]}
+              placeholder="All Departments"
+              className="w-full"
+            />
           </div>
         </div>
       </div>
@@ -97,7 +96,7 @@ export default function GoalCompletionTab() {
       {/* Goal Overview */}
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
         </div>
       ) : goalData ? (
         <div className="space-y-6">
@@ -112,7 +111,7 @@ export default function GoalCompletionTab() {
               </div>
               <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
                 <p className="text-sm text-gray-600 dark:text-gray-400">In Progress</p>
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">
+                <p className="text-2xl font-bold text-brand-600 dark:text-brand-400 mt-1">
                   {goalData.summary.inProgress || 0}
                 </p>
               </div>

@@ -57,7 +57,7 @@ const SavedReportsList = ({ onApplyReport }) => {
     return (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow mt-6">
             <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 flex items-center gap-2">
-                <Bookmark className="w-5 h-5 text-blue-600" />
+                <Bookmark className="w-5 h-5 text-brand-600 dark:text-brand-400" />
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                     Saved Reports
                 </h3>
@@ -66,7 +66,7 @@ const SavedReportsList = ({ onApplyReport }) => {
                 {reports.map((report) => (
                     <div key={report.id} className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors">
                         <div className="flex items-start gap-3">
-                            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
+                            <div className="p-2 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-lg">
                                 <Clock size={18} />
                             </div>
                             <div>
@@ -84,7 +84,7 @@ const SavedReportsList = ({ onApplyReport }) => {
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => onApplyReport(report.filters)}
-                                className="px-3 py-1.5 text-xs font-medium text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                                className="px-3 py-1.5 text-xs font-medium text-brand-600 hover:bg-brand-50 dark:hover:bg-brand-900/20 rounded-lg transition-colors"
                             >
                                 Apply Filters
                             </button>

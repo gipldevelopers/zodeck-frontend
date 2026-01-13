@@ -27,7 +27,7 @@ export default function AssetStats() {
       title: "Total Assets",
       value: stats.totalAssets,
       icon: Package,
-      color: "bg-blue-500"
+      color: "bg-brand-500"
     },
     {
       title: "Available Assets",

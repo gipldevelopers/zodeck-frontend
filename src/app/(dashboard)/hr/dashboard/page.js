@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 // import MonthlyTarget from "@/app/(dashboard)/hr/dashboard/components/MonthlyTarget";
 import WelcomeWrap from "./components/WelcomeWrap";
 import StatsCard from "./components/StatsCard";
@@ -10,12 +12,43 @@ import Birthdays from "./components/Birthdays";
 import ClockInOut from "./components/ClockInOut";
 import EmployeesTable from "./components/EmployeesTable";
 
-export const metadata = {
-  title: "HR Dashboard | HRMS Portal",
-  description: "HR Dashboard for HRMS Portal",
-};
-
 export default function HrDashboard() {
+  const [visibleElements, setVisibleElements] = useState(new Set());
+  const elementRefs = useRef({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const elementId = entry.target.getAttribute('data-animate-id');
+            if (elementId) {
+              setVisibleElements((prev) => new Set(prev).add(elementId));
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of element is visible
+        rootMargin: '0px 0px -50px 0px', // Start animation slightly before element is fully visible
+      }
+    );
+
+    // Use setTimeout to ensure all refs are set after render
+    const timeoutId = setTimeout(() => {
+      // Observe all elements with data-animate-id
+      Object.values(elementRefs.current).forEach((ref) => {
+        if (ref) {
+          observer.observe(ref);
+        }
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, []);
   // Sample data - in a real app, this would come from your state management or API
   const userData = {
     userName: "Adrian",
@@ -45,7 +78,7 @@ export default function HrDashboard() {
           />
         </svg>
       ),
-      iconBgColor: "bg-blue-500",
+      iconBgColor: "bg-brand-500", // Primary green-teal
       href: "/hr/attendance",
     },
     {
@@ -68,7 +101,7 @@ export default function HrDashboard() {
           />
         </svg>
       ),
-      iconBgColor: "bg-gray-600",
+      iconBgColor: "bg-indigo-500", // Professional indigo
       href: "/hr/projects",
     },
     {
@@ -91,7 +124,7 @@ export default function HrDashboard() {
           />
         </svg>
       ),
-      iconBgColor: "bg-blue-400",
+      iconBgColor: "bg-accent-500", // Deep teal-blue
       href: "/hr/clients",
     },
     {
@@ -114,7 +147,7 @@ export default function HrDashboard() {
           />
         </svg>
       ),
-      iconBgColor: "bg-pink-500",
+      iconBgColor: "bg-violet-500", // Professional violet
       href: "/hr/tasks",
     },
     {
@@ -137,7 +170,7 @@ export default function HrDashboard() {
           />
         </svg>
       ),
-      iconBgColor: "bg-purple-500",
+      iconBgColor: "bg-amber-500", // Professional amber/gold
       href: "/hr/expenses",
     },
     {
@@ -160,7 +193,7 @@ export default function HrDashboard() {
           />
         </svg>
       ),
-      iconBgColor: "bg-red-500",
+      iconBgColor: "bg-emerald-500", // Professional emerald green
       href: "/hr/transactions",
     },
     {
@@ -183,7 +216,7 @@ export default function HrDashboard() {
           />
         </svg>
       ),
-      iconBgColor: "bg-green-500",
+      iconBgColor: "bg-brand-400", // Lighter green-teal variant
       href: "/hr/recruitment",
     },
     {
@@ -206,78 +239,125 @@ export default function HrDashboard() {
           />
         </svg>
       ),
-      iconBgColor: "bg-gray-800",
+      iconBgColor: "bg-slate-600", // Professional slate gray
       href: "/hr/employees",
     },
   ];
 
   return (
-      <div className="space-y-6">
-        {/* Welcome Wrap Section */}
+    <div className="space-y-6 pb-6">
+      {/* Welcome Wrap Section */}
+      <div
+        ref={(el) => (elementRefs.current['welcome'] = el)}
+        data-animate-id="welcome"
+        className={`scroll-fade-in ${visibleElements.has('welcome') ? 'animate-fade-in' : 'opacity-0'}`}
+      >
         <WelcomeWrap
           userName={userData.userName}
           pendingApprovals={userData.pendingApprovals}
           leaveRequests={userData.leaveRequests}
           avatarUrl={userData.avatarUrl}
         />
+      </div>
 
-        {/* Stats + Chart in One Row */}
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 md:gap-6">
-          {/* Stats Cards */}
-          <div className="xl:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-            {statsData.map((stat, index) => (
-              <StatsCard
+      {/* Stats + Chart in One Row */}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 md:gap-6">
+        {/* Stats Cards */}
+        <div className="xl:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+          {statsData.map((stat, index) => {
+            const elementId = `stat-${index}`;
+            return (
+              <div
                 key={index}
-                title={stat.title}
-                value={stat.value}
-                comparison={stat.comparison}
-                trend={stat.trend}
-                icon={stat.icon}
-                iconBgColor={stat.iconBgColor}
-                href={stat.href}
-              />
-            ))}
-          </div>
-
-          {/* Employee Department Chart */}
-          <div className="xl:col-span-4 h-full">
-            <EmployeeDepartmentChart />
-          </div>
+                ref={(el) => (elementRefs.current[elementId] = el)}
+                data-animate-id={elementId}
+                className={`scroll-fade-in ${visibleElements.has(elementId) ? 'animate-fade-in' : 'opacity-0'}`}
+                style={visibleElements.has(elementId) ? { animationDelay: `${index * 50}ms` } : {}}
+              >
+                <StatsCard
+                  title={stat.title}
+                  value={stat.value}
+                  comparison={stat.comparison}
+                  trend={stat.trend}
+                  icon={stat.icon}
+                  iconBgColor={stat.iconBgColor}
+                  href={stat.href}
+                />
+              </div>
+            );
+          })}
         </div>
 
-        {/* New Row for Additional Components */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-          {/* Job Applicants Component */}
-          <div className="w-full">
-            <JobApplicants />
-          </div>
-
-          {/* Schedules Component */}
-          <div className="w-full">
-            <Schedules />
-          </div>
-          {/* Attendance Overview Component */}
-          <div className="w-full">
-            <AttendanceOverview />
-          </div>
-
-          {/* Birthdays Component */}
-          <div className="w-full">
-            <Birthdays />
-          </div>
-        
-          {/* ClockInOut Component */}
-          <div className="w-full sm:col-span-2 lg:col-span-1 xl:col-span-2">
-            <ClockInOut />
-          </div>
-
-          {/* Employees Table Component */}
-          <div className="w-full sm:col-span-2 lg:col-span-2 xl:col-span-2">
-            <EmployeesTable />
-          </div>
-
+        {/* Employee Department Chart */}
+        <div
+          ref={(el) => (elementRefs.current['chart'] = el)}
+          data-animate-id="chart"
+          className={`xl:col-span-4 h-full scroll-fade-in ${visibleElements.has('chart') ? 'animate-fade-in' : 'opacity-0'}`}
+        >
+          <EmployeeDepartmentChart />
         </div>
       </div>
+
+      {/* Secondary Components Row - Two per row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+        {/* Attendance Overview Component - First */}
+        <div
+          ref={(el) => (elementRefs.current['attendance'] = el)}
+          data-animate-id="attendance"
+          className={`w-full scroll-fade-in ${visibleElements.has('attendance') ? 'animate-fade-in' : 'opacity-0'}`}
+        >
+          <AttendanceOverview />
+        </div>
+
+        {/* Job Applicants Component */}
+        <div
+          ref={(el) => (elementRefs.current['job-applicants'] = el)}
+          data-animate-id="job-applicants"
+          className={`w-full scroll-fade-in ${visibleElements.has('job-applicants') ? 'animate-fade-in' : 'opacity-0'}`}
+        >
+          <JobApplicants />
+        </div>
+
+        {/* Schedules Component */}
+        <div
+          ref={(el) => (elementRefs.current['schedules'] = el)}
+          data-animate-id="schedules"
+          className={`w-full scroll-fade-in ${visibleElements.has('schedules') ? 'animate-fade-in' : 'opacity-0'}`}
+        >
+          <Schedules />
+        </div>
+
+        {/* Birthdays Component */}
+        <div
+          ref={(el) => (elementRefs.current['birthdays'] = el)}
+          data-animate-id="birthdays"
+          className={`w-full scroll-fade-in ${visibleElements.has('birthdays') ? 'animate-fade-in' : 'opacity-0'}`}
+        >
+          <Birthdays />
+        </div>
+      </div>
+
+      {/* Bottom Row - Larger Components */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+        {/* ClockInOut Component */}
+        <div
+          ref={(el) => (elementRefs.current['clock-in-out'] = el)}
+          data-animate-id="clock-in-out"
+          className={`w-full scroll-fade-in ${visibleElements.has('clock-in-out') ? 'animate-fade-in' : 'opacity-0'}`}
+        >
+          <ClockInOut />
+        </div>
+
+        {/* Employees Table Component */}
+        <div
+          ref={(el) => (elementRefs.current['employees-table'] = el)}
+          data-animate-id="employees-table"
+          className={`w-full scroll-fade-in ${visibleElements.has('employees-table') ? 'animate-fade-in' : 'opacity-0'}`}
+        >
+          <EmployeesTable />
+        </div>
+      </div>
+    </div>
   );
 }
 

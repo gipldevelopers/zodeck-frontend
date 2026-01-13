@@ -15,24 +15,24 @@
 
 /* Zodeck HRMS Design System - Professional, Modern, Growth-Oriented */
 :root {
-  /* Core brand colors - Deep Teal/Emerald for trust & growth */
+  /* Core brand colors - Vibrant Green-Teal for trust & growth */
   --background: 210 20% 98%;
   --foreground: 220 30% 15%;
   
-  /* Primary - Deep Emerald/Teal */
-  --primary: 168 76% 36%;
+  /* Primary - Vibrant Green-Teal */
+  --primary: 174 72% 41%;
   --primary-foreground: 0 0% 100%;
   
-  /* Secondary - Soft sage */
-  --secondary: 168 30% 94%;
-  --secondary-foreground: 168 76% 26%;
+  /* Secondary - Soft mint green */
+  --secondary: 160 50% 94%;
+  --secondary-foreground: 174 72% 28%;
   
   /* Muted tones */
   --muted: 210 20% 96%;
   --muted-foreground: 220 15% 45%;
   
-  /* Accent - Warm coral for CTAs */
-  --accent: 15 85% 57%;
+  /* Accent - Deep teal-blue for CTAs */
+  --accent: 195 85% 40%;
   --accent-foreground: 0 0% 100%;
   
   /* Destructive - Error states */
@@ -61,40 +61,40 @@
   --ring: 168 76% 36%;
   
   /* Extended palette */
-  --hero-gradient-start: 168 76% 36%;
-  --hero-gradient-end: 195 85% 35%;
-  --glow: 168 76% 50%;
+  --hero-gradient-start: 174 72% 41%;
+  --hero-gradient-end: 195 85% 40%;
+  --glow: 174 72% 55%;
   --glass: 0 0% 100%;
   --glass-border: 0 0% 100%;
   
   /* Zodeck specific */
-  --zodeck-teal: 168 76% 36%;
-  --zodeck-teal-light: 168 60% 92%;
+  --zodeck-teal: 174 72% 41%;
+  --zodeck-teal-light: 160 50% 92%;
   --zodeck-navy: 220 40% 18%;
   --zodeck-coral: 15 85% 57%;
   --zodeck-gold: 45 93% 58%;
   --zodeck-purple: 270 70% 55%;
   
   /* Additional CSS Variables for direct use */
-  --color-primary: hsl(168, 76%, 36%); /* Deep Teal */
-  --color-primary-hover: hsl(168, 76%, 30%);
-  --color-secondary: hsl(168, 30%, 94%);
-  --color-accent: hsl(15, 85%, 57%); /* Warm Coral */
-  --color-accent-hover: hsl(15, 85%, 50%);
+  --color-primary: hsl(174, 72%, 41%); /* Vibrant Green-Teal */
+  --color-primary-hover: hsl(174, 72%, 35%);
+  --color-secondary: hsl(160, 50%, 94%);
+  --color-accent: hsl(195, 85%, 40%); /* Deep Teal-Blue */
+  --color-accent-hover: hsl(195, 85%, 35%);
   --color-background: hsl(210, 20%, 98%);
   --color-foreground: hsl(220, 30%, 15%);
   --color-muted: hsl(210, 20%, 96%);
   --color-border: hsl(210, 20%, 90%);
   
   /* For button styling */
-  --color-primary-rgb: 9, 165, 164; /* RGB values for opacity variations */
-  --color-accent-rgb: 249, 115, 22; /* Coral RGB */
+  --color-primary-rgb: 20, 184, 166; /* RGB values for opacity variations - Green-Teal */
+  --color-accent-rgb: 14, 165, 233; /* Deep Teal-Blue RGB */
 }
 
 .dark {
   --background: 220 30% 8%;
   --foreground: 210 20% 98%;
-  --primary: 168 70% 45%;
+  --primary: 174 72% 50%;
   --primary-foreground: 0 0% 100%;
   --secondary: 220 30% 18%;
   --secondary-foreground: 168 60% 70%;
@@ -115,10 +115,11 @@
   --border: 220 30% 20%;
   --input: 220 30% 20%;
   --ring: 168 70% 45%;
+  --accent: 195 85% 45%;
   
   /* Additional dark mode variables */
-  --color-primary: hsl(168, 70%, 45%);
-  --color-primary-hover: hsl(168, 70%, 55%);
+  --color-primary: hsl(174, 72%, 50%);
+  --color-primary-hover: hsl(174, 72%, 55%);
   --color-secondary: hsl(220, 30%, 18%);
   --color-background: hsl(220, 30%, 8%);
   --color-foreground: hsl(210, 20%, 98%);
@@ -180,19 +181,19 @@
   --color-white: #ffffff;
   --color-black: #101828;
 
-  /* ✅ New Zodeck Brand Palette - Teal/Coral */
-  --color-brand-25: hsl(168, 60%, 97%);
-  --color-brand-50: hsl(168, 60%, 94%);
-  --color-brand-100: hsl(168, 60%, 88%);
-  --color-brand-200: hsl(168, 60%, 78%);
-  --color-brand-300: hsl(168, 60%, 68%);
-  --color-brand-400: hsl(168, 60%, 52%);
-  --color-brand-500: hsl(168, 76%, 36%); /* Main brand - Deep Teal */
-  --color-brand-600: hsl(168, 76%, 30%);
-  --color-brand-700: hsl(168, 76%, 24%);
-  --color-brand-800: hsl(168, 76%, 18%);
-  --color-brand-900: hsl(168, 76%, 12%);
-  --color-brand-950: hsl(168, 76%, 8%);
+  /* ✅ New Zodeck Brand Palette - Green-Teal Professional */
+  --color-brand-25: hsl(174, 50%, 97%);
+  --color-brand-50: hsl(174, 50%, 94%);
+  --color-brand-100: hsl(174, 50%, 88%);
+  --color-brand-200: hsl(174, 50%, 78%);
+  --color-brand-300: hsl(174, 50%, 68%);
+  --color-brand-400: hsl(174, 60%, 52%);
+  --color-brand-500: hsl(174, 72%, 41%); /* Main brand - Vibrant Green-Teal */
+  --color-brand-600: hsl(174, 72%, 35%);
+  --color-brand-700: hsl(174, 72%, 28%);
+  --color-brand-800: hsl(174, 72%, 22%);
+  --color-brand-900: hsl(174, 72%, 15%);
+  --color-brand-950: hsl(174, 72%, 10%);
 
   /* ✅ Primary alias (same as brand) */
   --color-primary-25: var(--color-brand-25);
@@ -208,33 +209,33 @@
   --color-primary-900: var(--color-brand-900);
   --color-primary-950: var(--color-brand-950);
 
-  /* ✅ Accent - Coral */
-  --color-accent-25: hsl(15, 85%, 97%);
-  --color-accent-50: hsl(15, 85%, 94%);
-  --color-accent-100: hsl(15, 85%, 88%);
-  --color-accent-200: hsl(15, 85%, 78%);
-  --color-accent-300: hsl(15, 85%, 68%);
-  --color-accent-400: hsl(15, 85%, 57%);
-  --color-accent-500: hsl(15, 85%, 50%);
-  --color-accent-600: hsl(15, 85%, 45%);
-  --color-accent-700: hsl(15, 85%, 40%);
-  --color-accent-800: hsl(15, 85%, 35%);
-  --color-accent-900: hsl(15, 85%, 30%);
-  --color-accent-950: hsl(15, 85%, 25%);
+  /* ✅ Accent - Deep Teal-Blue */
+  --color-accent-25: hsl(195, 70%, 97%);
+  --color-accent-50: hsl(195, 70%, 94%);
+  --color-accent-100: hsl(195, 70%, 88%);
+  --color-accent-200: hsl(195, 75%, 78%);
+  --color-accent-300: hsl(195, 80%, 68%);
+  --color-accent-400: hsl(195, 85%, 55%);
+  --color-accent-500: hsl(195, 85%, 40%); /* Deep Teal-Blue */
+  --color-accent-600: hsl(195, 85%, 35%);
+  --color-accent-700: hsl(195, 85%, 30%);
+  --color-accent-800: hsl(195, 85%, 25%);
+  --color-accent-900: hsl(195, 85%, 20%);
+  --color-accent-950: hsl(195, 85%, 15%);
 
-  /* ✅ Secondary - Sage/Teal Light */
-  --color-secondary-25: hsl(168, 30%, 97%);
-  --color-secondary-50: hsl(168, 30%, 94%);
-  --color-secondary-100: hsl(168, 30%, 88%);
-  --color-secondary-200: hsl(168, 30%, 80%);
-  --color-secondary-300: hsl(168, 30%, 70%);
-  --color-secondary-400: hsl(168, 30%, 60%);
-  --color-secondary-500: hsl(168, 30%, 50%);
-  --color-secondary-600: hsl(168, 30%, 40%);
-  --color-secondary-700: hsl(168, 30%, 30%);
-  --color-secondary-800: hsl(168, 30%, 20%);
-  --color-secondary-900: hsl(168, 30%, 10%);
-  --color-secondary-950: hsl(168, 30%, 5%);
+  /* ✅ Secondary - Soft Mint Green */
+  --color-secondary-25: hsl(160, 40%, 97%);
+  --color-secondary-50: hsl(160, 40%, 94%);
+  --color-secondary-100: hsl(160, 45%, 88%);
+  --color-secondary-200: hsl(160, 45%, 80%);
+  --color-secondary-300: hsl(160, 45%, 70%);
+  --color-secondary-400: hsl(160, 45%, 60%);
+  --color-secondary-500: hsl(160, 50%, 50%);
+  --color-secondary-600: hsl(160, 50%, 40%);
+  --color-secondary-700: hsl(160, 50%, 30%);
+  --color-secondary-800: hsl(160, 50%, 20%);
+  --color-secondary-900: hsl(160, 50%, 12%);
+  --color-secondary-950: hsl(160, 50%, 8%);
 
   /* other palettes (blue-light, gray, orange, success, error, warning...) */
   --color-blue-light-25: #f5fbff;
@@ -359,8 +360,8 @@
   --radius-full: 9999px;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(195, 85%, 35%) 100%);
-  --gradient-accent: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(45, 93%, 58%) 100%);
+  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(195, 85%, 40%) 100%);
+  --gradient-accent: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(174, 72%, 50%) 100%);
   --gradient-hero: linear-gradient(135deg,
     hsl(var(--background)) 0%,
     hsl(var(--secondary)) 50%,
@@ -1286,4 +1287,72 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
   transform: translateY(-10px) scale(0.95);
   transition: opacity 150ms, transform 150ms;
+}
+
+/* Dashboard fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.scroll-fade-in {
+  transition: opacity 0.3s ease-out;
+}
+
+/* Filter dropdown option hover effects with brand color (reduced opacity) */
+/* Note: Native select option styling is limited, but this provides better styling where supported */
+select option {
+  background-color: white;
+  color: hsl(var(--foreground));
+  padding: 0.5rem;
+}
+
+/* Hover state for dropdown options - uses brand color with reduced opacity */
+select option:hover {
+  background-color: hsl(174, 72%, 41%, 0.15) !important;
+  color: hsl(174, 72%, 28%);
+}
+
+/* Selected/checked state */
+select option:checked,
+select option[selected] {
+  background-color: hsl(174, 72%, 41%, 0.25) !important;
+  color: hsl(174, 72%, 25%);
+}
+
+/* Dark mode support */
+.dark select option {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.dark select option:hover {
+  background-color: hsl(174, 72%, 41%, 0.2) !important;
+  color: hsl(174, 72%, 55%);
+}
+
+.dark select option:checked,
+.dark select option[selected] {
+  background-color: hsl(174, 72%, 41%, 0.3) !important;
+  color: hsl(174, 72%, 60%);
+}
+
+/* Enhanced hover effect when select itself is hovered */
+select:hover option:checked {
+  background-color: hsl(174, 72%, 41%, 0.3) !important;
+}
+
+/* Additional styling for better brand color visibility in dropdowns */
+select:focus option:hover {
+  background-color: hsl(174, 72%, 41%, 0.2) !important;
 }

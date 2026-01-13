@@ -51,16 +51,16 @@ export default function OnboardingTab() {
   return (
     <div className="space-y-4">
       {/* Sub-tabs */}
-      <div className="border-b border-gray-200 dark:border-gray-700">
-        <div className="flex flex-wrap gap-2">
+      <div className="border-b border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 rounded-t-lg px-2">
+        <div className="flex flex-wrap gap-1">
           {subTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveSubTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+              className={`flex items-center gap-2 px-4 py-2.5 text-sm font-semibold transition-all border-b-2 ${
                 activeSubTab === tab.id
-                  ? "border-blue-600 text-blue-600 dark:text-blue-400"
-                  : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600"
+                  ? "border-brand-500 text-brand-600 dark:text-brand-400 bg-white dark:bg-gray-800 shadow-sm"
+                  : "border-transparent text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-300 dark:hover:border-brand-600/50"
               }`}
             >
               {tab.icon}

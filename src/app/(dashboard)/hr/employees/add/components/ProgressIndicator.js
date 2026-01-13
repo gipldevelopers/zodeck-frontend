@@ -27,7 +27,7 @@ export default function ProgressIndicator({ steps, currentStep }) {
               {/* Progress Line */}
               <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-blue-600 transition-all duration-300"
+                  className="h-full bg-brand-500 transition-all duration-300"
                   style={{ 
                     width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` 
                   }}
@@ -46,9 +46,9 @@ export default function ProgressIndicator({ steps, currentStep }) {
                       className={`
                         w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold
                         ${isCompleted 
-                          ? 'bg-blue-600 text-white' 
+                          ? 'bg-brand-500 text-white shadow-md' 
                           : isCurrent 
-                          ? 'bg-blue-100 text-blue-600 ring-4 ring-blue-100 dark:bg-blue-900 dark:text-blue-300 dark:ring-blue-900' 
+                          ? 'bg-brand-100 text-brand-600 ring-4 ring-brand-100 dark:bg-brand-500/30 dark:text-brand-400 dark:ring-brand-500/20' 
                           : 'bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
                         }
                       `}
@@ -96,9 +96,9 @@ export default function ProgressIndicator({ steps, currentStep }) {
                   className={`
                     w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300
                     ${isCompleted 
-                      ? 'bg-blue-600 text-white shadow-lg' 
+                      ? 'bg-brand-500 text-white shadow-lg' 
                       : isCurrent 
-                      ? 'bg-blue-100 text-blue-600 ring-4 ring-blue-100 dark:bg-blue-900 dark:text-blue-300 dark:ring-blue-900' 
+                      ? 'bg-brand-100 text-brand-600 ring-4 ring-brand-100 dark:bg-brand-500/30 dark:text-brand-400 dark:ring-brand-500/20' 
                       : 'bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
                     }
                   `}
@@ -117,7 +117,7 @@ export default function ProgressIndicator({ steps, currentStep }) {
                   className={`
                     text-sm font-medium transition-colors duration-300
                     ${isCurrent 
-                      ? 'text-blue-600 dark:text-blue-400' 
+                      ? 'text-brand-600 dark:text-brand-400 font-semibold' 
                       : isCompleted 
                       ? 'text-gray-900 dark:text-white' 
                       : 'text-gray-500 dark:text-gray-400'
@@ -134,7 +134,7 @@ export default function ProgressIndicator({ steps, currentStep }) {
                   className={`
                     h-0.5 flex-1 mx-4 transition-colors duration-300 hidden md:block
                     ${step.id < currentStep 
-                      ? 'bg-blue-600' 
+                      ? 'bg-brand-500' 
                       : 'bg-gray-200 dark:bg-gray-700'
                     }
                   `}
