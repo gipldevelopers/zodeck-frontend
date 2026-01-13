@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import TaxBracketForm from '../../components/TaxBracketForm';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function EditTaxBracketPage() {
   const params = useParams();

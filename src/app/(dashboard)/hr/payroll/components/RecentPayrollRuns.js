@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, Download, Calendar, ChevronUp, ChevronDown } from 'lucide-react';
-import { payrollService } from '../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function RecentPayrollRuns() {
   const router = useRouter();

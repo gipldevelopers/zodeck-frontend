@@ -9,7 +9,7 @@ import {
   flexRender,
 } from '@tanstack/react-table';
 import { ChevronUp, ChevronDown, ArrowLeft, ArrowRight } from 'lucide-react';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function EmployeeSelectionTable({ selectedEmployees, onChange, onNext, onBack }) {
   const [data, setData] = useState([]);

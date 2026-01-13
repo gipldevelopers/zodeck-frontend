@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, ArrowLeft, Percent } from 'lucide-react';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function TaxBracketForm({ bracket = null, isEdit = false }) {
   const router = useRouter();

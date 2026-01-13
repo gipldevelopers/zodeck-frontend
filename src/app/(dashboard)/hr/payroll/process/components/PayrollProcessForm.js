@@ -2,7 +2,7 @@
 "use client";
 import { useState, useMemo } from 'react';
 import { Calendar, ArrowRight } from 'lucide-react';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 import CustomDropdown from '../../../leave/components/CustomDropdown';
 
 export default function PayrollProcessForm({ payrollData, onChange, onNext }) {

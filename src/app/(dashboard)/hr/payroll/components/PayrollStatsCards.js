@@ -2,7 +2,7 @@
 "use client";
 import { IndianRupee, Users, CheckCircle, Clock, TrendingUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { payrollService } from '../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function PayrollStatsCards() {
   const [statsData, setStatsData] = useState({

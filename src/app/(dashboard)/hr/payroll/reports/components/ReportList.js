@@ -2,7 +2,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Download, Eye, FileText, Calendar, Trash2 } from 'lucide-react';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 const ReportList = ({ onDownload }) => {
   const [reports, setReports] = useState([]);

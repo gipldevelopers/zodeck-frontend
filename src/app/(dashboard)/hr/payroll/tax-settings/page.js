@@ -6,7 +6,7 @@ import Breadcrumb from '@/components/common/Breadcrumb';
 import TaxConfigForm from './components/TaxConfigForm';
 import TaxBracketsTable from './components/TaxBracketsTable';
 import TaxExemptionsList from './components/TaxExemptionsList';
-import { payrollService } from '../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function TaxSettings() {
   const [activeTab, setActiveTab] = useState('configuration');

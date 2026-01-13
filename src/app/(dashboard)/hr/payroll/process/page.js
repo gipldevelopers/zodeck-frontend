@@ -5,7 +5,7 @@ import Breadcrumb from '@/components/common/Breadcrumb';
 import PayrollProcessForm from './components/PayrollProcessForm';
 import EmployeeSelectionTable from './components/EmployeeSelectionTable';
 import PayrollSummary from './components/PayrollSummary';
-import { payrollService } from '../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function ProcessPayroll() {
   const [selectedEmployees, setSelectedEmployees] = useState([]);

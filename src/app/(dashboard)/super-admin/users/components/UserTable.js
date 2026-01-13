@@ -651,7 +651,7 @@ import {
   getPaginationRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { ChevronUp, ChevronDown, Edit, Trash2, User, Mail, Shield, Loader2, Key, Eye, UserCheck, UserX, UserCog } from 'lucide-react';
+import { ChevronUp, ChevronDown, Edit, Trash2, User, Mail, Shield, Loader2, Key, Eye, UserCheck, UserX, UserCog, Search } from 'lucide-react';
 import Pagination from '@/components/common/Pagination';
 import UserFilters from './UserFilters';
 import { userManagementService } from '@/services/userManagementService';

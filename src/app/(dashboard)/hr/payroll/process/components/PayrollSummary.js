@@ -1,7 +1,7 @@
 // src/app/(dashboard)/hr/payroll/process/components/PayrollSummary.js
 "use client";
 import { IndianRupee, Calendar, Users, CheckCircle, ArrowLeft } from 'lucide-react';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function PayrollSummary({ payrollData, selectedEmployees, onProcess, onBack, loading }) {
   const totalAmount = selectedEmployees.reduce((sum, emp) => sum + (emp.totalCTC || 0), 0);

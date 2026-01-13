@@ -6,7 +6,7 @@ import Breadcrumb from '@/components/common/Breadcrumb';
 import ReportList from './components/ReportList';
 import ReportFilters from './components/ReportFilters';
 import ReportChart from './components/ReportChart';
-import { payrollService } from '../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function PayrollReports() {
   const [selectedReportType, setSelectedReportType] = useState('all');

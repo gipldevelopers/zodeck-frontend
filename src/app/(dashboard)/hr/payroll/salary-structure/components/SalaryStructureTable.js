@@ -12,8 +12,8 @@ import {
 import { ChevronUp, ChevronDown, Eye, Edit, Trash2, IndianRupee } from 'lucide-react';
 import Pagination from '@/components/common/Pagination';
 import SalaryStructureFilters from './SalaryStructureFilters';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
-import { departmentService } from '../../../../../../services/hr-services/departmentService';
+import { payrollService } from '@/services/hr-services/payroll.service';
+import { departmentService } from '@/services/hr-services/departmentService';
 
 export default function SalaryStructureTable() {
   const [data, setData] = useState([]);

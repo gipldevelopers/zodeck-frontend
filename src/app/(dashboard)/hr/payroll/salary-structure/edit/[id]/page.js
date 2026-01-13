@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import SalaryStructureForm from '../../components/SalaryStructureForm';
-import { payrollService } from '../../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function EditSalaryStructurePage() {
     const { id } = useParams();

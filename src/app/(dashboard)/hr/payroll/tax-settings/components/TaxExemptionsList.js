@@ -2,7 +2,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2 } from 'lucide-react';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 const TaxExemptionsList = ({ taxSettingId }) => {
   const [exemptions, setExemptions] = useState([]);

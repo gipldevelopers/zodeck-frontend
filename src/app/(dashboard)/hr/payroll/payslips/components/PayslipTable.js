@@ -12,7 +12,7 @@ import {
 import { ChevronUp, ChevronDown, Eye, Download, Mail, FileText } from 'lucide-react';
 import Pagination from '@/components/common/Pagination';
 import PayslipFilters from './PayslipFilters';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 export default function PayslipTable() {
   const [data, setData] = useState([]);

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
+import { payrollService } from '@/services/hr-services/payroll.service';
 
 const TaxBracketsTable = ({ taxSettingId }) => {
   const [brackets, setBrackets] = useState([]);

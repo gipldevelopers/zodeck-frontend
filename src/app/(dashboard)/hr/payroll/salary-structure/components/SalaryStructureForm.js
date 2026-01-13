@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, ArrowLeft, IndianRupee, Plus, Trash2 } from 'lucide-react';
-import { payrollService } from '../../../../../../services/hr-services/payroll.service';
-import { employeeService } from '../../../../../../services/hr-services/employeeService';
+import { payrollService } from '@/services/hr-services/payroll.service';
+import { employeeService } from '@/services/hr-services/employeeService';
 
 export default function SalaryStructureForm({ structure = null, isEdit = false }) {
     const router = useRouter();
