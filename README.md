@@ -3,7 +3,7 @@ Authentication & Roles
 - Employees (Self-Service)
 - Managers (optional)
 - Helpdesk (optional)
-
+   
 Core Modules & Features:
 
 1. Employee Management
