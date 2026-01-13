@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { AlertTriangle, Calendar, UserCheck, Pause, Loader2, ExternalLink, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
@@ -28,13 +27,9 @@ export default function PayrollExceptionsWidget() {
 
   if (loading) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="glass-card rounded-2xl p-6 h-full flex items-center justify-center premium-shadow"
-      >
-        <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
-      </motion.div>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm h-full flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-primary-600 dark:text-primary-400" />
+      </div>
     );
   }
 
@@ -43,34 +38,33 @@ export default function PayrollExceptionsWidget() {
       type: "missingAttendance",
       label: "Missing Attendance",
       count: data?.missingAttendance || 0,
-      icon: <Calendar className="w-5 h-5" />,
-      color: "text-amber-500",
-      bgColor: "bg-amber-500/10",
-      borderColor: "border-amber-500/20",
+      icon: <Calendar className="w-4 h-4" />,
+      color: "text-amber-600 dark:text-amber-400",
+      bgColor: "bg-amber-50 dark:bg-amber-500/10",
+      borderColor: "border-amber-200 dark:border-amber-500/20",
     },
     {
       type: "missingSalaryStructure",
       label: "Missing Salary",
       count: data?.missingSalaryStructure || 0,
-      icon: <UserCheck className="w-5 h-5" />,
-      color: "text-red-500",
-      bgColor: "bg-red-500/10",
-      borderColor: "border-red-500/20",
+      icon: <UserCheck className="w-4 h-4" />,
+      color: "text-red-600 dark:text-red-400",
+      bgColor: "bg-red-50 dark:bg-red-500/10",
+      borderColor: "border-red-200 dark:border-red-500/20",
     },
     {
       type: "onHoldEmployees",
       label: "On-Hold",
       count: data?.onHoldEmployees || 0,
-      icon: <Pause className="w-5 h-5" />,
-      color: "text-purple-500",
-      bgColor: "bg-purple-500/10",
-      borderColor: "border-purple-500/20",
+      icon: <Pause className="w-4 h-4" />,
+      color: "text-purple-600 dark:text-purple-400",
+      bgColor: "bg-purple-50 dark:bg-purple-500/10",
+      borderColor: "border-purple-200 dark:border-purple-500/20",
     },
   ];
 
   const totalExceptions = exceptions.reduce((sum, ex) => sum + ex.count, 0);
 
-  // Chart Configuration
   const chartSeries = [{
     name: 'Exceptions',
     data: exceptions.map(ex => ex.count)
@@ -95,9 +89,11 @@ export default function PayrollExceptionsWidget() {
       enabled: true,
       textAnchor: 'start',
       style: {
-        colors: ['hsl(var(--card))']
+        colors: ['#ffffff'],
+        fontSize: '11px',
+        fontWeight: 600,
       },
-      formatter: function (val, opt) {
+      formatter: function (val) {
         return val > 0 ? val : ''
       },
       offsetX: 0,
@@ -112,28 +108,18 @@ export default function PayrollExceptionsWidget() {
       labels: {
         show: true,
         style: {
-          colors: 'var(--foreground)',
+          colors: '#6b7280',
           fontSize: '12px'
         }
       }
     },
     grid: {
       show: false,
-      padding: {
-        top: -20,
-        right: 0,
-        bottom: -15,
-        left: -10
-      }
     },
-    colors: ['hsl(var(--primary))', 'hsl(var(--destructive))', 'hsl(var(--accent))'],
+    colors: ['#f59e0b', '#ef4444', '#a855f7'],
     legend: { show: false },
     tooltip: {
       theme: 'light',
-      style: {
-        fontSize: '12px',
-        fontFamily: 'inherit'
-      },
       y: {
         formatter: function(val) {
           return val + ' exceptions'
@@ -143,113 +129,72 @@ export default function PayrollExceptionsWidget() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -5 }}
-      className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
-    >
-      <div className="absolute top-0 right-0 w-32 h-32 bg-warning/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-warning/10"></div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center gap-3 mb-4 relative z-10"
-      >
-        <motion.div
-          animate={{ rotate: [0, -10, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
-          className="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 text-amber-500 shadow-md border border-amber-500/10"
-        >
-          <AlertTriangle className="w-6 h-6" />
-        </motion.div>
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm hover:shadow-md transition-shadow">
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 dark:text-amber-400">
+          <AlertTriangle className="w-5 h-5" />
+        </div>
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-foreground">Payroll Exceptions</h3>
-          <p className="text-sm text-muted-foreground">Requires attention</p>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">Payroll Exceptions</h3>
+          <p className="text-xs text-gray-600 dark:text-gray-400">Requires attention</p>
         </div>
         {totalExceptions > 0 && (
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200 }}
-            className="px-3 py-1 rounded-full bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-400 text-sm font-bold shadow-sm"
-          >
+          <div className="px-3 py-1 rounded-full bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 text-sm font-semibold">
             {totalExceptions}
-          </motion.div>
+          </div>
         )}
-      </motion.div>
+      </div>
 
       {/* Chart */}
       {totalExceptions > 0 && (
-        <div className="mb-4 h-32 -ml-2 relative z-10">
+        <div className="mb-4 h-32 -ml-2">
           <ReactApexChart options={chartOptions} series={chartSeries} type="bar" height="100%" />
         </div>
       )}
 
-      <div className="space-y-3 relative z-10">
-        {exceptions.map((exception, index) => (
-          exception.count > 0 && ( /* Only show distinct non-zero in list if desired, but here showing all for consistency? let's show all */
-            <motion.div
+      <div className="space-y-3">
+        {exceptions.map((exception) => (
+          exception.count > 0 && (
+            <div
               key={exception.type}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 + index * 0.1 }}
-              whileHover={{ scale: 1.01, x: 2 }}
-              className={`p-3 rounded-xl border ${exception.borderColor} ${exception.bgColor} backdrop-blur-sm transition-all cursor-pointer flex items-center justify-between`}
+              className={`p-3 rounded-lg border ${exception.borderColor} ${exception.bgColor} transition-colors flex items-center justify-between`}
             >
               <div className="flex items-center gap-3">
-                <div
-                  className={`p-2 rounded-lg ${exception.color.replace('text-', 'bg-').replace('500', '100')} dark:bg-opacity-20`}
-                >
+                <div className={`p-2 rounded-lg ${exception.bgColor} ${exception.color}`}>
                   {exception.icon}
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-foreground">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">
                     {exception.label}
                   </p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
                     {exception.count} Affected
                   </p>
                 </div>
               </div>
-
-              <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-50 transition-opacity" />
-            </motion.div>
+              <ExternalLink className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+            </div>
           )
         ))}
 
         {totalExceptions === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-center py-8"
-          >
-            <CheckCircle2 className="w-12 h-12 mx-auto text-emerald-500 mb-3" />
-            <p className="text-sm text-muted-foreground">All clear! No exceptions found.</p>
-          </motion.div>
+          <div className="text-center py-8">
+            <CheckCircle2 className="w-12 h-12 mx-auto text-green-500 dark:text-green-400 mb-3" />
+            <p className="text-sm text-gray-600 dark:text-gray-400">All clear! No exceptions found.</p>
+          </div>
         )}
 
         {totalExceptions > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <Link
+            href="/hr/payroll/process"
+            className="mt-2 flex items-center justify-center gap-2 w-full py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors font-medium text-sm"
           >
-            <Link
-              href="/hr/payroll/process"
-              className="mt-2 flex items-center justify-center gap-2 w-full py-2.5 bg-gradient-to-r from-brand-500 to-brand-600 text-white rounded-xl shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all font-medium text-sm"
-            >
-              <span>Review All Exceptions</span>
-              <ExternalLink className="w-4 h-4" />
-            </Link>
-          </motion.div>
+            <span>Review All Exceptions</span>
+            <ExternalLink className="w-4 h-4" />
+          </Link>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Calendar, Bell, FileText, Loader2 } from "lucide-react";
 
 export default function UpcomingActionsWidget() {
@@ -44,15 +43,9 @@ export default function UpcomingActionsWidget() {
 
   if (loading) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-card text-card-foreground rounded-2xl shadow-lg border border-border p-6 h-full backdrop-blur-sm"
-      >
-        <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
-        </div>
-      </motion.div>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm h-full flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-primary-600 dark:text-primary-400" />
+      </div>
     );
   }
 
@@ -93,48 +86,48 @@ export default function UpcomingActionsWidget() {
       type: "payrollRun",
       title: "Payroll Run Due Date",
       date: payrollRunDueDate,
-      icon: <Calendar className="w-5 h-5" />,
-      color: "text-brand-600 dark:text-brand-400",
-      bgColor: "bg-brand-50 dark:bg-brand-900/30",
-      borderColor: "border-brand-200 dark:border-brand-500/30",
+      icon: <Calendar className="w-4 h-4" />,
+      color: "text-primary-600 dark:text-primary-400",
+      bgColor: "bg-primary-50 dark:bg-primary-500/10",
+      borderColor: "border-primary-200 dark:border-primary-500/20",
     },
     ...filingReminders.map((reminder) => ({
       type: "filing",
       title: reminder.title || "Statutory Filing",
       date: reminder.dueDate,
       description: reminder.type || reminder.description,
-      icon: <FileText className="w-5 h-5" />,
-      color: "text-accent",
-      bgColor: "bg-accent/10",
-      borderColor: "border-accent/20",
+      icon: <FileText className="w-4 h-4" />,
+      color: "text-primary-600 dark:text-primary-400",
+      bgColor: "bg-primary-50 dark:bg-primary-500/10",
+      borderColor: "border-primary-200 dark:border-primary-500/20",
     })),
   ];
 
   const getUrgencyColor = (days) => {
-    if (days === null || days === undefined) return "text-muted-foreground";
-    if (days < 0) return "text-destructive";
-    if (days <= 3) return "text-warning";
-    if (days <= 7) return "text-accent";
-    return "text-muted-foreground";
+    if (days === null || days === undefined) return "text-gray-600 dark:text-gray-400";
+    if (days < 0) return "text-red-600 dark:text-red-400";
+    if (days <= 3) return "text-amber-600 dark:text-amber-400";
+    if (days <= 7) return "text-primary-600 dark:text-primary-400";
+    return "text-gray-600 dark:text-gray-400";
   };
 
   const getUrgencyBadge = (days) => {
     if (days === null || days === undefined) return null;
     if (days < 0)
       return (
-        <span className="px-2 py-1 rounded-full bg-destructive/20 text-destructive text-xs font-semibold">
+        <span className="px-2 py-1 rounded-full bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 text-xs font-semibold">
           Overdue
         </span>
       );
     if (days <= 3)
       return (
-        <span className="px-2 py-1 rounded-full bg-warning/20 text-warning text-xs font-semibold">
+        <span className="px-2 py-1 rounded-full bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold">
           Urgent
         </span>
       );
     if (days <= 7)
       return (
-        <span className="px-2 py-1 rounded-full bg-accent/20 text-accent text-xs font-semibold">
+        <span className="px-2 py-1 rounded-full bg-primary-100 dark:bg-primary-500/20 text-primary-600 dark:text-primary-400 text-xs font-semibold">
           Soon
         </span>
       );
@@ -142,33 +135,17 @@ export default function UpcomingActionsWidget() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -5 }}
-      className="glass-card glass-card-hover rounded-2xl p-6 h-full premium-shadow premium-shadow-hover relative overflow-hidden group"
-    >
-      <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all group-hover:bg-brand-500/10"></div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center gap-3 mb-6 relative z-10"
-      >
-        <motion.div
-          animate={{ rotate: [0, 10, -10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-          className="p-3 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 text-brand-600 dark:text-brand-400 shadow-md border border-brand-500/10"
-        >
-          <Bell className="w-6 h-6" />
-        </motion.div>
-        <div>
-          <h3 className="text-lg font-bold text-foreground">Upcoming Actions</h3>
-          <p className="text-sm text-muted-foreground">Reminders & deadlines</p>
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-primary-100/50 dark:border-gray-700 p-6 shadow-sm hover:shadow-md transition-shadow">
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-500/20 flex items-center justify-center text-primary-600 dark:text-primary-400">
+          <Bell className="w-5 h-5" />
         </div>
-      </motion.div>
+        <div>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">Upcoming Actions</h3>
+          <p className="text-xs text-gray-600 dark:text-gray-400">Reminders & deadlines</p>
+        </div>
+      </div>
 
       <div className="space-y-3">
         {upcomingActions.length > 0 ? (
@@ -178,41 +155,31 @@ export default function UpcomingActionsWidget() {
             const urgencyBadge = getUrgencyBadge(daysUntil);
 
             return (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                whileHover={{ scale: 1.02, x: 5 }}
-                className={`p-4 rounded-xl border-2 ${action.borderColor} ${action.bgColor} backdrop-blur-sm transition-all cursor-pointer`}
+                className={`p-4 rounded-lg border ${action.borderColor} ${action.bgColor} transition-colors`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3 flex-1">
-                    <motion.div
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                      className={`p-2 rounded-lg ${action.color} bg-card mt-0.5 shadow-sm`}
-                    >
+                    <div className={`p-2 rounded-lg ${action.bgColor} ${action.color} mt-0.5`}>
                       {action.icon}
-                    </motion.div>
+                    </div>
                     <div className="flex-1">
-                      <p className="text-sm font-semibold text-foreground">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">
                         {action.title}
                       </p>
                       {action.description && (
-                        <p className="text-xs text-muted-foreground mt-0.5">
+                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
                           {action.description}
                         </p>
                       )}
                       <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs text-muted-foreground">Due:</span>
-                        <span
-                          className={`text-xs font-semibold ${urgencyColor}`}
-                        >
+                        <span className="text-xs text-gray-600 dark:text-gray-400">Due:</span>
+                        <span className={`text-xs font-semibold ${urgencyColor}`}>
                           {formatDate(action.date)}
                         </span>
                         {daysUntil !== null && (
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">
                             ({daysUntil < 0
                               ? `${Math.abs(daysUntil)} days ago`
                               : daysUntil === 0
@@ -225,33 +192,23 @@ export default function UpcomingActionsWidget() {
                     </div>
                   </div>
                   {urgencyBadge && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", delay: 0.4 + index * 0.1 }}
-                      className="flex-shrink-0"
-                    >
+                    <div className="flex-shrink-0">
                       {urgencyBadge}
-                    </motion.div>
+                    </div>
                   )}
                 </div>
-              </motion.div>
+              </div>
             );
           })
         ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-center py-8"
-          >
-            <Calendar className="w-12 h-12 mx-auto text-muted-foreground mb-3" />
-            <p className="text-sm text-muted-foreground">
+          <div className="text-center py-8">
+            <Calendar className="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500 mb-3" />
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               No upcoming actions scheduled
             </p>
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
