@@ -91,9 +91,9 @@ export default function SignIn() {
               <SignInForm />
            </div>
            
-           <div className="absolute bottom-8 text-center text-xs text-gray-400 max-w-sm leading-relaxed">
+           {/* <div className="absolute bottom-8 text-center text-xs text-gray-400 max-w-sm leading-relaxed">
               Protected by reCAPTCHA and subject to the Zodeck <a href="#" className="underline hover:text-gray-600 dark:hover:text-gray-300">Privacy Policy</a> and <a href="#" className="underline hover:text-gray-600 dark:hover:text-gray-300">Terms of Service</a>.
-           </div>
+           </div> */}
         </div>
 
       </div>
