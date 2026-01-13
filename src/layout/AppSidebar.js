@@ -24,6 +24,15 @@ import {
   Briefcase,
   UserPlus,
   BarChart3,
+  FileCheck,
+  FileBarChart,
+  DollarSign,
+  ShieldCheck,
+  Wallet,
+  FileSpreadsheet,
+  TrendingUp,
+  Banknote,
+  Receipt,
   Wallet,
   Box,
   FolderKanban,
@@ -38,6 +47,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
+// Super Admin Navigation Items
 const superAdminNavItems = [
   {
     icon: <LayoutDashboard size={18} />,
@@ -90,6 +100,7 @@ const superAdminNavItems = [
   },
 ];
 
+// HR Admin Navigation Items
 const hrNavItems = [
   {
     icon: <LayoutDashboard size={18} />,
@@ -180,6 +191,7 @@ const hrNavItems = [
   },
 ];
 
+// Employee Navigation Items
 const employeeNavItems = [
   {
     icon: <LayoutDashboard size={18} />,
@@ -250,6 +262,71 @@ const employeeNavItems = [
  
 ];
 
+
+// Finance Admin Navigation Items
+const financeAdminNavItems = [
+  {
+    icon: <Grid size={20} />,
+    name: "Dashboard",
+    path: "/finance-role/dashboard",
+  },
+  {
+    icon: <Banknote size={20} />,
+    name: "Account & Bank Export",
+    path: "/finance-role/account-bank-export",
+  },
+  {
+    icon: <Receipt size={20} />,
+    name: "Expense Reimbursement",
+    path: "/finance-role/expense-reimbursement",
+  },
+  {
+    icon: <DollarSign size={20} />,
+    name: "Payroll Cost",
+    path: "/finance-role/payroll-cost",
+  },
+  {
+    icon: <FileBarChart size={20} />,
+    name: "Reports",
+    path: "/finance-role/reports",
+  },
+];
+
+// Payroll Compliance Navigation Items
+const payrollComplianceNavItems = [
+  {
+    icon: <Grid size={20} />,
+    name: "Dashboard",
+    path: "/payroll-compliance/dashboard",
+  },
+  {
+    icon: <FileCheck size={20} />,
+    name: "Full & Final Settlement",
+    path: "/payroll-compliance/full-final-settlement",
+  },
+  {
+    icon: <Settings size={20} />,
+    name: "Payroll Processing",
+    path: "/payroll-compliance/payroll-processing",
+  },
+  {
+    icon: <FileBarChart size={20} />,
+    name: "Payroll Reports",
+    path: "/payroll-compliance/payroll-reports",
+  },
+  {
+    icon: <DollarSign size={20} />,
+    name: "Salary Structure",
+    path: "/payroll-compliance/salary-structure",
+  },
+  {
+    icon: <ShieldCheck size={20} />,
+    name: "Statutory Compliance",
+    path: "/payroll-compliance/statutory-compliance",
+  },
+];
+
+
 const AppSidebar = () => {
   const { user, logout } = useAuth();
   const userRole = user?.systemRole || 'EMPLOYEE';
@@ -276,6 +353,10 @@ const AppSidebar = () => {
         return superAdminNavItems;
       case "HR_ADMIN":
         return hrNavItems;
+      case "PAYROLL_ADMIN":
+        return payrollComplianceNavItems;
+      case "FINANCE_ADMIN":
+        return financeAdminNavItems;
       default:
         return employeeNavItems;
     }
@@ -440,6 +521,38 @@ const AppSidebar = () => {
           )}
         </li>
       ))}
+
+      {/* My Profile - Always visible for all users */}
+      <li>
+        <Link
+          href={
+            userRole === "SUPER_ADMIN" ? "/super-admin/profile" :
+              userRole === "HR_ADMIN" ? "/hr/profile" :
+                userRole === "PAYROLL_ADMIN" ? "/payroll-compliance/profile" :
+                  userRole === "FINANCE_ADMIN" ? "/finance-role/profile" :
+                    "/employee/profile"
+          }
+          onClick={() => {
+            if (window.innerWidth < 1024) {
+              toggleMobileSidebar();
+            }
+          }}
+          className={`menu-item group w-full ${pathname.includes("profile") ? "menu-item-active" : "menu-item-inactive"
+            }`}
+        >
+          <span
+            className={`${pathname.includes("profile")
+              ? "menu-item-icon-active"
+              : "menu-item-icon-inactive"
+              }`}
+          >
+            <UserCircle size={20} />
+          </span>
+          {(isExpanded || isHovered || isMobileOpen) && (
+            <span className={`menu-item-text font-semibold`}>My Profile</span>
+          )}
+        </Link>
+      </li>
     </ul>
   );
 

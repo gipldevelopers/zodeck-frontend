@@ -108,7 +108,15 @@ const AppHeader = () => {
           </button>
 
           {/* Logo - Hidden on tablet/desktop when sidebar is expanded */}
-          <Link href="/" className={`lg:hidden ${isSearchVisible ? 'hidden' : 'block'}`}>
+          <Link 
+            href={
+              user?.systemRole === "SUPER_ADMIN" ? "/super-admin/dashboard" :
+                user?.systemRole === "HR_ADMIN" ? "/hr/dashboard" :
+                  user?.systemRole === "PAYROLL_ADMIN" ? "/payroll-compliance/dashboard" :
+                    "/employee/dashboard"
+            }
+            className={`lg:hidden ${isSearchVisible ? 'hidden' : 'block'}`}
+          >
             <Image
               width={120}
               height={25}

@@ -22,6 +22,8 @@ export default function ProtectedRoute({ children, requiredRole }) {
         router.push('/hr/dashboard');
       } else if (user.systemRole === 'SUPER_ADMIN') {
         router.push('/super-admin/dashboard');
+      } else if (user.systemRole === 'PAYROLL_ADMIN') {
+        router.push('/payroll-compliance/dashboard');
       } else {
         router.push('/employee/dashboard');
       }

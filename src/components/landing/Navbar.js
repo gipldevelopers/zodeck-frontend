@@ -330,6 +330,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { 
@@ -348,6 +349,7 @@ const navLinks = [
 ];
 
 export const Navbar = () => {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -471,8 +473,9 @@ export const Navbar = () => {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button 
-              variant="ghost" 
+            <Button
+              onClick={() => router.push('/signin')}
+              variant="ghost"
               className="font-medium"
               style={{
                 color: isScrolled ? 'hsl(var(--muted-foreground))' : 'rgba(255, 255, 255, 0.9)'
@@ -483,6 +486,7 @@ export const Navbar = () => {
               Sign In
             </Button>
             <Button 
+              onClick={() => router.push('/auth/signup')}
               className="rounded-full px-6 font-medium btn-primary"
               style={{
                 backgroundColor: 'var(--color-primary)',
@@ -545,6 +549,10 @@ export const Navbar = () => {
               ))}
               <div className="pt-4 space-y-3">
                 <Button 
+                  onClick={() => {
+                    router.push('/signin');
+                    setIsMobileMenuOpen(false);
+                  }}
                   variant="outline" 
                   className="w-full"
                   style={{
