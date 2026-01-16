@@ -23,7 +23,9 @@ export default function AuthGuard({ children, requireAuth = true }) {
         const userRole = user.systemRole;
         let redirectPath = '/employee/dashboard';
         
-        if (userRole === 'HR_ADMIN') {
+        if (userRole === 'MASTER_ADMIN') {
+          redirectPath = '/master-admin/dashboard';
+        } else if (userRole === 'HR_ADMIN') {
           redirectPath = '/hr/dashboard';
         } else if (userRole === 'SUPER_ADMIN') {
           redirectPath = '/super-admin/dashboard';

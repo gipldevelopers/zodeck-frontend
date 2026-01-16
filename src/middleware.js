@@ -21,9 +21,15 @@ export function middleware(request) {
   if (userRole) {
     console.log(`Middleware: User role=${userRole}, Path=${pathname}`);
     
+    // 0. MASTER_ADMIN - can access all routes
+    if (userRole === 'MASTER_ADMIN') {
+      // Master admin has access to all routes, no restrictions
+      return NextResponse.next();
+    }
+    
     // 1. EMPLOYEE restrictions
     if (userRole === 'EMPLOYEE') {
-      if (pathname.startsWith('/hr/') || pathname.startsWith('/super-admin/')) {
+      if (pathname.startsWith('/hr/') || pathname.startsWith('/super-admin/') || pathname.startsWith('/master-admin/')) {
         console.log('Redirecting employee to employee dashboard');
         return NextResponse.redirect(new URL('/employee/dashboard', request.url));
       }
@@ -35,8 +41,8 @@ export function middleware(request) {
         console.log('Redirecting HR admin to HR dashboard');
         return NextResponse.redirect(new URL('/hr/dashboard', request.url));
       }
-      if (pathname.startsWith('/super-admin/')) {
-        console.log('Redirecting HR admin to HR dashboard (super admin access denied)');
+      if (pathname.startsWith('/super-admin/') || pathname.startsWith('/master-admin/')) {
+        console.log('Redirecting HR admin to HR dashboard (admin access denied)');
         return NextResponse.redirect(new URL('/hr/dashboard', request.url));
       }
     }
@@ -45,6 +51,10 @@ export function middleware(request) {
     else if (userRole === 'SUPER_ADMIN') {
       if (pathname.startsWith('/employee/')) {
         console.log('Redirecting Super Admin to super admin dashboard');
+        return NextResponse.redirect(new URL('/super-admin/dashboard', request.url));
+      }
+      if (pathname.startsWith('/master-admin/')) {
+        console.log('Redirecting Super Admin to super admin dashboard (master admin access denied)');
         return NextResponse.redirect(new URL('/super-admin/dashboard', request.url));
       }
       // Super Admin CAN access HR routes, so no restriction here
@@ -60,8 +70,8 @@ export function middleware(request) {
         console.log('Redirecting Payroll Admin to payroll compliance dashboard (HR access denied)');
         return NextResponse.redirect(new URL('/payroll-compliance/dashboard', request.url));
       }
-      if (pathname.startsWith('/super-admin/')) {
-        console.log('Redirecting Payroll Admin to payroll compliance dashboard (super admin access denied)');
+      if (pathname.startsWith('/super-admin/') || pathname.startsWith('/master-admin/')) {
+        console.log('Redirecting Payroll Admin to payroll compliance dashboard (admin access denied)');
         return NextResponse.redirect(new URL('/payroll-compliance/dashboard', request.url));
       }
     }
@@ -76,8 +86,8 @@ export function middleware(request) {
         console.log('Redirecting Finance Admin to finance dashboard (HR access denied)');
         return NextResponse.redirect(new URL('/finance-role/dashboard', request.url));
       }
-      if (pathname.startsWith('/super-admin/')) {
-        console.log('Redirecting Finance Admin to finance dashboard (super admin access denied)');
+      if (pathname.startsWith('/super-admin/') || pathname.startsWith('/master-admin/')) {
+        console.log('Redirecting Finance Admin to finance dashboard (admin access denied)');
         return NextResponse.redirect(new URL('/finance-role/dashboard', request.url));
       }
       if (pathname.startsWith('/payroll-compliance/')) {
@@ -95,7 +105,9 @@ export const config = {
     '/employee/:path*',
     '/hr/:path*',
     '/super-admin/:path*',
+    '/master-admin/:path*',
     '/payroll-compliance/:path*',
+    '/finance-role/:path*',
     '/dashboard/:path*'
   ],
 };

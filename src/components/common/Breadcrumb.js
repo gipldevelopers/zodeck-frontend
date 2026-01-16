@@ -37,10 +37,34 @@ const breadcrumbConfig = {
   idPaths: ['id'],
 };
 
-const Breadcrumb = ({ customTitle, subtitle, rightContent }) => {
+const Breadcrumb = ({ customTitle, subtitle, rightContent, items }) => {
   const pathname = usePathname();
 
   const generateBreadcrumbs = () => {
+    // If items prop is provided, use it directly with home icon
+    if (items && Array.isArray(items)) {
+      const breadcrumbs = [
+        {
+          href: '/',
+          label: <Home className="w-4 h-4" />,
+          isCurrent: false,
+          isIcon: true,
+        },
+      ];
+      
+      items.forEach((item, index) => {
+        breadcrumbs.push({
+          href: item.href,
+          label: item.label,
+          isCurrent: index === items.length - 1,
+          isIcon: false,
+        });
+      });
+      
+      return breadcrumbs;
+    }
+
+    // Otherwise, auto-generate from pathname
     const paths = pathname.split('/').filter(Boolean);
     const filteredPaths = paths.filter(
       (path) => !breadcrumbConfig.hiddenPaths.includes(path)
@@ -98,65 +122,41 @@ const Breadcrumb = ({ customTitle, subtitle, rightContent }) => {
 
   const breadcrumbs = generateBreadcrumbs();
 
-  let pageTitle = 'Dashboard';
-  if (customTitle) {
-    pageTitle = customTitle;
-  } else if (breadcrumbs.length > 1) {
-    pageTitle = breadcrumbs[breadcrumbs.length - 1].label;
-  }
-
   return (
-    <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-      {/* Left side */}
-      <div className="flex-1">
-        <h1 className="mb-2 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-          {pageTitle}
-        </h1>
-        {subtitle && (
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-            {subtitle}
-          </p>
-        )}
-
-        <nav className="overflow-x-auto" aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-2 text-sm">
-            {breadcrumbs.map((breadcrumb, index) => (
-              <li
-                key={index}
-                className="flex items-center"
+    <nav className="overflow-x-auto" aria-label="Breadcrumb">
+      <ol className="flex flex-wrap items-center gap-2 text-sm">
+        {breadcrumbs.map((breadcrumb, index) => (
+          <li
+            key={index}
+            className="flex items-center"
+          >
+            {breadcrumb.isCurrent ? (
+              <span
+                aria-current="page"
+                className="text-gray-700 dark:text-gray-300 font-medium"
               >
-                {breadcrumb.isCurrent ? (
-                  <span
-                    aria-current="page"
-                    className="text-gray-700 dark:text-gray-300 font-medium"
-                  >
-                    {breadcrumb.label}
-                  </span>
-                ) : (
-                  <Link
-                    href={breadcrumb.href}
-                    className={`transition-colors duration-200 font-medium ${
-                      breadcrumb.isIcon 
-                        ? "text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 flex items-center"
-                        : "text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
-                    }`}
-                  >
-                    {breadcrumb.label}
-                  </Link>
-                )}
+                {breadcrumb.label}
+              </span>
+            ) : (
+              <Link
+                href={breadcrumb.href}
+                className={`transition-colors duration-200 font-medium ${
+                  breadcrumb.isIcon 
+                    ? "text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 flex items-center"
+                    : "text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                }`}
+              >
+                {breadcrumb.label}
+              </Link>
+            )}
 
-                {index < breadcrumbs.length - 1 && (
-                  <span className="mx-2 text-gray-400 dark:text-gray-500">/</span>
-                )}
-              </li>
-            ))}
-          </ol>
-        </nav>
-      </div>
-
-      {/* Right side */}
-      {rightContent && <div className="shrink-0">{rightContent}</div>}
-    </div>
+            {index < breadcrumbs.length - 1 && (
+              <span className="mx-2 text-gray-400 dark:text-gray-500">/</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 };
 

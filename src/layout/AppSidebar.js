@@ -35,8 +35,51 @@ import {
   FolderKanban,
   DollarSign,
   LogOut,
+  Building2,
+  UserCheck,
+  HelpCircle,
+  CheckCircle2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+
+// Master Admin Navigation Items
+const masterAdminNavItems = [
+  {
+    icon: <LayoutDashboard size={18} />,
+    name: "Dashboard",
+    path: "/master-admin/dashboard",
+  },
+  {
+    icon: <Users size={18} />,
+    name: "CRM Lead",
+    path: "/master-admin/crm-lead",
+  },
+  {
+    icon: <CheckCircle2 size={18} />,
+    name: "Customers",
+    path: "/master-admin/customers",
+  },
+  {
+    icon: <Building2 size={18} />,
+    name: "Company",
+    path: "/master-admin/company",
+  },
+  {
+    icon: <UserCheck size={18} />,
+    name: "Onboarding Flow",
+    path: "/master-admin/onboarding-flow",
+  },
+  {
+    icon: <Shield size={18} />,
+    name: "Policy & Rule",
+    path: "/master-admin/policy-rule",
+  },
+  {
+    icon: <HelpCircle size={18} />,
+    name: "Support",
+    path: "/master-admin/support",
+  },
+];
 
 // Super Admin Navigation Items
 const superAdminNavItems = [
@@ -339,6 +382,8 @@ const AppSidebar = () => {
   // Get appropriate navigation items based on user role
   const getNavItems = () => {
     switch (userRole) {
+      case "MASTER_ADMIN":
+        return masterAdminNavItems;
       case "SUPER_ADMIN":
         return superAdminNavItems;
       case "HR_ADMIN":
@@ -508,11 +553,12 @@ const AppSidebar = () => {
       <li>
         <Link
           href={
-            userRole === "SUPER_ADMIN" ? "/super-admin/profile" :
-              userRole === "HR_ADMIN" ? "/hr/profile" :
-                userRole === "PAYROLL_ADMIN" ? "/payroll-compliance/profile" :
-                  userRole === "FINANCE_ADMIN" ? "/finance-role/profile" :
-                    "/employee/profile"
+            userRole === "MASTER_ADMIN" ? "/master-admin/profile" :
+              userRole === "SUPER_ADMIN" ? "/super-admin/profile" :
+                userRole === "HR_ADMIN" ? "/hr/profile" :
+                  userRole === "PAYROLL_ADMIN" ? "/payroll-compliance/profile" :
+                    userRole === "FINANCE_ADMIN" ? "/finance-role/profile" :
+                      "/employee/profile"
           }
           onClick={() => {
             if (window.innerWidth < 1024) {
@@ -601,7 +647,9 @@ const AppSidebar = () => {
                   Zodeck<span style={{ color: 'hsl(var(--primary))' }}>.</span>
                 </span>
                 <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 leading-tight mt-0.5">
-                  {userRole === "SUPER_ADMIN"
+                  {userRole === "MASTER_ADMIN"
+                    ? "Master Admin"
+                    : userRole === "SUPER_ADMIN"
                     ? "Super Admin"
                     : userRole === "HR_ADMIN"
                     ? "HR Portal"
@@ -640,7 +688,9 @@ const AppSidebar = () => {
                       : user?.email || "User"}
                   </p>
                   <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate leading-tight">
-                    {userRole === "SUPER_ADMIN"
+                    {userRole === "MASTER_ADMIN"
+                      ? "Master Admin"
+                      : userRole === "SUPER_ADMIN"
                       ? "Super Admin"
                       : userRole === "HR_ADMIN"
                       ? "HR Admin"
@@ -657,7 +707,9 @@ const AppSidebar = () => {
               <div className="flex items-center gap-1.5">
                 <Link
                   href={
-                    userRole === "SUPER_ADMIN"
+                    userRole === "MASTER_ADMIN"
+                      ? "/master-admin/profile"
+                      : userRole === "SUPER_ADMIN"
                       ? "/super-admin/profile"
                       : userRole === "HR_ADMIN"
                       ? "/hr/profile"

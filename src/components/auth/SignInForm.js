@@ -193,6 +193,34 @@ export default function SignInForm() {
         </AnimatePresence>
       </form>
 
+      {/* Master Admin Bypass Button */}
+      <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+        <button
+          type="button"
+          onClick={async () => {
+            setLoading(true);
+            setError("");
+            try {
+              const result = await login({ email: 'masteradmin@zodeck.com', password: 'bypass' }, true);
+              if (result.success) {
+                router.push(result.redirect || "/master-admin/dashboard");
+              } else {
+                setError(result.message || 'Bypass login failed');
+                setLoading(false);
+              }
+            } catch (err) {
+              setError("Bypass login error. Please try again.");
+              setLoading(false);
+            }
+          }}
+          disabled={loading}
+          className="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        >
+          <KeyRound size={16} />
+          <span>Master Admin Bypass Login</span>
+        </button>
+      </div>
+
       {/* Demo Credentials Section */}
       <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
         <div className="flex items-center gap-2 mb-4">

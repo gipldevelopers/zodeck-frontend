@@ -100,8 +100,49 @@ export function AuthProvider({ children }) {
     checkAuth();
   }, []);
 
-  const login = async (credentials) => {
+  const login = async (credentials, isBypass = false) => {
     try {
+      // Master Admin Bypass Login
+      if (isBypass && credentials.email === 'masteradmin@zodeck.com' && credentials.password === 'bypass') {
+        const mockMasterAdmin = {
+          id: 'master-admin-1',
+          email: 'masteradmin@zodeck.com',
+          systemRole: 'MASTER_ADMIN',
+          firstName: 'Master',
+          lastName: 'Admin',
+          employee: {
+            firstName: 'Master',
+            lastName: 'Admin',
+            email: 'masteradmin@zodeck.com',
+          },
+          company: {
+            id: 'master-company',
+            name: 'Zodeck Master',
+            subdomain: 'master'
+          }
+        };
+        
+        const mockToken = 'master-admin-bypass-token-' + Date.now();
+        
+        // Store auth data
+        setUser(mockMasterAdmin);
+        setToken(mockToken);
+        localStorage.setItem('token', mockToken);
+        localStorage.setItem('hrms_user', JSON.stringify(mockMasterAdmin));
+        localStorage.setItem('company_id', mockMasterAdmin.company.id);
+        localStorage.setItem('company_subdomain', mockMasterAdmin.company.subdomain);
+        
+        // Set role in cookie for middleware
+        document.cookie = `userRole=MASTER_ADMIN; path=/; max-age=86400; secure; samesite=lax`;
+        
+        return {
+          success: true,
+          data: mockMasterAdmin,
+          redirect: '/master-admin/dashboard'
+        };
+      }
+      
+      // Regular login flow
       const response = await authService.login(credentials);
       
       if (response.success) {
@@ -133,7 +174,9 @@ export function AuthProvider({ children }) {
 
         // Redirect based on systemRole
         let redirectPath = '/employee/dashboard';
-        if (userRole === 'HR_ADMIN') {
+        if (userRole === 'MASTER_ADMIN') {
+          redirectPath = '/master-admin/dashboard';
+        } else if (userRole === 'HR_ADMIN') {
           redirectPath = '/hr/dashboard';
         } else if (userRole === 'SUPER_ADMIN') {
           redirectPath = '/super-admin/dashboard';
